@@ -44,11 +44,8 @@
             </view>
             <!-- 进行中:开始按钮 -->
             <view class="btn-start text-mono" bindtap="onPlayMap" data-map-id="{{item.id}}" wx:if="{{item.status !== 'completed'}}">开始</view>
-            <!-- 已完成:继续游玩 + 清空数据重新游玩 -->
-            <block wx:if="{{item.status === 'completed'}}">
-              <view class="btn-continue text-mono" bindtap="onPlayMap" data-map-id="{{item.id}}">继续游玩</view>
-              <view class="btn-restart text-mono" bindtap="onRestartMap" data-map-id="{{item.id}}">清空数据</view>
-            </block>
+            <!-- 已完成:只留「查看」(继续游玩/清空数据在游戏页底部) -->
+            <view class="btn-view text-mono" bindtap="onPlayMap" data-map-id="{{item.id}}" wx:else>查看</view>
           </view>
         </view>
       </block>

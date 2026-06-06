@@ -399,46 +399,82 @@ page {
   letter-spacing: -0.01em;
 }
 
-/* 已完成游戏底部条 — 替代投骰子按钮 */
-.completed-banner {
+/* 已完成游戏底部 3 按钮栏 — 替代投骰子按钮 */
+.completed-actions {
   z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
 }
 
-.completed-banner-inner {
+.completed-actions-header {
   display: flex;
   align-items: center;
-  gap: 20rpx;
-  padding: 28rpx 32rpx;
-  background-color: rgba(124, 88, 0, 0.1);
-  border: 4rpx solid #d5c4ab;
-  border-radius: 24rpx;
-  box-shadow: 0 4rpx 12rpx rgba(131, 117, 96, 0.15);
+  justify-content: center;
+  gap: 12rpx;
+  padding: 12rpx 0;
 }
 
-.completed-banner-icon {
-  font-size: 48rpx;
+.completed-actions-icon {
+  font-size: 36rpx;
   color: #7c5800;
-  flex-shrink: 0;
 }
 
-.completed-banner-text {
+.completed-actions-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #211b11;
+  font-family: "Libre Caslon Text", "Noto Serif SC", serif;
+  letter-spacing: 0.02em;
+}
+
+.completed-actions-row {
+  display: flex;
+  gap: 16rpx;
+  width: 100%;
+}
+
+.completed-action-btn {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4rpx;
-}
-
-.completed-banner-title {
-  font-size: 30rpx;
-  font-weight: 700;
-  color: #211b11;
-}
-
-.completed-banner-sub {
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+  padding: 20rpx 8rpx;
+  border-radius: 20rpx;
   font-size: 24rpx;
+  font-weight: 600;
+  line-height: 1.2;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.15s ease;
+  font-family: "Libre Caslon Text", "Noto Serif SC", serif;
+}
+
+.completed-action-btn:active {
+  transform: scale(0.97);
+  filter: brightness(1.05);
+}
+
+.completed-action-btn-primary {
+  background-color: #7c5800;
+  color: #ffffff;
+}
+
+.completed-action-btn-secondary {
+  background-color: #ffffff;
   color: #514532;
-  opacity: 0.8;
-  line-height: 1.4;
+  border: 2rpx solid #d5c4ab;
+}
+
+.completed-action-btn-danger {
+  background-color: #ffffff;
+  color: #ba1a1a;
+  border: 2rpx solid #e6c4c4;
+}
+
+.completed-action-icon {
+  font-size: 36rpx;
 }
 
 /* ============ Animations ============ */

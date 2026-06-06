@@ -164,6 +164,22 @@ class GameEngine {
     return this.save();
   }
 
+  // 把已结束的游戏重新置为「进行中」(状态翻转,数据完全保留)
+  // 用于游戏页底部的「继续游玩」按钮 —— 用户想接着上次的状态继续投骰子
+  // 关键:清掉 endedAt,否则统计里 totalDuration 会包含结算到现在的"假时长"
+  markReopened() {
+    this.state.status = GAME_STATUS.PLAYING;
+    this.state.endedAt = null;
+    return this.save();
+  }
+
+  // 清掉所有游戏数据,回到地图创建后的初始状态
+  // 用于游戏页底部的「清空数据并重新游玩」—— 写一个 null 进 map.currentGame,
+  // 下次 _beginNewGame 会从空状态全新开局
+  clearGameData() {
+    return updateMapGameState(this.mapId, null);
+  }
+
   // 获取当前游戏状态（浅拷贝）
   getState() {
     return { ...this.state };

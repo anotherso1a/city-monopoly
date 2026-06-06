@@ -192,24 +192,16 @@ Page({
       return;
     }
     // status === 'completed' — 进入只读查看模式
+    // 不弹 modal —— 底部 3 按钮(继续游玩/查看时间线/清空数据)就是新交互入口
     const engine = new GameEngine(mapData.id, mapData).resume();
     this.setData({
       engine,
       mapId: mapData.id,
       gameId: engine.state.id,
-      isCompletedView: true,  // 控制 UI:隐藏骰子,展示提示
+      isCompletedView: true,  // 控制 UI:隐藏骰子,展示底部 3 按钮
     });
     this.syncFromEngine();
     this.prepareShareFile(mapData);
-    wx.showModal({
-      title: '游戏已结束',
-      content: '这是一局已完成的游戏,无法继续投掷骰子。你可以查看时间线、分享战绩,或回主页选择"清空数据重新游玩"。',
-      confirmText: '查看战绩',
-      cancelText: '返回',
-      success: (res) => {
-        if (!res.confirm) wx.navigateBack();
-      },
-    });
   },
 
   _beginNewGame(mapData) {
@@ -446,6 +438,48 @@ Page({
     });
   },
 
+  // ============ 已完成游戏底部 3 按钮 ============
+  // 继续游玩 —— 状态翻转为「进行中」,数据完全保留
+  // 注意:不重置任何进度(金币/打卡/机会卡/距离都不动)
+  onContinueGame() {
+    const engine = this.data.engine;
+    if (!engine) return;
+    const saveResult = engine.markReopened();
+    this._handleSaveResult(saveResult);
+    if (!saveResult || saveResult.saved === false) return;
+    this.setData({ isCompletedView: false });
+    this.syncFromEngine();
+    wx.showToast({ title: '已恢复进行中', icon: 'success' });
+  },
+
+  // 清空数据并重新游玩 —— 抹掉 currentGame,然后用同一份地图定义开一局新的
+  // 等价于"历史页面 onRestartMap"的效果,只是入口换到了游戏页
+  onRestartGame() {
+    const engine = this.data.engine;
+    if (!engine) return;
+    const mapId = this.data.mapId;
+    wx.showModal({
+      title: '清空数据重新游玩',
+      content: '将清空当前地图的探险进度(金币/打卡/机会卡历史),地图定义(POI、机会卡)保留。确认开始新的探险?',
+      confirmText: '确认清空',
+      cancelText: '取消',
+      confirmColor: '#ba1a1a',
+      success: (res) => {
+        if (!res.confirm) return;
+        const clearResult = engine.clearGameData();
+        this._handleSaveResult(clearResult);
+        if (!clearResult || clearResult.saved === false) return;
+        // 拉一份最新的 map(没有 currentGame 了),_beginNewGame 会从空状态开局
+        const mapData = getMap(mapId);
+        if (!mapData) {
+          wx.showToast({ title: '地图不存在', icon: 'error' });
+          return;
+        }
+        this._beginNewGame(mapData);
+      },
+    });
+  },
+
   // 预准备分享文件 — 走 shareService.exportMap,脱敏 currentGame,只带地图定义
   async prepareShareFile(mapData) {
     try {
@@ -667,12 +701,13 @@ Page({
         const photoPath = res.tempFilePaths[0];
         const result = engine.checkin(photoPath);
         if (result.success) {
-          // 累计经验 +1,刷新侧边栏展示
+          // 基础经验:每次打卡 +1(首次打卡无"上一格",距离奖励拿不到,基础保底)
           addCumulativeExp(1);
           this._loadCumulativeExpLabel();
           this.syncFromEngine();
           this._showPhotoCard(grid, photoPath);
           // 异步算步行距离,失败静默(用户感知不到)
+          // 距离奖励在这里追加:_accumulateWalkingDistance 拿到 meters 后再 +Math.floor(meters/100)
           this._accumulateWalkingDistance(grid);
           analytics.trackEvent(analytics.EVENT.GAME_CHECKIN, {
             map_id: this.data.mapId,
@@ -719,6 +754,14 @@ Page({
     const saveResult = engine.addDistance(meters);
     this._handleSaveResult(saveResult);
     this.syncFromEngine();  // 刷新顶部徒步距离显示
+
+    // 距离奖励:每 100m = 1 exp(向下取整)
+    // 1.2km 走下来 +12,50m 的小区内走 +0(基础 +1 在 _doCheckin 已经给了)
+    const expBonus = Math.floor(meters / 100);
+    if (expBonus > 0) {
+      addCumulativeExp(expBonus);
+      this._loadCumulativeExpLabel();
+    }
   },
 
   // 弹出当前格最近一次打卡的庆祝弹窗

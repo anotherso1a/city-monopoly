@@ -1,7 +1,7 @@
 // 历史收藏页面
 // 基于 docs/design/history.html 设计的微信小程序版本
 
-const { getMaps, getMap, saveMap, deleteMap } = require('../../utils/storage');
+const { getMaps, deleteMap } = require('../../utils/storage');
 const { GAME_STATUS } = require('../../utils/constants');
 const analytics = require('../../services/analytics');
 
@@ -108,31 +108,6 @@ Page({
     const { mapId } = e.currentTarget.dataset;
     wx.navigateTo({
       url: `/pages/game/game?mapId=${mapId}`
-    });
-  },
-
-  // 清空已完成地图的游戏数据 — 提示后重置 currentGame 为 null
-  // 地图定义本身保留(POI / 格子 / chanceCards 等不动)
-  onRestartMap(e) {
-    const { mapId } = e.currentTarget.dataset;
-    wx.showModal({
-      title: '清空数据重新游玩',
-      content: '将清空当前地图的探险进度(金币/打卡/机会卡历史),地图定义(POI、机会卡)保留。确认开始新的探险?',
-      confirmText: '确认清空',
-      cancelText: '取消',
-      confirmColor: '#ba1a1a',
-      success: (res) => {
-        if (!res.confirm) return;
-        const map = getMap(mapId);
-        if (!map) {
-          wx.showToast({ title: '地图不存在', icon: 'error' });
-          return;
-        }
-        // 清掉 currentGame,其他字段保持不动
-        saveMap({ ...map, currentGame: null });
-        wx.showToast({ title: '已清空,可以开始新一局', icon: 'success' });
-        this.onShow();
-      },
     });
   },
 

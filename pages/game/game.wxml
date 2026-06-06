@@ -113,19 +113,30 @@
       </view>
     </view>
 
-    <!-- Bottom Action Button — 已完成游戏不显示投骰子,改为已结束提示条 -->
+    <!-- Bottom Action Button — 已完成游戏不显示投骰子,改为 3 个操作按钮 -->
     <view class="bottom-action" wx:if="{{!isCompletedView}}">
       <view class="roll-dice-btn {{diceShaking ? 'dice-shaking' : ''}}" id="rollDice" bindtap="onRollDice">
         <text class="dice-icon" id="diceIcon">🎲</text>
         <text class="dice-text" id="diceText">{{diceText}}</text>
       </view>
     </view>
-    <view class="bottom-action completed-banner" wx:else>
-      <view class="completed-banner-inner">
-        <text class="iconfont completed-banner-icon icon-trophy"></text>
-        <view class="completed-banner-text">
-          <text class="completed-banner-title">本局已结束</text>
-          <text class="completed-banner-sub">点击查看时间线或分享战绩,或回主页清空数据重新游玩</text>
+    <view class="bottom-action completed-actions" wx:else>
+      <view class="completed-actions-header">
+        <text class="iconfont completed-actions-icon icon-trophy"></text>
+        <text class="completed-actions-title">本局已结束</text>
+      </view>
+      <view class="completed-actions-row">
+        <view class="completed-action-btn completed-action-btn-primary" bindtap="onContinueGame">
+          <text class="iconfont completed-action-icon icon-right"></text>
+          <text>继续游玩</text>
+        </view>
+        <view class="completed-action-btn completed-action-btn-secondary" bindtap="onViewTimeline">
+          <text class="iconfont completed-action-icon icon-book"></text>
+          <text>查看时间线</text>
+        </view>
+        <view class="completed-action-btn completed-action-btn-danger" bindtap="onRestartGame">
+          <text class="iconfont completed-action-icon icon-sync"></text>
+          <text>清空重新玩</text>
         </view>
       </view>
     </view>

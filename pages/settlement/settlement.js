@@ -95,13 +95,25 @@ Page({
 
     // 仅打卡事件作为路线节点,机会卡单独处理
     const checkinEvents = timeline.filter((e) => !e.isChanceCard);
+    // 把 chanceCardHistory 按 gridIndex 累计 goldChange — 同一格可能多次抽卡,数字要合计
+    // (goldChange 在 history 里没存,要从 grid.chanceCards[cardIndex] 反查)
+    const goldByGrid = new Map();
+    for (const ch of (state.chanceCardHistory || [])) {
+      const grid = mapData.grids && mapData.grids[ch.gridIndex];
+      const card = grid && grid.chanceCards && grid.chanceCards[ch.cardIndex];
+      if (!card || typeof card.goldChange !== 'number') continue;
+      goldByGrid.set(ch.gridIndex, (goldByGrid.get(ch.gridIndex) || 0) + card.goldChange);
+    }
     const routeNodes = checkinEvents.map((e, i) => {
       const grid = mapData.grids && mapData.grids[e.gridIndex];
       const label = (grid && grid.poi && grid.poi.name) || e.note || `地点 ${i + 1}`;
+      // 该格抽卡的金币变化(没抽过就是 +0,不再用假数据 +25)
+      const goldDelta = goldByGrid.get(e.gridIndex) || 0;
+      const score = goldDelta > 0 ? `+${goldDelta}` : `${goldDelta}`;
       return {
         id: i,
         label,
-        score: '+25',
+        score,
         icon: defaultIconForGrid(grid),
         tone: toneForGrid(grid, i),
       };
