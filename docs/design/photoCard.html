@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        name="viewport" />
+    <title>City Monopoly - Site Discovery</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Public+Sans:wght@400;700&amp;family=Space+Mono:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;family=Public+Sans:wght@100..900&amp;family=Space+Mono:wght@100..900&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+
+        .hand-drawn-border {
+            border-style: solid;
+            border-width: 2.2px 1.8px 2.5px 2px;
+            border-radius: 4px 12px 6px 14px;
+        }
+
+        .polaroid-tilt {
+            transform: rotate(-2deg);
+        }
+
+        .sketch-shadow {
+            box-shadow: 6px 6px 0px 0px rgba(81, 69, 50, 0.15);
+        }
+
+        .pressed-state:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+        }
+
+        .highlighter-bg {
+            background: linear-gradient(120deg, rgba(255, 184, 0, 0.3) 0%, rgba(255, 184, 0, 0.1) 100%);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#da3148",
+                        "surface-variant": "#ede1d0",
+                        "primary-fixed": "#ffdea8",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fff8f3",
+                        "on-primary-fixed": "#271900",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#fff2e1",
+                        "inverse-primary": "#ffba20",
+                        "tertiary-fixed-dim": "#81cfff",
+                        "primary-fixed-dim": "#ffba20",
+                        "on-tertiary-container": "#00577a",
+                        "on-secondary-fixed-variant": "#920023",
+                        "tertiary": "#00658d",
+                        "surface-tint": "#7c5800",
+                        "outline": "#837560",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#c6e7ff",
+                        "primary": "#7c5800",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004c6b",
+                        "on-secondary-container": "#fffbff",
+                        "outline-variant": "#d5c4ab",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#ffdad9",
+                        "inverse-surface": "#362f24",
+                        "surface-container-highest": "#ede1d0",
+                        "inverse-on-surface": "#fcefde",
+                        "secondary-fixed-dim": "#ffb3b4",
+                        "on-surface-variant": "#514532",
+                        "on-error": "#ffffff",
+                        "on-background": "#211b11",
+                        "tertiary-container": "#7dceff",
+                        "surface": "#fff8f3",
+                        "secondary": "#b71032",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#211b11",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#40000a",
+                        "on-primary-container": "#6b4c00",
+                        "surface-bright": "#fff8f3",
+                        "surface-dim": "#e5d8c8",
+                        "primary-container": "#ffb800",
+                        "surface-container-high": "#f3e6d6",
+                        "surface-container": "#f9ecdb",
+                        "on-tertiary-fixed": "#001e2d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "20px",
+                        "xs": "4px",
+                        "lg": "32px",
+                        "xl": "48px",
+                        "sm": "12px",
+                        "safe-area": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Public Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "data-lg": ["Space Mono"],
+                        "body-sm": ["Public Sans"],
+                        "label-caps": ["Space Mono"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "data-lg": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface overflow-hidden">
+   <!-- Site Discovery Event Popup (Modal) -->
+    <section class="fixed inset-0 z-[100] flex items-center justify-center p-safe-area">
+        <div class="bg-surface-container-lowest hand-drawn-border border-on-surface sketch-shadow max-w-sm w-full p-6 animate-in fade-in zoom-in duration-300"
+            id="event-popup">
+            <!-- Header Title -->
+            <div class="mb-6">
+                <h2 class="font-headline-lg text-headline-lg text-primary mb-1">发现新地标!</h2>
+                <div class="h-1 w-24 bg-primary-container rounded-full"></div>
+            </div>
+            <!-- Polaroid Landmark Photo -->
+            <div class="bg-white p-3 pb-8 polaroid-tilt sketch-shadow border border-outline-variant mb-6 relative">
+                <div class="aspect-[4/3] overflow-hidden bg-surface-dim mb-2 border-2 border-on-surface-variant">
+                    <img alt="Bell Tower" class="w-full h-full object-cover"
+                        data-alt="A vintage-style polaroid photograph of a majestic traditional Chinese bell tower at sunset. The architectural details of the ancient wooden structure are highlighted by warm, golden-hour sunlight. The image has a slightly grainy, tactile texture consistent with an old printed photo. The surroundings show a hint of modern urban city life blending with historical heritage, captured with a soft focus for a nostalgic atmosphere."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZGSUNvO23gwVF0hDoerrvMZcWh6O4v9AjaDZl6cvi1AEYxBB-SsuYbCizGiFXAEvgvTC6X6GyZfv-Tqi45-lFqpyaRhAFncGTmIqXrwPDZwuccuGUSCx7Vl3tLUYmQ_Y8-_IcOg9sVUBs5erQ_3b9CWDpGICiBxilcQadDhWmaJml8piYPzbvOAMksGMAsb-lbmkUHSsOizvsyKDXCtfKIFsKX52xkBHc9TzGYYdLbdLKPK5qWBHF2JLZTrij0azoraIpGhlX5Q" />
+                </div>
+                <div class="flex justify-center">
+                    <p class="font-body-sm text-body-sm text-on-surface-variant italic">2024年3月21日 于鼓楼</p>
+                </div>
+                <!-- Tape effect decoration -->
+                <div
+                    class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-primary/20 backdrop-blur-sm -rotate-2 border border-outline/20">
+                </div>
+            </div>
+            <!-- Content Body -->
+            <div class="space-y-4 mb-8">
+                <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                    你到达了<span class="font-bold text-secondary">鼓楼</span>，并在这里留下了一张珍贵的照片。
+                </p>
+                <!-- Stats Chip -->
+                <div class="flex">
+                    <div
+                        class="flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-full border-2 border-dashed border-outline-variant">
+                        <span class="material-symbols-outlined text-primary text-sm"
+                            style="font-variation-settings: 'FILL' 1;">stars</span>
+                        <span class="font-label-caps text-label-caps text-on-surface">成就点 +1</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Action Buttons -->
+            <div class="flex flex-col gap-3">
+                <button
+                    class="w-full h-12 bg-primary text-on-primary font-headline-lg-mobile text-headline-lg-mobile hand-drawn-border border-on-surface-variant flex items-center justify-center gap-2 pressed-state transition-all">
+                    继续前进
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+                <button
+                    class="w-full h-12 bg-surface-container text-primary font-body-md text-body-md hand-drawn-border border-dashed border-outline pressed-state transition-all">
+                    查看详情
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- Interaction script -->
+    <script>
+        document.querySelectorAll('.pressed-state').forEach(button => {
+            button.addEventListener('click', () => {
+                const popup = document.getElementById('event-popup');
+                popup.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+                popup.style.transform = 'scale(0.95)';
+                popup.style.opacity = '0';
+                setTimeout(() => {
+                    popup.parentElement.style.display = 'none';
+                    // Re-enable interactions for background map if this were a real game
+                }, 300);
+            });
+        });
+
+        // Atmospheric floating effect for the polaroid
+        const polaroid = document.querySelector('.polaroid-tilt');
+        let angle = -2;
+        let direction = 1;
+        setInterval(() => {
+            angle += 0.05 * direction;
+            if (angle > -1.5 || angle < -2.5) direction *= -1;
+            polaroid.style.transform = `rotate(${angle}deg)`;
+        }, 50);
+    </script>
+</body>
+
+</html>

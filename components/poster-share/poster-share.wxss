@@ -1,0 +1,129 @@
+/* components/poster-share/poster-share.wxss
+ * 海报分享弹窗组件 - 默认风格(白底圆角阴影卡片 + 半透明遮罩)
+ * 屏外 canvas 隐藏在 -9999rpx 位置,Painter 仍能正常渲染
+ */
+
+/* ============ 弹窗遮罩 + 卡片 ============ */
+.poster-modal-mask {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(54, 47, 36, 0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 40rpx 32rpx;
+}
+
+.poster-modal-content {
+  width: 100%;
+  max-width: 686rpx;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  box-sizing: border-box;
+  overflow-y: auto;
+  /* 卡片本身不要白底 - 海报图自带圆角阴影,直接呈现 */
+}
+
+/* ============ 海报图 ============ */
+.poster-image {
+  width: 100%;
+  display: block;
+  border-radius: 16rpx;
+  box-shadow: 8rpx 8rpx 0 0 rgba(81, 69, 50, 0.2);
+  animation: poster-fade-in 0.3s ease-out;
+}
+
+@keyframes poster-fade-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ============ 操作按钮 ============ */
+.poster-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.poster-btn {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  box-sizing: border-box;
+  font-size: 32rpx;
+  line-height: 1;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.poster-btn::after { border: none; }
+
+.poster-btn[disabled] {
+  opacity: 0.6;
+}
+
+.poster-btn-save {
+  background-color: #ffb800;
+  color: #6b4c00;
+  padding: 28rpx 24rpx;
+  font-size: 36rpx;
+  font-weight: 700;
+  border: 4rpx solid #514532;
+  border-radius: 4rpx 8rpx 6rpx 12rpx / 8rpx 6rpx 12rpx 4rpx;
+  box-shadow: 8rpx 8rpx 0 0 rgba(81, 69, 50, 0.2);
+}
+
+.poster-btn-save:active {
+  transform: translate(4rpx, 4rpx);
+  box-shadow: 0 0 0 0 rgba(81, 69, 50, 0);
+}
+
+.poster-btn-save-loading {
+  opacity: 0.75;
+}
+
+.poster-btn-save-done {
+  background-color: #ede1d0;
+  color: #2e7d32;
+}
+
+.poster-btn-close {
+  background-color: #fff2e1;
+  color: #514532;
+  padding: 24rpx;
+  border: 4rpx dashed #514532;
+  border-radius: 4rpx 8rpx 6rpx 12rpx / 8rpx 6rpx 12rpx 4rpx;
+  opacity: 0.85;
+}
+
+.poster-btn-close:active {
+  opacity: 1;
+}
+
+.poster-btn-icon {
+  font-size: 36rpx;
+}
+
+.poster-btn-label {
+  font-weight: inherit;
+}
+
+/* ============ 屏外 canvas(Painter 渲染区域,用户不可见)============ */
+.poster-offscreen-canvas {
+  position: fixed;
+  left: -9999rpx;
+  top: -9999rpx;
+  pointer-events: none;
+  opacity: 0;
+  z-index: -1;
+}

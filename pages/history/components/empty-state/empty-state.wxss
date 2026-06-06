@@ -1,0 +1,163 @@
+/* 空状态组件样式 */
+@import "/utils/iconfont.wxss";
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* 插图容器 */
+.illustration-container {
+  position: relative;
+  width: 100%;
+  max-width: 560rpx;
+  aspect-ratio: 1 / 1;
+}
+
+.illustration-bg {
+  position: absolute;
+  inset: 0;
+  background-color: var(--surface-variant);
+  opacity: 0.2;
+  transform: rotate(4rpx);
+  border-radius: 32rpx;
+}
+
+.illustration-card {
+  position: absolute;
+  inset: 0;
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 5rpx 3.6rpx 4.4rpx 4rpx;
+  border-color: var(--on-surface-variant);
+  border-radius: 8rpx 16rpx 6rpx 12rpx;
+  box-shadow: 8rpx 8rpx 0rpx 0rpx rgba(81, 69, 50, 0.15);
+  transform: rotate(-4rpx);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.illustration-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+/* 浮动贴纸装饰 */
+.floating-sticker {
+  position: absolute;
+  top: -32rpx;
+  right: -32rpx;
+  width: 160rpx;
+  height: 160rpx;
+  transform: rotate(24rdeg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticker-inner {
+  background-color: var(--primary-container);
+  padding: 16rpx;
+  border-style: solid;
+  border-width: 5rpx 3.6rpx 4.4rpx 4rpx;
+  border-color: var(--on-surface-variant);
+  border-radius: 8rpx 16rpx 6rpx 12rpx;
+  box-shadow: 8rpx 8rpx 0rpx 0rpx rgba(81, 69, 50, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticker-inner .iconfont {
+  font-size: 72rpx;
+  color: var(--primary);
+}
+
+/* 文本容器 */
+.text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-top: 48rpx;
+}
+
+.headline-text {
+  font-size: 48rpx;
+  line-height: 64rpx;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.description-text {
+  font-size: 32rpx;
+  line-height: 48rpx;
+  font-weight: 400;
+  color: var(--on-surface-variant);
+  max-width: 480rpx;
+  margin: 0 auto;
+}
+
+/* 主要操作按钮 */
+.primary-btn {
+  width: 100%;
+  max-width: 560rpx;
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  padding: 16rpx;
+  margin-top: 48rpx;
+  border-style: solid;
+  border-width: 5rpx 3.6rpx 4.4rpx 4rpx;
+  border-color: var(--on-surface-variant);
+  border-radius: 8rpx 16rpx 6rpx 12rpx;
+  box-shadow: 8rpx 8rpx 0rpx 0rpx rgba(81, 69, 50, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+}
+
+.primary-btn:active {
+  transform: translate(4rpx, 4rpx);
+  box-shadow: 0rpx 0rpx 0rpx 0rpx rgba(81, 69, 50, 0.15);
+}
+
+.primary-btn .iconfont {
+  font-size: 40rpx;
+  color: var(--on-primary-container);
+}
+
+.btn-text {
+  font-size: 24rpx;
+  line-height: 32rpx;
+  font-weight: 700;
+  letter-spacing: 4rpx;
+  text-transform: uppercase;
+  color: var(--on-primary-container);
+}
+
+/* 提示容器 */
+.tip-container {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-top: 32rpx;
+  opacity: 0.6;
+}
+
+.tip-icon {
+  font-size: 28rpx;
+  color: var(--on-surface-variant);
+}
+
+.tip-text {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  font-weight: 400;
+  color: var(--on-surface-variant);
+}

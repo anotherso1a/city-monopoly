@@ -1,0 +1,11 @@
+{
+  "navigationStyle": "custom",
+  "disableScroll": false,
+  "usingComponents": {
+    "navigation-bar": "/components/NavigationBar/navigation-bar",
+    "board": "/components/Board/board",
+    "chance-card": "/components/chance-card/chance-card",
+    "photo-card": "/components/photo-card/photo-card",
+    "sidebar": "/components/Sidebar/sidebar"
+  }
+}

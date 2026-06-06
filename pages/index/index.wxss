@@ -1,0 +1,280 @@
+/* index 页面样式 - 基于 design/index.html 转换 */
+
+page {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  --primary: #7c5800;
+  --primary-container: #ffb800;
+  --on-primary: #ffffff;
+  --on-primary-container: #6b4c00;
+  --secondary: #b71032;
+  --secondary-container: #da3148;
+  --surface: #fff8f3;
+  --surface-container: #f9ecdb;
+  --surface-container-low: #fff2e1;
+  --surface-container-lowest: #ffffff;
+  --surface-container-high: #f3e6d6;
+  --surface-container-highest: #ede1d0;
+  --on-surface: #211b11;
+  --on-surface-variant: #514532;
+  --outline: #837560;
+  --outline-variant: #d5c4ab;
+  --tertiary: #00658d;
+  --tertiary-container: #7dceff;
+  --background: #fff8f3;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.index-page {
+  min-height: 100vh;
+  background-color: #f7eed2;
+  position: relative;
+}
+
+.bg-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  opacity: 0.15;
+}
+
+.bg-city {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  animation: drift 20s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(20rpx, 10rpx);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Main Content */
+.main-content {
+  position: relative;
+  z-index: 10;
+  padding-left: 48rpx;
+  padding-right: 48rpx;
+  padding-bottom: 96rpx;
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 48rpx;
+}
+
+.hero-title-wrapper {
+  margin-bottom: 16rpx;
+  position: relative;
+}
+
+.hero-new-badge {
+  position: absolute;
+  top: -28rpx;
+  right: -48rpx;
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+  padding: 4rpx 24rpx;
+  border-radius: 9999rpx;
+  font-size: 22rpx;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  transform: rotate(12deg);
+  border: 4rpx solid var(--on-surface-variant);
+  box-shadow: 4rpx 4rpx 0px 0px var(--shadow-color);
+}
+
+.hero-title {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+}
+
+.hero-subtitle {
+  color: var(--on-surface-variant);
+  font-style: italic;
+  display: inline;
+  background: linear-gradient(180deg, transparent 50%, var(--primary-fixed) 50%);
+  padding: 0 8rpx;
+}
+
+/* Create Map Button */
+.create-section {
+  margin-bottom: 64rpx;
+}
+
+.create-btn {
+  box-sizing: border-box;
+  width: 100%;
+  background: linear-gradient(180deg, #FFB800 0%, #FF9800 100%);
+  color: var(--on-primary-container);
+  padding: 48rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  border: 4rpx solid var(--on-surface-variant);
+  border-radius: 510rpx 30rpx 450rpx 30rpx / 30rpx 450rpx 30rpx 510rpx;
+  box-shadow: 4rpx 4rpx 0px 0px var(--shadow-color);
+  transition: all;
+  position: relative;
+  z-index: 1;
+}
+
+.create-btn:active {
+  transform: translate(4rpx, 4rpx);
+  box-shadow: none;
+}
+
+.create-icon {
+  font-size: 72rpx;
+  transition: transform 0.3s;
+}
+
+.create-btn:hover .create-icon {
+  transform: scale(1.1);
+}
+
+.create-title {
+  font-weight: 700;
+}
+
+.create-desc {
+  opacity: 0.8;
+}
+
+/* My Maps Section */
+.maps-section {
+  margin-bottom: 48rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  font-weight: 700;
+  color: var(--on-surface-variant);
+}
+
+.section-more {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.section-more:active {
+  opacity: 0.7;
+}
+
+.section-more-icon {
+  font-size: 28rpx;
+  transition: transform 0.2s;
+}
+
+.section-more:hover .section-more-icon {
+  transform: translateX(4rpx);
+}
+
+/* Map Cards Grid */
+.map-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32rpx;
+}
+
+.map-card {
+  background-color: var(--surface-container-lowest);
+  border: 4rpx solid var(--on-surface-variant);
+  border-radius: 510rpx 30rpx 450rpx 30rpx / 30rpx 450rpx 30rpx 510rpx;
+  padding: 16rpx;
+  box-shadow: 4rpx 4rpx 0px 0px var(--shadow-color);
+  transition: all;
+}
+
+.map-card:active {
+  transform: scale(0.98);
+}
+
+.map-thumbnail {
+  aspect-ratio: 1;
+  background-color: var(--surface-variant);
+  border: 4rpx dashed var(--outline-variant);
+  border-radius: 16rpx;
+  overflow: hidden;
+  margin-bottom: 16rpx;
+}
+
+.map-thumbnail image {
+  width: 100%;
+  height: 100%;
+  filter: grayscale(100%);
+}
+
+.map-name {
+  font-weight: 700;
+  color: var(--primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.map-date {
+  font-weight: 700;
+  color: var(--on-surface-variant);
+  opacity: 0.6;
+}
+
+/* Local Map Card */
+.local-card {
+  background-color: var(--surface-container-low);
+  border: 4rpx dashed var(--outline-variant);
+  border-radius: 32rpx;
+  padding: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  min-height: 200rpx;
+  transition: opacity 0.3s;
+}
+
+.local-card:hover {
+  opacity: 1;
+}
+
+.local-icon {
+  font-size: 72rpx;
+  color: var(--outline);
+  margin-bottom: 8rpx;
+}
+
+.local-text {
+  font-weight: 700;
+  color: var(--on-surface-variant);
+}

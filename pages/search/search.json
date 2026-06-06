@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "disableScroll": false,
+  "usingComponents": {
+    "empty-search": "/components/empty-search/empty-search",
+    "navigation-bar": "/components/NavigationBar/navigation-bar"
+  }
+}

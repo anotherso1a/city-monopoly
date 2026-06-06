@@ -1,0 +1,42 @@
+<!--components/poster-share/poster-share.wxml-->
+<!--
+  顶层两个兄弟节点:
+    1. modal(wx:if=_showModal 控制显隐)— 弹窗本体,显示生成好的图 + 按钮
+    2. offscreen-canvas — Painter 永远挂载在这里(屏外),不在 wx:if 内,
+       否则 canvas 不存在 → setData(palette) 不会触发渲染
+-->
+
+<!-- 1. 弹窗本体(仅当 _showModal=true 时显示) -->
+<view wx:if="{{_showModal}}" class="poster-modal-mask" catchtap="onMaskTap">
+  <view class="poster-modal-content" catchtap="onContentTap">
+    <image
+      class="poster-image"
+      src="{{posterImageUrl}}"
+      mode="widthFix"
+      show-menu-by-longpress="{{true}}"
+    />
+    <view class="poster-actions">
+      <button
+        class="poster-btn poster-btn-save {{saving ? 'poster-btn-save-loading' : ''}} {{saved ? 'poster-btn-save-done' : ''}}"
+        bindtap="onSave"
+        disabled="{{saving}}"
+      >
+        <text class="poster-btn-icon">{{saveIcon}}</text>
+        <text class="poster-btn-label">{{saveLabel}}</text>
+      </button>
+      <button class="poster-btn poster-btn-close" bindtap="onClose">
+        <text class="poster-btn-label">关闭预览</text>
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- 2. 屏外 Painter,永远挂载,wxss 把它定位到屏外 -->
+<view class="poster-offscreen-canvas">
+  <painter
+    palette="{{posterPalette}}"
+    use2D="{{true}}"
+    bind:imgOK="onPosterImgOK"
+    bind:imgErr="onPosterImgErr"
+  />
+</view>

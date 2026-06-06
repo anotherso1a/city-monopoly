@@ -1,0 +1,265 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>Adventure Log Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Public+Sans:wght@400;700&amp;family=Space+Mono:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;family=Public+Sans:wght@100..900&amp;family=Space+Mono:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+        .paper-texture {
+            background-color: #fff8f3;
+            background-image: 
+                radial-gradient(#d5c4ab 0.5px, transparent 0.5px),
+                radial-gradient(#d5c4ab 0.5px, #fff8f3 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            background-attachment: fixed;
+        }
+        .hand-drawn-border {
+            border-style: solid;
+            border-width: 2px 1.5px 2.5px 2px;
+            border-radius: 4px 10px 4px 12px / 10px 4px 12px 4px;
+        }
+        .polaroid-frame {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.1);
+            transform: rotate(-1deg);
+        }
+        .polaroid-frame:nth-child(even) {
+            transform: rotate(1.5deg);
+        }
+        .dashed-path {
+            background-image: linear-gradient(to bottom, #837560 50%, rgba(255, 255, 255, 0) 0%);
+            background-position: center;
+            background-size: 2px 12px;
+            background-repeat: repeat-y;
+        }
+        .sticker-hover:active {
+            transform: scale(0.98) translateY(2px);
+            transition: transform 0.1s ease;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#001e2d",
+                        "primary-fixed": "#ffdea8",
+                        "inverse-on-surface": "#fcefde",
+                        "secondary-container": "#da3148",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#e5d8c8",
+                        "on-surface": "#211b11",
+                        "tertiary-fixed-dim": "#81cfff",
+                        "secondary-fixed-dim": "#ffb3b4",
+                        "secondary": "#b71032",
+                        "primary": "#7c5800",
+                        "on-background": "#211b11",
+                        "surface-container-low": "#fff2e1",
+                        "surface-container": "#f9ecdb",
+                        "outline-variant": "#d5c4ab",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#00577a",
+                        "surface-container-highest": "#ede1d0",
+                        "primary-container": "#ffb800",
+                        "on-tertiary-fixed-variant": "#004c6b",
+                        "surface-container-high": "#f3e6d6",
+                        "on-primary-fixed": "#271900",
+                        "surface-bright": "#fff8f3",
+                        "on-surface-variant": "#514532",
+                        "background": "#fff8f3",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#ffba20",
+                        "tertiary-fixed": "#c6e7ff",
+                        "inverse-surface": "#362f24",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#837560",
+                        "on-primary-container": "#6b4c00",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#ede1d0",
+                        "surface": "#fff8f3",
+                        "on-secondary-fixed-variant": "#920023",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#7c5800",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "secondary-fixed": "#ffdad9",
+                        "primary-fixed-dim": "#ffba20",
+                        "tertiary-container": "#7dceff",
+                        "tertiary": "#00658d",
+                        "on-secondary-container": "#fffbff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#40000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "32px",
+                        "xl": "48px",
+                        "md": "20px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "safe-area": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "data-lg": ["Space Mono"],
+                        "body-sm": ["Public Sans"],
+                        "body-md": ["Public Sans"],
+                        "label-caps": ["Space Mono"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "data-lg": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="paper-texture min-h-screen text-on-surface font-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container font-headline-lg-mobile text-headline-lg-mobile shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] border-b-2 border-on-surface-variant flex justify-between items-center px-safe-area py-base">
+<button class="active:translate-y-0.5 active:translate-x-0.5 transition-transform">
+<span class="material-symbols-outlined text-on-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary">探险日志</h1>
+<div class="w-8"></div> <!-- Spacer for centering title -->
+</header>
+<main class="pt-24 pb-xl px-safe-area max-w-md mx-auto relative">
+<!-- Date Header Sticker -->
+<div class="mb-lg inline-block px-md py-xs bg-secondary-container text-on-secondary rounded-full hand-drawn-border border-outline shadow-sm -rotate-2">
+<span class="font-label-caps text-label-caps">OCTOBER 24, 2023</span>
+</div>
+<!-- Timeline Container -->
+<div class="relative pl-8">
+<!-- Continuous Dashed Path -->
+<div class="absolute left-3 top-4 bottom-4 w-0.5 dashed-path opacity-40"></div>
+<!-- Log Entry 1 -->
+<section class="relative mb-xl">
+<!-- Timeline Marker -->
+<div class="absolute -left-8 top-1 flex flex-col items-center">
+<div class="w-6 h-6 bg-surface-bright rounded-full hand-drawn-border border-primary flex items-center justify-center z-10">
+<span class="w-2 h-2 bg-primary rounded-full"></span>
+</div>
+</div>
+<!-- Content -->
+<div class="space-y-sm">
+<div class="flex items-center gap-xs text-outline font-data-lg text-data-lg">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="">14:30</span>
+</div>
+<div class="flex items-center gap-xs font-headline-lg-mobile text-headline-lg-mobile text-primary">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span class="">Wukang Building</span>
+</div>
+<!-- Polaroid Photo Frame -->
+<div class="polaroid-frame p-3 bg-white border-2 border-outline-variant hand-drawn-border inline-block max-w-[280px]">
+<div class="overflow-hidden bg-surface-container-low aspect-square mb-3">
+<img alt="Sketch of Wukang Building" class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" data-alt="A hand-drawn ink sketch of the iconic Wukang Building in Shanghai, captured in a whimsical urban explorer style. The drawing features irregular lines and subtle watercolor washes of warm gold and ochre. The background is a clean white, emphasizing the architectural detail of the building's distinct wedge shape. The mood is nostalgic and artistic, perfectly aligning with a tactile paper-texture travel journal aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSxEdXXqt2B3_uFgw1AjSCvxOtbM2g9Cbrur-JaS79piX0FdN3wMCcs2S1taRvLLvdtSqXOOm2CDS50yT0xGSr-_h-rv-CyEJQSl0K-kv5dDQO32gSNtPyeDtR1DkOnOfrs6fftiJ_x1gzYlgVJTRYAmIEjqny-9wS5TUBeT5mONVNejjwJEOGG1zd0fDkuJ4tx0IT_IMMgPkJ04Tlf3nJffucUs53hcgI8CfaB_zd6F9PzNjKktsdlmEn9o8A5qDua6kENiYjrg">
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic text-center">"The flatiron of the East. Stunning architecture!"</p>
+</div>
+<div class="flex items-center gap-sm">
+<span class="px-sm py-xs bg-tertiary-container text-on-tertiary-container text-label-caps font-label-caps rounded-full border-dashed border-2 border-outline">CHECK-IN SUCCESS</span>
+<span class="text-primary font-data-lg text-data-lg">+120 XP</span>
+</div>
+</div>
+</section>
+<!-- Transition Arrow -->
+<div class="relative ml-0 mb-xl flex justify-center py-base">
+
+</div>
+<!-- Log Entry 2 -->
+<section class="relative mb-xl">
+<!-- Timeline Marker -->
+<div class="absolute -left-8 top-1 flex flex-col items-center">
+<div class="w-6 h-6 bg-surface-bright rounded-full hand-drawn-border border-primary flex items-center justify-center z-10">
+<span class="w-2 h-2 bg-primary rounded-full"></span>
+</div>
+</div>
+<!-- Content -->
+<div class="space-y-sm">
+<div class="flex items-center gap-xs text-outline font-data-lg text-data-lg">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="">15:45</span>
+</div>
+<div class="flex items-center gap-xs font-headline-lg-mobile text-headline-lg-mobile text-primary">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span class="">Anfu Road</span>
+</div>
+<!-- Polaroid Photo Frame -->
+<div class="polaroid-frame p-3 bg-white border-2 border-outline-variant hand-drawn-border inline-block max-w-[280px]">
+<div class="overflow-hidden bg-surface-container-low aspect-square mb-3">
+<img alt="Sketch of Anfu Road cafe" class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" data-alt="A delicate charcoal and ink illustration depicting a cozy street-side cafe on Anfu Road. The sketch focuses on a quaint storefront with a striped awning and people sitting at small outdoor tables. The art style is sketchy and expressive, using rough strokes to convey a bustling yet relaxed urban atmosphere. Warm amber accents highlight the glowing windows, set against a creamy paper background in a classic travel journal format." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmn8l7h4mL9-ETFtn82xoFaH7ya_768kvuK4zMvwmwpWkzq5Ou8cAqRG5X58xtAH1h7v76u5SMiD0D1Xy-PnF8CQQu9-MTq8JHm9aVduyo7OD_NIxfWcpf32-fdgCS7KYfpCGtYVOGs74gz9ppmVGavlOHB4LawU2Q7_jnG1kEjyR4rjhId3xnXeJ1pTlw1-oCiEan8sX2fORvNkyyDREuq5oHaBzt2GNMv5dHAXktox_nAxBsEifMg_SGaxqVv_C75xyHn6hdTg">
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic text-center">"Coffee break at a hidden gem. Vibrant vibes!"</p>
+</div>
+<div class="flex items-center gap-sm">
+<span class="px-sm py-xs bg-tertiary-container text-on-tertiary-container text-label-caps font-label-caps rounded-full border-dashed border-2 border-outline">TREASURE FOUND</span>
+<span class="text-primary font-data-lg text-data-lg">+250 XP</span>
+</div>
+</div>
+</section>
+<!-- Final Destination Placeholder -->
+<div class="relative ml-0 py-lg">
+    <div class="flex justify-center">
+        <button class="bg-primary-container text-on-primary-container px-lg py-sm font-label-caps text-label-caps rounded-xl border-2 border-primary hand-drawn-border sticker-hover shadow-md flex items-center gap-base">
+            <span class="material-symbols-outlined">share</span>
+            SHARE JOURNEY
+        </button>
+    </div>
+</div>
+</div>
+</main>
+<!-- Floating Atmosphere Elements (Static Decoration) -->
+<div class="fixed top-32 -right-8 pointer-events-none opacity-20 rotate-12">
+<span class="material-symbols-outlined text-[120px] text-primary">edit_note</span>
+</div>
+<div class="fixed bottom-12 -left-12 pointer-events-none opacity-20 -rotate-45">
+<span class="material-symbols-outlined text-[160px] text-primary">explore</span>
+</div>
+<script>
+        // Micro-interactions for tactile feel
+        document.querySelectorAll('.sticker-hover').forEach(button => {
+            button.addEventListener('touchstart', () => {
+                button.style.transform = 'translateY(2px) translateX(2px)';
+                button.style.boxShadow = '1px 1px 0px 0px rgba(0,0,0,0.1)';
+            });
+            button.addEventListener('touchend', () => {
+                button.style.transform = 'translateY(0) translateX(0)';
+                button.style.boxShadow = '4px 4px 0px 0px rgba(0,0,0,0.1)';
+            });
+        });
+
+        // Subtle parallax effect for the "stickers" on scroll
+        window.addEventListener('scroll', () => {
+            const frames = document.querySelectorAll('.polaroid-frame');
+            const scrolled = window.pageYOffset;
+            frames.forEach((frame, index) => {
+                const speed = (index + 1) * 0.05;
+                const yPos = -(scrolled * speed);
+                frame.style.marginTop = `${yPos / 5}px`;
+            });
+        });
+    </script>
+
+
+</body></html>

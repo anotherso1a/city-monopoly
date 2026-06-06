@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "disableScroll": true,
+  "usingComponents": {
+    "navigation-bar": "/components/NavigationBar/navigation-bar",
+    "poster-share": "/components/poster-share/poster-share"
+  }
+}

@@ -1,0 +1,182 @@
+<view class="game-page">
+  <!-- Top Navigation Bar -->
+  <navigation-bar
+    title="城市大富翁"
+    type="menu"
+    bind:menutap="onToggleDrawer"
+    bind:heightchange="onNavHeightChange"
+  />
+
+  <!-- Sidebar — 7 个操作(查看所有地图/时间线/编辑/分享/载入/结算/退出) -->
+  <sidebar
+    visible="{{drawerOpen}}"
+    items="{{sidebarItems}}"
+    avatar="{{playerAvatar}}"
+    nickname="{{playerNickname}}"
+    level="{{cumulativeExpLabel}}"
+    bind:close="onCloseDrawer"
+    bind:itemtap="onSidebarItemTap"
+    bind:editProfile="onSidebarEditProfile"
+  />
+
+  <!-- First-launch / edit 弹窗 — 由 globalData.userProfile.setupSeen 控制首启显示 -->
+  <profile-setup
+    visible="{{showProfileSetup}}"
+    mode="{{profileMode}}"
+    initialAvatarUrl="{{playerAvatar}}"
+    initialNickName="{{playerNickname}}"
+    bind:confirm="onProfileCommit"
+    bind:skip="onProfileCommit"
+    bind:close="onProfileClose"
+  />
+
+  <!-- Main Content Canvas -->
+  <view class="main-content paper-texture animate-warm" style="margin-top: {{navBarHeight + 16}}px;">
+    <!-- Game Stats Card — 金币 / 步数(WeRun) / 徒步距离(打卡累加) -->
+    <view class="stats-card soft-shadow">
+      <view class="stats-item">
+        <text class="stats-label">金币持有</text>
+        <view class="stats-value stats-value-primary">
+          <text class="iconfont stats-icon icon-Dollar"></text>
+          <text class="stats-number">{{currentGold}}</text>
+        </view>
+      </view>
+      <view class="stats-divider"></view>
+      <view class="stats-item">
+        <text class="stats-label">步数</text>
+        <view class="stats-value stats-value-surface">
+          <text class="iconfont stats-icon icon-foot"></text>
+          <text class="stats-number">{{stepCountLabel}}</text>
+        </view>
+      </view>
+      <view class="stats-divider"></view>
+      <view class="stats-item">
+        <text class="stats-label">徒步距离</text>
+        <view class="stats-value stats-value-secondary">
+          <text class="iconfont stats-icon icon-location"></text>
+          <text class="stats-number">{{walkingDistanceLabel}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Board Game Style Area -->
+    <view class="board-container" id="boardContainer">
+      <view class="map-wrapper sketch-border soft-shadow" id="mapWrapper">
+        <board
+          grids="{{grids}}"
+          currentGridIndex="{{currentGridIndex}}"
+          currentLap="{{currentLap}}"
+          scale="{{boardScale}}"
+          offsetX="{{boardOffsetX}}"
+          offsetY="{{boardOffsetY}}"
+          templateId="{{mapId}}"
+          bind:gridtap="onGridTap"
+          bind:pan="onPan"
+          bind:panend="onPanEnd"
+          bind:pinch="onPinch"
+          bind:poimarkersupdate="onPoiMarkersUpdate"
+        />
+        <view class="map-overlay"></view>
+      </view>
+
+      <!-- View Mode Toggle — 浮动在 board 右下角,类似地图软件的定位按钮 -->
+      <view class="view-toggle soft-shadow">
+        <view class="view-btn {{viewMode === 'overview' ? 'active' : ''}}" bindtap="setViewMode" data-mode="overview">
+          <text class="iconfont view-btn-icon icon-drag"></text>
+        </view>
+        <view class="view-btn {{viewMode === 'focus' ? 'active' : ''}}" bindtap="setViewMode" data-mode="focus">
+          <text class="iconfont view-btn-icon icon-location"></text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Info Card — 卡片可点击唤起 Modal(照片 swiper);按钮仍直接触发动作;每个格子都是 POI,按钮永远显示 -->
+    <view class="info-card soft-shadow" id="landmarkCard" style="opacity: {{cardOpacity}};" bindtap="onInfoCardTap">
+      <view class="info-card-header">
+        <view class="info-icon-box sketch-border-sm" id="landmarkIconBox">
+          <text class="iconfont info-icon {{currentIconClass}}"></text>
+        </view>
+        <view class="info-text">
+          <text class="info-title">{{currentTitle}}</text>
+          <text class="info-desc">{{currentDesc}}</text>
+        </view>
+      </view>
+      <view class="ink-divider"></view>
+      <view class="info-actions">
+        <view class="info-btn info-btn-secondary" catchtap="onNavigate">
+          开启航程
+        </view>
+        <view class="info-btn info-btn-primary" catchtap="onCheckin">
+          <text class="iconfont info-btn-icon {{currentGridCheckedIn ? 'icon-check' : 'icon-check-circle'}}"></text>
+          {{currentGridCheckedIn ? '已打卡' : '打卡'}}
+        </view>
+      </view>
+    </view>
+
+    <!-- Bottom Action Button — 已完成游戏不显示投骰子,改为已结束提示条 -->
+    <view class="bottom-action" wx:if="{{!isCompletedView}}">
+      <view class="roll-dice-btn {{diceShaking ? 'dice-shaking' : ''}}" id="rollDice" bindtap="onRollDice">
+        <text class="dice-icon" id="diceIcon">🎲</text>
+        <text class="dice-text" id="diceText">{{diceText}}</text>
+      </view>
+    </view>
+    <view class="bottom-action completed-banner" wx:else>
+      <view class="completed-banner-inner">
+        <text class="iconfont completed-banner-icon icon-trophy"></text>
+        <view class="completed-banner-text">
+          <text class="completed-banner-title">本局已结束</text>
+          <text class="completed-banner-sub">点击查看时间线或分享战绩,或回主页清空数据重新游玩</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="texture-overlay"></view>
+  </view>
+
+  <!-- Grid Detail Modal -->
+  <view class="modal-overlay {{modalVisible ? 'show' : ''}}" bindtap="closeModal">
+    <view class="modal-content" catchtap="stopBubble">
+      <view class="modal-header">
+        <text class="modal-title">{{selectedGrid.poi.name || '位置详情'}}</text>
+        <text class="modal-close" bindtap="closeModal">✕</text>
+      </view>
+      <view class="modal-body">
+        <swiper
+          class="modal-swiper"
+          wx:if="{{selectedGrid.poi.photos && selectedGrid.poi.photos.length}}"
+          indicator-dots="{{true}}"
+          circular="{{true}}"
+        >
+          <swiper-item wx:for="{{selectedGrid.poi.photos}}" wx:key="*this">
+            <image class="modal-image" src="{{item}}" mode="aspectFill"/>
+          </swiper-item>
+        </swiper>
+        <text class="modal-address" wx:if="{{selectedGrid.poi.address}}">📍 {{selectedGrid.poi.address}}</text>
+        <view class="modal-actions">
+          <button class="btn-nav" bindtap="onNavigate">🧭 导航</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Chance Card Popup — 走 game.js 的 drawChanceCard 流程 -->
+  <chance-card
+    visible="{{chanceCardVisible}}"
+    description="{{chanceCardDescription}}"
+    goldChange="{{chanceCardGoldChange}}"
+    bind:collect="onChanceCardCollect"
+    bind:close="onChanceCardClose"
+  />
+
+  <!-- Photo Card Popup — 走 game.js 的拍照打卡流程 -->
+  <photo-card
+    visible="{{photoCardVisible}}"
+    image="{{photoCardImage}}"
+    locationName="{{photoCardLocationName}}"
+    photoDate="{{photoCardPhotoDate}}"
+    description="{{photoCardDescription}}"
+    achievementPoint="{{photoCardAchievementPoint}}"
+    bind:continue="onPhotoCardContinue"
+    bind:retake="onPhotoCardRetake"
+  />
+</view>

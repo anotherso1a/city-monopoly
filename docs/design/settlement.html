@@ -1,0 +1,269 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>游戏结束 - 城市大富翁</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Public+Sans:wght@400;700&amp;family=Space+Mono:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;family=Public+Sans:wght@100..900&amp;family=Space+Mono:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sticker-border {
+            border: 2px solid #514532;
+        }
+        .hand-drawn-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(81, 69, 50, 0.2);
+        }
+        .pressed-state:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px 0px rgba(81, 69, 50, 0.2);
+        }
+        .scribble-underline {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 25 0, 50 5 T 100 5' stroke='%237c5800' stroke-width='2' fill='transparent'/%3E%3C/svg%3E");
+            background-position: bottom;
+            background-repeat: no-repeat;
+            background-size: 100% 8px;
+        }
+        body {
+            background-color: #fff8f3;
+            background-image: radial-gradient(#d5c4ab 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#81cfff",
+                        "secondary-fixed-dim": "#ffb3b4",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#211b11",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fff8f3",
+                        "surface-container": "#f9ecdb",
+                        "primary-fixed": "#ffdea8",
+                        "inverse-primary": "#ffba20",
+                        "primary-fixed-dim": "#ffba20",
+                        "primary-container": "#ffb800",
+                        "surface-container-high": "#f3e6d6",
+                        "outline-variant": "#d5c4ab",
+                        "on-secondary-container": "#fffbff",
+                        "inverse-on-surface": "#fcefde",
+                        "on-secondary-fixed": "#40000a",
+                        "surface-container-highest": "#ede1d0",
+                        "on-surface-variant": "#514532",
+                        "on-tertiary-fixed-variant": "#004c6b",
+                        "secondary": "#b71032",
+                        "surface-variant": "#ede1d0",
+                        "surface-container-low": "#fff2e1",
+                        "primary": "#7c5800",
+                        "on-primary": "#ffffff",
+                        "outline": "#837560",
+                        "surface-tint": "#7c5800",
+                        "on-background": "#211b11",
+                        "on-primary-container": "#6b4c00",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fff8f3",
+                        "on-tertiary-fixed": "#001e2d",
+                        "surface": "#fff8f3",
+                        "inverse-surface": "#362f24",
+                        "secondary-fixed": "#ffdad9",
+                        "on-primary-fixed": "#271900",
+                        "on-error": "#ffffff",
+                        "tertiary": "#00658d",
+                        "on-secondary-fixed-variant": "#920023",
+                        "on-tertiary-container": "#00577a",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "surface-dim": "#e5d8c8",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#da3148",
+                        "tertiary-fixed": "#c6e7ff",
+                        "tertiary-container": "#7dceff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "32px",
+                        "xl": "48px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "safe-area": "24px",
+                        "sm": "12px",
+                        "md": "20px"
+                    },
+                    "fontFamily": {
+                        "data-lg": ["Space Mono"],
+                        "label-caps": ["Space Mono"],
+                        "body-md": ["Public Sans"],
+                        "body-sm": ["Public Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "data-lg": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-md text-on-surface overflow-x-hidden pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-primary text-on-primary shadow-[0_2px_10px_rgba(0,0,0,0.1)] border-b border-outline/20 flex items-center px-6 h-16">
+<div class="flex items-center cursor-pointer active:opacity-70 transition-opacity" onclick="history.back()">
+<span class="material-symbols-outlined text-2xl text-white">arrow_back</span>
+</div>
+<h1 class="font-headline-lg text-xl text-white tracking-tight absolute left-1/2 -translate-x-1/2">游戏结束</h1>
+</header>
+<main class="mt-24 px-safe-area space-y-lg">
+<!-- Hero Section -->
+<section class="text-center py-base"><h2 class="font-display-lg text-display-lg text-primary scribble-underline inline-block px-2 transform -rotate-1 mb-2 drop-shadow-sm">恭喜通关！ 🎉</h2>
+<p class="font-body-md text-on-surface-variant mt-2 italic">你已经征服了这片城市丛林！</p></section>
+<!-- Stats Cards Section -->
+<section class="grid grid-cols-2 gap-md">
+<div class="bg-surface-container-lowest sticker-border hand-drawn-shadow p-md rounded-xl text-center transform -rotate-2 hover:rotate-0 transition-transform" style="transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotate(-1.5deg) scale(1);">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1 tracking-widest font-semibold block">穿越距离</span>
+<div class="flex flex-col items-center">
+<span class="font-headline-lg text-[28px] text-secondary font-bold leading-none mb-1">第 5 名</span>
+<span class="material-symbols-outlined text-secondary" data-icon="military_tech" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest sticker-border hand-drawn-shadow p-md rounded-xl text-center transform rotate-2 hover:rotate-0 transition-transform" style="transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotate(1.5deg) scale(1);">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1 tracking-widest font-semibold block">累计金币</span>
+<div class="flex flex-col items-center">
+<span class="font-headline-lg text-[28px] text-primary font-bold leading-none mb-1">120</span>
+<span class="material-symbols-outlined text-primary" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+</div>
+</section>
+<!-- Timeline Section -->
+<section class="bg-surface-container-low sticker-border p-md rounded-2xl relative overflow-hidden" style="transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotate(-1.5deg) scale(1);">
+<div class="absolute top-4 right-4 opacity-10">
+<span class="material-symbols-outlined text-[80px]" data-icon="route">route</span>
+</div>
+<h3 class="font-headline-lg text-xl text-primary mb-6 flex items-center gap-2"><span class="material-symbols-outlined" data-icon="history_edu">history_edu</span> 探险日志</h3>
+<div class="relative pt-4 pb-8 overflow-x-auto no-scrollbar">
+<!-- Timeline Line (Horizontal) -->
+<div class="absolute top-[4.25rem] left-0 w-full h-[3px] border-b-2 border-dashed border-outline-variant"></div>
+<div class="flex justify-between min-w-[500px] relative px-4">
+<!-- Node 1 -->
+<div class="flex flex-col items-center gap-3 relative z-10">
+<div class="w-10 h-10 rounded-full bg-tertiary-container sticker-border flex items-center justify-center text-on-tertiary-container shadow-sm" style="transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotate(1.5deg) scale(1);">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+</div>
+<div class="text-center">
+<p class="font-label-caps text-[10px] text-on-surface uppercase tracking-widest font-bold">WANGJING</p>
+<p class="font-data-lg text-lg text-primary mt-1">+25</p>
+</div>
+</div>
+<!-- Node 2 -->
+<div class="flex flex-col items-center gap-3 relative z-10">
+<div class="w-10 h-10 rounded-full bg-secondary-container sticker-border flex items-center justify-center text-on-secondary-container shadow-sm transform rotate-12" style="transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotate(-1.5deg) scale(1);">
+<span class="material-symbols-outlined text-sm" data-icon="park">park</span>
+</div>
+<div class="text-center">
+<p class="font-label-caps text-[10px] text-on-surface uppercase tracking-widest font-bold">GREEN PLAZA</p>
+<p class="font-data-lg text-lg text-primary mt-1">+40</p>
+</div>
+</div>
+<!-- Node 3 -->
+<div class="flex flex-col items-center gap-3 relative z-10">
+<div class="w-10 h-10 rounded-full bg-primary-container sticker-border flex items-center justify-center text-on-primary-container shadow-sm transform -rotate-6" style="transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotate(1.5deg) scale(1);">
+<span class="material-symbols-outlined text-sm" data-icon="restaurant">restaurant</span>
+</div>
+<div class="text-center">
+<p class="font-label-caps text-[10px] text-on-surface uppercase tracking-widest font-bold">RESTAURANT</p>
+<p class="font-data-lg text-lg text-primary mt-1">+15</p>
+</div>
+</div>
+<!-- Goal Node -->
+<div class="flex flex-col items-center gap-3 relative z-10">
+<div class="w-12 h-12 rounded-xl bg-inverse-primary sticker-border flex items-center justify-center text-on-primary-container shadow-sm border-2 border-on-surface rotate-3" style="transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotate(-1.5deg) scale(1);">
+<span class="material-symbols-outlined" data-icon="emoji_events">emoji_events</span>
+</div>
+<div class="text-center">
+<p class="font-label-caps text-[10px] text-on-surface uppercase tracking-widest font-bold">GOAL</p>
+<p class="font-data-lg text-lg text-primary mt-1">+40</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Stats Chips -->
+<section class="bg-surface-container-highest border-2 border-dashed border-outline rounded-xl p-md flex flex-wrap justify-between items-center gap-md">
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">掷骰次数</span>
+<span class="font-data-lg text-lg text-on-surface">12</span>
+</div>
+<div class="h-8 w-px bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">行走步数</span>
+<span class="font-data-lg text-lg text-on-surface">36</span>
+</div>
+<div class="h-8 w-px bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">用时</span>
+<span class="font-data-lg text-lg text-on-surface">45min</span>
+</div>
+</section>
+<!-- Action Buttons -->
+<section class="flex flex-col gap-base pt-md">
+<button class="w-full py-4 bg-primary text-on-primary font-headline-lg text-lg flex items-center justify-center gap-2 rounded-2xl shadow-xl hover:brightness-110 active:scale-[0.98] transition-all overflow-hidden relative group sticker-border" style="transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotate(1.5deg) scale(1);">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">share</span>
+<span class="">生成分享海报</span>
+<div class="absolute -right-4 -bottom-4 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-7xl">history_edu</span>
+</div>
+</button>
+<button class="w-full py-4 bg-surface-container-lowest text-primary font-headline-lg text-lg flex items-center justify-center gap-2 rounded-2xl shadow-md hover:bg-surface-container-low active:scale-[0.98] transition-all sticker-border" style="transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform: rotate(-1.5deg) scale(1);">
+<span class="material-symbols-outlined text-2xl">replay</span>
+<span class="">再玩一次</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<!-- Visual Polish: Floating "Stickers" -->
+<div class="fixed top-28 right-4 pointer-events-none opacity-20 transform rotate-12 scale-150">
+<span class="material-symbols-outlined text-primary" data-icon="local_activity">local_activity</span>
+</div>
+<div class="fixed bottom-32 left-4 pointer-events-none opacity-20 transform -rotate-12 scale-150">
+<span class="material-symbols-outlined text-secondary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<script>
+        // Optional micro-interaction: Subtle shake on page load for the stickers
+        window.addEventListener('DOMContentLoaded', () => {
+            const stickers = document.querySelectorAll('.sticker-border');
+            stickers.forEach((sticker, index) => {
+                sticker.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                sticker.style.transform = `rotate(${index % 2 === 0 ? '-3' : '3'}deg) scale(0.95)`;
+                setTimeout(() => {
+                    sticker.style.transform = `rotate(${index % 2 === 0 ? '-1.5' : '1.5'}deg) scale(1)`;
+                }, index * 100);
+            });
+        });
+    </script>
+
+
+</body></html>

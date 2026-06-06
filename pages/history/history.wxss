@@ -1,0 +1,309 @@
+/* 历史收藏页面样式 - 基于 docs/design/history.html 转换 */
+@import "./components/empty-state/empty-state.wxss";
+
+/* 颜色变量定义 */
+page {
+  --primary: #7c5800;
+  --primary-container: #ffb800;
+  --on-primary: #ffffff;
+  --on-primary-container: #6b4c00;
+  --secondary: #b71032;
+  --secondary-container: #da3148;
+  --tertiary: #00658d;
+  --tertiary-container: #7dceff;
+  --surface: #fff8f3;
+  --surface-container: #f9ecdb;
+  --surface-container-low: #fff2e1;
+  --surface-container-lowest: #ffffff;
+  --surface-container-high: #f3e6d6;
+  --surface-container-highest: #ede1d0;
+  --surface-dim: #e5d8c8;
+  --surface-variant: #ede1d0;
+  --surface-bright: #fff8f3;
+  --on-surface: #211b11;
+  --on-surface-variant: #514532;
+  --outline: #837560;
+  --outline-variant: #d5c4ab;
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+  --background: #fff8f3;
+  --on-background: #211b11;
+  --inverse-surface: #362f24;
+  --inverse-on-surface: #fcefde;
+  --inverse-primary: #ffba20;
+  --on-error: #ffffff;
+  --on-error-container: #93000a;
+  --on-secondary: #ffffff;
+  --on-secondary-container: #fffbff;
+  --on-tertiary: #ffffff;
+  --on-tertiary-container: #00577a;
+  --on-primary-fixed: #271900;
+  --on-primary-fixed-variant: #5e4200;
+  --on-secondary-fixed: #40000a;
+  --on-secondary-fixed-variant: #920023;
+  --on-tertiary-fixed: #001e2d;
+  --on-tertiary-fixed-variant: #004c6b;
+  --primary-fixed: #ffdea8;
+  --primary-fixed-dim: #ffba20;
+  --secondary-fixed: #ffdad9;
+  --secondary-fixed-dim: #ffb3b4;
+  --tertiary-fixed: #c6e7ff;
+  --tertiary-fixed-dim: #81cfff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.history-page {
+  min-height: 100vh;
+  background-color: #f7eed2;
+}
+
+/* Main Content */
+.main-content {
+  padding: 0 32rpx;
+}
+
+/* Search Container */
+.search-container {
+  position: relative;
+  margin-bottom: 32rpx;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 36rpx;
+  color: var(--on-surface-variant);
+}
+
+.search-input {
+  width: 100%;
+  height: 112rpx;
+  background-color: var(--surface-container-lowest);
+  border: 4rpx solid var(--on-surface-variant);
+  border-radius: 510rpx 30rpx 450rpx 30rpx / 30rpx 450rpx 30rpx 510rpx;
+  padding: 0 48rpx 0 80rpx;
+  color: var(--on-surface-variant);
+  font-style: italic;
+}
+
+.search-input::placeholder {
+  color: var(--on-surface-variant);
+  opacity: 0.7;
+}
+
+/* Filter Tabs */
+.filter-tabs {
+  padding: 16rpx 0;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.filter-scroll {
+  display: flex;
+  gap: 12rpx;
+}
+
+.filter-tab {
+  display: inline-block;
+  padding: 24rpx 48rpx;
+  border-radius: 9999rpx;
+  border: 4rpx solid var(--outline-variant);
+  background-color: var(--surface);
+  color: var(--on-surface-variant);
+  font-weight: 700;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.filter-tab.active {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+
+.filter-tab:active {
+  transform: translate(2rpx, 2rpx);
+}
+
+/* Map Cards List */
+.map-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+  padding-bottom: 32rpx;
+}
+
+.map-card {
+  background-color: var(--surface-container-lowest);
+  border: 4rpx solid var(--on-surface-variant);
+  border-radius: 2% 1% 2% 1% / 1% 2% 1% 2%;
+  padding: 16rpx;
+  display: flex;
+  gap: 24rpx;
+  position: relative;
+  box-shadow: 12rpx 12rpx 0px 0px rgba(81, 69, 50, 0.1);
+}
+
+.map-card:active {
+  transform: translate(4rpx, 4rpx);
+  box-shadow: none;
+}
+
+.map-thumbnail {
+  width: 192rpx;
+  height: 192rpx;
+  flex-shrink: 0;
+  border: 4rpx solid var(--on-surface-variant);
+  border-radius: 510rpx 30rpx 450rpx 30rpx / 30rpx 450rpx 30rpx 510rpx;
+  overflow: hidden;
+}
+
+.map-thumbnail image {
+  width: 100%;
+  height: 100%;
+}
+
+.map-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.map-info-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.map-name {
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.map-date {
+  font-weight: 700;
+  color: var(--on-surface-variant);
+  opacity: 0.7;
+}
+
+.map-tags {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 16rpx;
+}
+
+.tag {
+  padding: 8rpx 16rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;  /* 文字垂直居中 */
+}
+
+.tag-dashed {
+  border: 2rpx dashed var(--outline);
+  border-radius: 8rpx;
+  color: var(--on-surface-variant);
+}
+
+.tag-highlight {
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 184, 0, 0.3) 10%, rgba(255, 184, 0, 0.4) 90%, transparent 100%);
+  color: var(--primary);
+}
+
+.status-completed {
+  background-color: var(--secondary-container);
+  background-image: none;  /* 覆盖 .tag-highlight 的渐变,只留红底 */
+  color: var(--on-secondary-container);
+}
+
+/* Map Actions */
+.map-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.btn-delete {
+  color: var(--error);
+}
+
+.btn-delete:active {
+  opacity: 0.6;
+}
+
+.btn-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface);
+  color: var(--primary);
+  padding: 12rpx 24rpx;
+  font-weight: 700;
+  border-radius: 16rpx;
+  border: 4rpx solid var(--primary);
+  margin-bottom: 16rpx;
+  box-shadow: 4rpx 4rpx 0px 0px rgba(124, 88, 0, 0.2);
+}
+
+.btn-edit:active {
+  transform: translate(2rpx, 2rpx);
+  box-shadow: none;
+}
+
+.btn-icon {
+  margin-right: 8rpx;
+}
+
+.btn-start {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  padding: 12rpx 32rpx;
+  font-weight: 700;
+  border-radius: 16rpx;
+  border: 4rpx solid var(--on-surface-variant);
+  box-shadow: 4rpx 4rpx 0px 0px rgba(0, 0, 0, 1);
+}
+
+.btn-start:active {
+  transform: translate(2rpx, 2rpx);
+  box-shadow: none;
+}
+
+/* 已完成游戏的"继续游玩"按钮 — 浅色,作为次级动作 */
+.btn-continue {
+  background-color: var(--surface);
+  color: var(--primary);
+  padding: 12rpx 24rpx;
+  font-weight: 700;
+  border-radius: 16rpx;
+  border: 4rpx solid var(--primary);
+  margin-bottom: 12rpx;
+  box-shadow: 2rpx 2rpx 0px 0px rgba(124, 88, 0, 0.2);
+  font-size: 24rpx;
+}
+
+.btn-continue:active {
+  transform: translate(2rpx, 2rpx);
+  box-shadow: none;
+}
+
+/* 已完成游戏的"清空数据"按钮 — 红色警示 */
+.btn-restart {
+  background-color: #fff;
+  color: var(--error);
+  padding: 12rpx 24rpx;
+  font-weight: 700;
+  border-radius: 16rpx;
+  border: 4rpx solid var(--error);
+  font-size: 24rpx;
+}
+
+.btn-restart:active {
+  transform: translate(2rpx, 2rpx);
+  background-color: var(--error-container);
+}
+

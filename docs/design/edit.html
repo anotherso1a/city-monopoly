@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+    <title>编辑地图: 伦敦雾 - 城市大富翁</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Public+Sans:wght@400;700&amp;family=Space+Mono:wght@700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Hand-drawn irregular border simulation */
+        .hand-drawn-border {
+            border-style: solid;
+            border-width: 2px 2.5px 1.8px 2.2px;
+            border-radius: 4px 10px 4px 12px / 12px 4px 10px 4px;
+        }
+
+        .paper-texture {
+            background-image: radial-gradient(#d5c4ab 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+
+        .sticker-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(81, 69, 50, 0.15);
+        }
+
+        .node-active {
+            filter: drop-shadow(0 0 8px #ffb800);
+            border-color: #7c5800 !important;
+            background-color: #ffb800 !important;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#7c5800",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#ede1d0",
+                        "surface-container-high": "#f3e6d6",
+                        "primary-fixed": "#ffdea8",
+                        "tertiary": "#00658d",
+                        "outline-variant": "#d5c4ab",
+                        "inverse-primary": "#ffba20",
+                        "on-surface-variant": "#514532",
+                        "on-secondary": "#ffffff",
+                        "background": "#fff8f3",
+                        "on-primary-container": "#6b4c00",
+                        "on-tertiary-container": "#00577a",
+                        "outline": "#837560",
+                        "on-secondary-fixed": "#40000a",
+                        "surface-container": "#f9ecdb",
+                        "primary-container": "#ffb800",
+                        "surface-bright": "#fff8f3",
+                        "primary-fixed-dim": "#ffba20",
+                        "on-secondary-fixed-variant": "#920023",
+                        "on-secondary-container": "#fffbff",
+                        "surface-variant": "#ede1d0",
+                        "on-tertiary-fixed-variant": "#004c6b",
+                        "error": "#ba1a1a",
+                        "on-background": "#211b11",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#ffdad9",
+                        "secondary-container": "#da3148",
+                        "tertiary-fixed": "#c6e7ff",
+                        "tertiary-container": "#7dceff",
+                        "secondary": "#b71032",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#001e2d",
+                        "inverse-surface": "#362f24",
+                        "primary": "#7c5800",
+                        "surface": "#fff8f3",
+                        "on-primary-fixed": "#271900",
+                        "tertiary-fixed-dim": "#81cfff",
+                        "on-surface": "#211b11",
+                        "surface-container-low": "#fff2e1",
+                        "secondary-fixed-dim": "#ffb3b4",
+                        "surface-dim": "#e5d8c8",
+                        "inverse-on-surface": "#fcefde"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "48px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "md": "20px",
+                        "safe-area": "24px",
+                        "xs": "4px",
+                        "lg": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Public Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "data-lg": ["Space Mono"],
+                        "label-caps": ["Space Mono"],
+                        "body-sm": ["Public Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "data-lg": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: 100dvh;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background paper-texture font-body-md min-h-screen pb-safe">
+    <!-- Header / TopAppBar -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container border-b-2 border-on-surface-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] px-safe-area py-base flex justify-between items-center h-16">
+        <div
+            class="flex items-center gap-base active:translate-y-0.5 active:translate-x-0.5 transition-transform cursor-pointer">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </div>
+        <h1 class="font-headline-lg-mobile text-headline-lg-mobile font-extrabold tracking-tight">编辑地图: 伦敦雾</h1>
+    </nav>
+    <!-- Main Content -->
+    <main class="pt-20 px-safe-area flex flex-col gap-lg pb-xl">
+        <!-- Top Section: Vertical Tile List -->
+        <section class="flex flex-col gap-base">
+            <div class="flex justify-between items-center px-xs">
+                <h2 class="font-label-caps text-on-surface-variant uppercase tracking-widest">地块列表</h2>
+                <span class="text-[10px] text-outline font-label-caps">滚动查看全部</span>
+            </div>
+            <div class="overflow-y-auto no-scrollbar flex flex-col gap-sm py-xs h-[220px]">
+                <!-- List Items -->
+                <button
+                    class="flex items-center gap-md p-md hand-drawn-border border-outline bg-surface-container-low transition-all active:scale-[0.98] tile-list-item node-active sticker-shadow"
+                    id="tile-item-1" onclick="selectTile(1, '苏豪广场', '伦敦市中心的繁华地带。', 1200)">
+                    <span
+                        class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-primary bg-primary-container text-on-primary-container font-data-lg text-data-lg">1</span>
+                    <span class="font-headline-lg-mobile text-on-surface text-left">苏豪广场</span>
+                    <span class="material-symbols-outlined ml-auto text-primary opacity-60">drag_handle</span>
+                </button>
+                <button
+                    class="flex items-center gap-md p-md hand-drawn-border border-outline bg-surface-container-low transition-all active:scale-[0.98] tile-list-item"
+                    id="tile-item-2" onclick="selectTile(2, '牛津街', '著名的商业街道。', 800)">
+                    <span
+                        class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-outline bg-surface-container-highest text-on-surface-variant font-data-lg text-data-lg">2</span>
+                    <span class="font-headline-lg-mobile text-on-surface text-left">牛津街</span>
+                    <span class="material-symbols-outlined ml-auto text-outline opacity-40">drag_handle</span>
+                </button>
+                <button
+                    class="flex items-center gap-md p-md hand-drawn-border border-outline bg-surface-container-low transition-all active:scale-[0.98] tile-list-item"
+                    id="tile-item-3" onclick="selectTile(3, '摄政街', '遍布奢华商店。', 1500)">
+                    <span
+                        class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-outline bg-surface-container-highest text-on-surface-variant font-data-lg text-data-lg">3</span>
+                    <span class="font-headline-lg-mobile text-on-surface text-left">摄政街</span>
+                    <span class="material-symbols-outlined ml-auto text-outline opacity-40">drag_handle</span>
+                </button>
+                <button
+                    class="flex items-center gap-md p-md hand-drawn-border border-outline bg-surface-container-low transition-all active:scale-[0.98] tile-list-item"
+                    id="tile-item-4" onclick="selectTile(4, '邦德街', '最贵的商业地产之一。', 2000)">
+                    <span
+                        class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-outline bg-surface-container-highest text-on-surface-variant font-data-lg text-data-lg">4</span>
+                    <span class="font-headline-lg-mobile text-on-surface text-left">邦德街</span>
+                    <span class="material-symbols-outlined ml-auto text-outline opacity-40">drag_handle</span>
+                </button>
+            </div>
+        </section>
+        <!-- Middle Section: Editor Toolbar -->
+        <section class="flex items-center gap-sm overflow-x-auto no-scrollbar py-base">
+            <button
+                class="flex flex-col items-center gap-xs min-w-[72px] p-sm hand-drawn-border border-outline bg-surface-container-high hover:bg-primary-fixed transition-colors active:scale-95">
+                <span class="material-symbols-outlined text-primary"
+                    style="font-variation-settings: 'wght' 500;">add_circle</span>
+                <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-wider">添加</span>
+            </button>
+            <button
+                class="flex flex-col items-center gap-xs min-w-[72px] p-sm hand-drawn-border border-outline bg-surface-container-high hover:bg-error-container hover:text-error transition-colors active:scale-95">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'wght' 500;">delete</span>
+                <span class="font-label-caps text-[10px] uppercase tracking-wider">删除</span>
+            </button>
+            <button
+                class="flex flex-col items-center gap-xs min-w-[72px] p-sm hand-drawn-border border-on-surface-variant bg-primary-container text-on-primary-container sticker-shadow active:scale-95">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'wght' 700;">tune</span>
+                <span class="font-label-caps text-[10px] uppercase tracking-wider">属性</span>
+            </button>
+        </section>
+        <!-- Bottom Section: Properties Panel -->
+        <section
+            class="bg-surface-container-lowest hand-drawn-border border-outline p-md sticker-shadow flex flex-col gap-md">
+            <header class="flex items-center gap-sm">
+                <span class="material-symbols-outlined text-primary-fixed-dim">edit_note</span>
+                <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">地块属性</h2>
+            </header>
+            <div class="flex flex-col gap-base">
+                <label class="font-label-caps text-on-surface-variant ml-xs">名称</label>
+                <input
+                    class="bg-transparent border-0 border-b-2 border-outline-variant focus:ring-0 focus:border-primary-container font-body-md text-on-surface p-base transition-all placeholder:opacity-50"
+                    id="prop-name" placeholder="请输入地块名称" type="text" value="苏豪广场" />
+            </div>
+            <div class="flex flex-col gap-base">
+                <label class="font-label-caps text-on-surface-variant ml-xs">描述</label>
+                <textarea
+                    class="bg-transparent border-2 border-outline-variant focus:ring-0 focus:border-primary-container font-body-md text-on-surface p-base transition-all placeholder:opacity-50 hand-drawn-border"
+                    id="prop-desc" placeholder="地块描述..." rows="2">伦敦市中心的繁华地带。</textarea>
+            </div>
+            <div class="flex flex-col gap-base">
+                <label class="font-label-caps text-on-surface-variant ml-xs">地块类型</label>
+                <div class="flex flex-wrap gap-sm">
+                    <button
+                        class="px-md py-xs rounded-full hand-drawn-border border-primary-container bg-primary-container text-on-primary-container font-label-caps text-[10px] transition-all">商业</button>
+                    <button
+                        class="px-md py-xs rounded-full border-2 border-dashed border-outline-variant text-on-surface-variant font-label-caps text-[10px] hover:border-outline transition-all">住宅</button>
+                    <button
+                        class="px-md py-xs rounded-full border-2 border-dashed border-outline-variant text-on-surface-variant font-label-caps text-[10px] hover:border-outline transition-all">公园</button>
+                    <button
+                        class="px-md py-xs rounded-full border-2 border-dashed border-outline-variant text-on-surface-variant font-label-caps text-[10px] hover:border-outline transition-all">机会</button>
+                </div>
+            </div>
+            <div class="flex items-center justify-between gap-md mt-sm">
+                <div class="flex flex-col gap-xs flex-1">
+                    <label class="font-label-caps text-on-surface-variant ml-xs">金币奖励</label>
+                    <div
+                        class="flex items-center hand-drawn-border border-outline-variant px-sm py-xs bg-surface-variant/30">
+                        <span class="material-symbols-outlined text-primary text-sm mr-xs">payments</span>
+                        <input
+                            class="bg-transparent border-0 focus:ring-0 font-data-lg text-data-lg w-full text-on-surface p-0"
+                            id="prop-reward" type="number" value="1200" />
+                    </div>
+                </div>
+                <div class="flex flex-col gap-xs flex-1">
+                    <label class="font-label-caps text-on-surface-variant ml-xs">税率 (%)</label>
+                    <div
+                        class="flex items-center hand-drawn-border border-outline-variant px-sm py-xs bg-surface-variant/30">
+                        <span class="material-symbols-outlined text-secondary text-sm mr-xs">percent</span>
+                        <input
+                            class="bg-transparent border-0 focus:ring-0 font-data-lg text-data-lg w-full text-on-surface p-0"
+                            type="number" value="5" />
+                    </div>
+                </div>
+            </div>
+            <div class="mt-md">
+                <button
+                    class="w-full bg-secondary text-on-secondary font-headline-lg-mobile text-headline-lg-mobile py-sm hand-drawn-border border-on-secondary-fixed-variant sticker-shadow active:translate-y-1 active:translate-x-1 transition-all">
+                    应用修改
+                </button>
+            </div>
+        </section>
+    </main>
+    <script>
+        function selectTile(id, name, desc, reward) {
+            // Clear previous active states
+            document.querySelectorAll('.tile-list-item').forEach(item => {
+                item.classList.remove('node-active', 'sticker-shadow');
+                const circle = item.querySelector('span:first-child');
+                circle.classList.remove('border-primary', 'bg-primary-container', 'text-on-primary-container');
+                circle.classList.add('border-outline', 'bg-surface-container-highest', 'text-on-surface-variant');
+                const icon = item.querySelector('.material-symbols-outlined');
+                icon.classList.remove('text-primary', 'opacity-60');
+                icon.classList.add('text-outline', 'opacity-40');
+            });
+
+            // Set active state for selected
+            const selected = document.getElementById(`tile-item-${id}`);
+            selected.classList.add('node-active', 'sticker-shadow');
+            const circle = selected.querySelector('span:first-child');
+            circle.classList.add('border-primary', 'bg-primary-container', 'text-on-primary-container');
+            circle.classList.remove('border-outline', 'bg-surface-container-highest', 'text-on-surface-variant');
+            const icon = selected.querySelector('.material-symbols-outlined');
+            icon.classList.add('text-primary', 'opacity-60');
+            icon.classList.remove('text-outline', 'opacity-40');
+
+            // Load details into properties panel
+            document.getElementById('prop-name').value = name;
+            document.getElementById('prop-desc').value = desc;
+            document.getElementById('prop-reward').value = reward;
+
+            // Visual feedback
+            selected.classList.add('scale-105');
+            setTimeout(() => selected.classList.remove('scale-105'), 150);
+        }
+    </script>
+</body>
+
+</html>

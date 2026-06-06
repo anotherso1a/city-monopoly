@@ -1,0 +1,121 @@
+<view class="edit-page">
+  <!-- Header / TopAppBar -->
+  <navigation-bar
+    title="编辑地图: {{mapName}}"
+    type="back"
+    bind:heightchange="onNavHeightChange"
+  />
+
+  <!-- Main Content -->
+  <view class="main-content" style="padding-top: {{navBarHeight}}px;">
+    <!-- Top Section: Tile List with Drag Sorting -->
+    <view class="tile-list-section">
+      <view class="tile-list-header">
+        <text class="tile-list-title text-mono-sm text-on-surface-variant">地块列表</text>
+        <text class="tile-list-hint text-outline">拖拽排序</text>
+      </view>
+
+      <!-- Draggable Tile List -->
+      <scroll-view class="moveListScroll" scroll-y>
+        <movable-area class="moveList" style="height: {{positionList.length * itemHeight}}rpx;width: {{outWidth}}rpx;">
+          <movable-view
+            wx:for="{{positionList}}"
+            wx:key="id"
+            out-of-bounds
+            direction="vertical"
+            duration="0"
+            style="height: {{itemHeight}}rpx;width: {{itemWidth}}rpx;background-color: {{nowDragIndex == index ? '#bbbbbb90':''}};z-index: {{nowDragIndex == index ? 100 : 1}};"
+            class="moveItem {{nowDragIndex == index ? 'dragging' : ''}}"
+            x="{{0}}rpx"
+            y="{{positionList[index].boxTop}}rpx"
+            bindchange="onMovableViewChange"
+            bindtouchend="onMovableViewTouchEnd"
+            data-myindex="{{index}}"
+          >
+          <!-- Blue line indicator - shows on item at insertion position -->
+          <view class="showLine" wx:if="{{showLine === index && nowDragIndex !== index}}"></view>
+
+          <!-- Tile Item (click to select) -->
+          <view
+            class="tile-item tile-list-item {{activeTileId == item.id ? 'node-active' : ''}} sticker-shadow"
+            bindtap="onTileSelect"
+            data-id="{{item.id}}"
+          >
+            <view class="tile-number text-mono">{{index + 1}}</view>
+            <text class="tile-name text-headline-sm text-on-surface">{{item.name}}</text>
+            <text class="iconfont tile-drag-icon icon-drag"></text>
+          </view>
+        </movable-view>
+      </movable-area>
+      </scroll-view>
+    </view>
+
+    <!-- Middle Section: Editor Toolbar -->
+    <view class="editor-toolbar">
+      <view class="toolbar-btn {{activeTool === 'add' ? 'active' : ''}}" bindtap="onToolSelect" data-tool="add">
+        <text class="iconfont toolbar-icon icon-plus-circle"></text>
+        <text class="toolbar-label">添加</text>
+      </view>
+      <view class="toolbar-btn {{activeTool === 'delete' ? 'active' : ''}}" bindtap="onToolSelect" data-tool="delete">
+        <text class="iconfont toolbar-icon icon-delete"></text>
+        <text class="toolbar-label">删除</text>
+      </view>
+    </view>
+
+    <!-- Bottom Section: Properties Panel -->
+    <view class="properties-panel">
+      <view class="panel-header">
+        <text class="iconfont panel-icon icon-edit-square"></text>
+        <text class="panel-title text-headline-sm text-primary">地块属性</text>
+      </view>
+
+      <view class="form-group">
+        <label class="form-label text-mono-sm text-on-surface-variant">名称</label>
+        <input class="form-input text-body-md" type="text" value="{{nodeName}}" placeholder="请输入地块名称" bindinput="onNameInput" />
+      </view>
+
+      <view class="form-group">
+        <label class="form-label text-mono-sm text-on-surface-variant">描述</label>
+        <textarea class="form-textarea text-body-md" placeholder="地块描述..." value="{{nodeDesc}}" bindinput="onDescInput"></textarea>
+      </view>
+
+      <view class="form-group">
+        <label class="form-label text-mono-sm text-on-surface-variant">地址</label>
+        <input class="form-input text-body-md" type="text" value="{{nodeAddress}}" placeholder="请输入地址" bindinput="onAddressInput" />
+      </view>
+
+      <view class="form-group">
+        <label class="form-label text-mono-sm text-on-surface-variant">地块类型</label>
+        <view class="type-tags">
+          <view class="type-tag {{nodeType === '商业' ? 'selected' : ''}}" bindtap="onTypeSelect" data-type="商业">商业</view>
+          <view class="type-tag {{nodeType === '住宅' ? 'selected' : ''}}" bindtap="onTypeSelect" data-type="住宅">住宅</view>
+          <view class="type-tag {{nodeType === '公园' ? 'selected' : ''}}" bindtap="onTypeSelect" data-type="公园">公园</view>
+        </view>
+      </view>
+
+      <view class="number-row">
+        <view class="number-group">
+          <label class="form-label text-mono-sm text-on-surface-variant">金币奖励</label>
+          <view class="number-input-wrapper">
+            <text class="iconfont number-icon icon-Dollar"></text>
+            <input class="number-input text-mono" type="number" value="{{goldReward}}" bindinput="onGoldInput" />
+          </view>
+        </view>
+        <view class="number-group">
+          <label class="form-label text-mono-sm text-on-surface-variant">税率 (%)</label>
+          <view class="number-input-wrapper">
+            <text class="iconfont number-icon icon-sync"></text>
+            <input class="number-input text-mono" type="number" value="{{taxRate}}" bindinput="onTaxInput" />
+          </view>
+        </view>
+      </view>
+
+      <view class="btn-apply text-headline-sm" bindtap="onApply">应用修改</view>
+    </view>
+
+    <!-- Save Button -->
+    <view class="btn-save-exit text-headline-sm" bindtap="onSaveMap">
+      <text class="btn-save-exit-text">保存并退出</text>
+    </view>
+  </view>
+</view>

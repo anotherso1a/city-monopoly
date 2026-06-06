@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;family=Space+Mono:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;family=Public+Sans:wght@100..900&amp;family=Space+Mono:wght@100..900&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ffb800",
+                        "on-secondary-fixed-variant": "#920023",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#7c5800",
+                        "surface-container-low": "#fff2e1",
+                        "on-tertiary-container": "#00577a",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#81cfff",
+                        "outline-variant": "#d5c4ab",
+                        "secondary-fixed-dim": "#ffb3b4",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-background": "#211b11",
+                        "tertiary-fixed": "#c6e7ff",
+                        "background": "#fff8f3",
+                        "secondary": "#b71032",
+                        "on-surface-variant": "#514532",
+                        "secondary-container": "#da3148",
+                        "on-error-container": "#93000a",
+                        "primary": "#7c5800",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "inverse-primary": "#ffba20",
+                        "tertiary-container": "#7dceff",
+                        "inverse-on-surface": "#fcefde",
+                        "tertiary": "#00658d",
+                        "surface-variant": "#ede1d0",
+                        "on-tertiary-fixed-variant": "#004c6b",
+                        "inverse-surface": "#362f24",
+                        "primary-fixed-dim": "#ffba20",
+                        "primary-fixed": "#ffdea8",
+                        "on-secondary-fixed": "#40000a",
+                        "on-secondary-container": "#fffbff",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#f3e6d6",
+                        "surface-container": "#f9ecdb",
+                        "on-primary-fixed": "#271900",
+                        "secondary-fixed": "#ffdad9",
+                        "surface-dim": "#e5d8c8",
+                        "on-surface": "#211b11",
+                        "outline": "#837560",
+                        "surface-bright": "#fff8f3",
+                        "surface-container-highest": "#ede1d0",
+                        "on-tertiary-fixed": "#001e2d",
+                        "surface": "#fff8f3",
+                        "on-primary-container": "#6b4c00",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "20px",
+                        "lg": "32px",
+                        "xl": "48px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "safe-area": "24px"
+                    },
+                    "fontFamily": {
+                        "data-lg": ["Space Mono"],
+                        "body-md": ["Public Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Public Sans"],
+                        "label-caps": ["Space Mono"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "data-lg": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        @keyframes hand-drawn-spin {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+
+            25% {
+                transform: rotate(90deg) scale(1.1) translateX(2px);
+            }
+
+            50% {
+                transform: rotate(180deg) scale(1) translateY(-2px);
+            }
+
+            75% {
+                transform: rotate(270deg) scale(1.1) translateX(-2px);
+            }
+
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        .animate-hand-drawn {
+            animation: hand-drawn-spin 1.5s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+
+        .skeleton-shimmer {
+            background: linear-gradient(90deg, #f9ecdb 25%, #fff8f3 50%, #f9ecdb 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+
+        @keyframes shimmer {
+            from {
+                background-position: 200% 0;
+            }
+
+            to {
+                background-position: -200% 0;
+            }
+        }
+
+        .hand-drawn-border {
+            border-style: solid;
+            border-width: 2px 1.5px 2.5px 1.8px;
+            border-radius: 4px 10px 4px 12px / 12px 4px 10px 4px;
+        }
+
+        .ink-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(81, 69, 50, 0.15);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+    <!-- TopAppBar -->
+    <header
+        class="fixed top-0 w-full z-50 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container border-b-2 border-on-surface-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] flex justify-between items-center px-6 py-4 opacity-60">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-on-primary">menu</span>
+            <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary font-extrabold tracking-tight">
+                City Monopoly</h1>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-surface-container-highest border-2 border-on-primary"></div>
+    </header>
+    <!-- Main Canvas -->
+    <main class="flex-1 mt-20 mb-24 px-safe-area flex flex-col items-center justify-center">
+        <!-- Loading Centerpiece -->
+        <div class="flex flex-col items-center mb-xl w-full max-w-sm">
+            <!-- Hand-drawn Golden Die Animation -->
+            <div class="relative w-24 h-24 mb-md animate-hand-drawn">
+                <div
+                    class="absolute inset-0 bg-primary-container border-[3px] border-on-primary-container hand-drawn-border ink-shadow flex items-center justify-center">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="w-2 h-2 rounded-full bg-on-primary-container"></div>
+                        <div class="w-2 h-2 rounded-full bg-on-primary-container"></div>
+                        <div class="w-2 h-2 rounded-full bg-on-primary-container"></div>
+                        <div class="w-2 h-2 rounded-full bg-on-primary-container"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Loading Text -->
+            <p class="font-label-caps text-label-caps text-primary mb-base tracking-widest">Drawing your city...</p>
+            <!-- Progress Bar -->
+            <div class="w-full h-6 hand-drawn-border border-outline bg-surface-container-low p-1 overflow-hidden">
+                <div class="h-full bg-primary-container transition-all duration-700 ease-out rounded-sm opacity-80"
+                    style="width: 60%; background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.2) 5px, rgba(255,255,255,0.2) 10px);">
+                </div>
+            </div>
+        </div>
+        <!-- Skeleton Grid -->
+        <div class="w-full grid grid-cols-2 gap-md opacity-40">
+            <!-- Skeleton Card 1 -->
+            <div
+                class="h-48 bg-surface-container-highest hand-drawn-border border-outline-variant ink-shadow skeleton-shimmer overflow-hidden">
+                <div class="h-1/3 bg-outline-variant/30 border-b-2 border-outline-variant"></div>
+            </div>
+            <!-- Skeleton Card 2 -->
+            <div
+                class="h-48 bg-surface-container-highest hand-drawn-border border-outline-variant ink-shadow skeleton-shimmer overflow-hidden">
+                <div class="h-1/3 bg-outline-variant/30 border-b-2 border-outline-variant"></div>
+            </div>
+            <!-- Skeleton Card 3 -->
+            <div
+                class="h-48 bg-surface-container-highest hand-drawn-border border-outline-variant ink-shadow skeleton-shimmer overflow-hidden">
+                <div class="h-1/3 bg-outline-variant/30 border-b-2 border-outline-variant"></div>
+            </div>
+            <!-- Skeleton Card 4 -->
+            <div
+                class="h-48 bg-surface-container-highest hand-drawn-border border-outline-variant ink-shadow skeleton-shimmer overflow-hidden">
+                <div class="h-1/3 bg-outline-variant/30 border-b-2 border-outline-variant"></div>
+            </div>
+        </div>
+    </main>
+    <!-- Navigation Drawer (Slightly Peeked/Hidden) -->
+    <aside
+        class="fixed inset-y-0 right-0 w-64 z-[60] bg-surface-container-lowest border-l-2 border-dashed border-outline-variant translate-x-full transition-transform duration-300 pointer-events-none">
+    </aside>
+    <!-- BottomNavBar -->
+    <nav
+        class="fixed bottom-0 w-full z-50 bg-primary dark:bg-primary-container border-t-2 border-on-surface-variant shadow-[0px_-4px_10px_0px_rgba(0,0,0,0.1)] rounded-t-xl flex justify-around items-center px-4 pb-safe pt-2 opacity-50">
+        <div
+            class="flex flex-col items-center justify-center bg-surface-container-lowest text-primary rounded-xl p-2 scale-110">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+            <span class="font-label-caps text-label-caps">Board</span>
+        </div>
+        <div class="flex flex-col items-center justify-center text-on-primary p-2">
+            <span class="material-symbols-outlined">package_2</span>
+            <span class="font-label-caps text-label-caps">Inventory</span>
+        </div>
+        <div class="flex flex-col items-center justify-center text-on-primary p-2">
+            <span class="material-symbols-outlined">group</span>
+            <span class="font-label-caps text-label-caps">Social</span>
+        </div>
+        <div class="flex flex-col items-center justify-center text-on-primary p-2">
+            <span class="material-symbols-outlined">storefront</span>
+            <span class="font-label-caps text-label-caps">Shop</span>
+        </div>
+    </nav>
+    <!-- Decorative Overlay Elements -->
+    <div class="fixed top-24 left-6 pointer-events-none opacity-20">
+        <span class="material-symbols-outlined text-primary scale-[2]">architecture</span>
+    </div>
+    <div class="fixed bottom-28 right-8 pointer-events-none opacity-20">
+        <span class="material-symbols-outlined text-secondary scale-[2.5]">draw</span>
+    </div>
+    <script>
+        // Micro-interaction: Progress bar jitter
+        const progressBar = document.querySelector('.bg-primary-container');
+        let progress = 60;
+
+        setInterval(() => {
+            // Subtle movement to simulate "drawing"
+            const jitter = (Math.random() - 0.5) * 1.5;
+            const newWidth = Math.min(Math.max(progress + jitter, 58), 62);
+            progressBar.style.width = `${newWidth}%`;
+        }, 300);
+
+        // Micro-interaction: Dice variation
+        const dieDots = document.querySelector('.grid-cols-2');
+        const faces = [
+            '<div class="w-2 h-2 rounded-full bg-on-primary-container col-span-2 mx-auto"></div>',
+            '<div class="w-2 h-2 rounded-full bg-on-primary-container"></div><div class="w-2 h-2 rounded-full bg-on-primary-container ml-auto mt-auto"></div>',
+            '<div class="w-2 h-2 rounded-full bg-on-primary-container"></div><div class="w-2 h-2 rounded-full bg-on-primary-container"></div><div class="w-2 h-2 rounded-full bg-on-primary-container"></div>',
+            '<div class="w-2 h-2 rounded-full bg-on-primary-container"></div><div class="w-2 h-2 rounded-full bg-on-primary-container"></div><div class="w-2 h-2 rounded-full bg-on-primary-container"></div><div class="w-2 h-2 rounded-full bg-on-primary-container"></div>'
+        ];
+
+        setInterval(() => {
+            const randomFace = faces[Math.floor(Math.random() * faces.length)];
+            dieDots.innerHTML = randomFace;
+        }, 750);
+    </script>
+</body>
+
+</html>

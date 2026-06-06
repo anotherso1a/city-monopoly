@@ -1,0 +1,596 @@
+/* game 页面样式 - 基于 docs/design/game.html 转换(纸面/手绘风格) */
+@import '../../utils/iconfont.wxss';
+
+page {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background-color: #f7eed2;
+  font-family: "Source Serif 4", "Noto Serif SC", -apple-system, BlinkMacSystemFont, serif;
+}
+
+/* ============ Paper Texture Canvas ============ */
+.game-page {
+  min-height: 100vh;
+  position: relative;
+}
+
+.paper-texture {
+  background-color: #fff9ed;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(124, 88, 0, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(124, 88, 0, 0.03) 0%, transparent 40%),
+    repeating-linear-gradient(0deg, transparent, transparent 4rpx, rgba(131, 117, 96, 0.015) 4rpx, rgba(131, 117, 96, 0.015) 5rpx);
+}
+
+.main-content {
+  margin: 16rpx 32rpx 32rpx;
+  background-color: #fff9ed;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(124, 88, 0, 0.1);
+  border: 2rpx solid #d5c4ab;
+  border-radius: 24rpx;
+  padding: 24rpx 24rpx 220rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.texture-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+  pointer-events: none;
+  background-color: transparent;
+  background-image: radial-gradient(circle at 25% 25%, #837560 1rpx, transparent 1rpx),
+                    radial-gradient(circle at 75% 75%, #837560 1rpx, transparent 1rpx);
+  background-size: 16rpx 16rpx;
+}
+
+/* ============ Soft Shadow ============ */
+.soft-shadow {
+  box-shadow: 0 4rpx 12rpx rgba(131, 117, 96, 0.15);
+}
+
+/* ============ Sketch Border Variants (sketch-border-sm moved to app.wxss) ============ */
+.sketch-border {
+  width: 100%;
+  height: 100%;
+  border: 4rpx solid #837560;
+  border-radius: 630rpx 20rpx 570rpx 20rpx/20rpx 570rpx 20rpx 630rpx;
+}
+
+/* ============ Ink Divider (ink-divider-sm moved to app.wxss) ============ */
+.ink-divider {
+  height: 4rpx;
+  background: radial-gradient(circle, #837560 0%, transparent 100%);
+  opacity: 0.4;
+  position: relative;
+  margin: 24rpx 0;
+}
+
+.ink-divider::before,
+.ink-divider::after {
+  content: "✦";
+  position: absolute;
+  top: -10rpx;
+  color: #837560;
+  font-size: 24rpx;
+}
+
+.ink-divider::before {
+  left: 10%;
+}
+
+.ink-divider::after {
+  right: 10%;
+}
+
+/* ============ Game Stats Card ============ */
+.stats-card {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 2rpx solid rgba(131, 117, 96, 0.3);
+  border-radius: 32rpx;
+  padding: 40rpx;
+  /* margin-bottom: 24rpx; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.stats-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stats-label {
+  font-size: 20rpx;
+  color: #514532;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+  font-family: "Work Sans", -apple-system, sans-serif;
+}
+
+.stats-value {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.stats-value-primary {
+  color: #7c5800;
+}
+
+.stats-value-surface {
+  color: #1f1c0b;
+}
+
+.stats-value-secondary {
+  color: #705a49;
+}
+
+.stats-icon {
+  font-size: 36rpx;
+  margin-right: 8rpx;
+}
+
+.stats-number {
+  font-size: 36rpx;
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-weight: 400;
+}
+
+.stats-divider {
+  width: 2rpx;
+  height: 64rpx;
+  background-color: rgba(131, 117, 96, 0.2);
+  margin: 0 16rpx;
+}
+
+/* ============ Board Container ============ */
+.board-container {
+  width: 100%;
+  aspect-ratio: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-bottom: 48rpx; */
+}
+
+/* ============ View Mode Toggle — 浮动在 board 右下角 ============ */
+.view-toggle {
+  position: absolute;
+  bottom: 32rpx;
+  right: 16rpx;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 249, 237, 0.95);
+  border: 2rpx solid #837560;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.view-btn {
+  width: 80rpx;
+  height: 80rpx;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+}
+
+.view-btn-icon {
+  font-size: 40rpx;
+  line-height: 1;
+  color: inherit;
+}
+
+.view-btn + .view-btn {
+  border-top: 2rpx solid rgba(131, 117, 96, 0.2);
+}
+
+.view-btn.active {
+  background-color: #7c5800;
+  color: #fff9ed;
+}
+
+.view-btn:active {
+  background-color: #f7eed2;
+}
+
+.view-btn.active:active {
+  background-color: #6b4c00;
+}
+
+.map-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: #fcf3d8;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(124, 88, 0, 0.05);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ============ Info Card ============ */
+.info-card {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 4rpx solid #d5c4ab;
+  border-radius: 32rpx;
+  padding: 48rpx;
+  box-sizing: border-box;
+  transition: opacity 0.3s ease;
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.info-icon-box {
+  width: 112rpx;
+  height: 112rpx;
+  background-color: #f7eed2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 32rpx;
+  flex-shrink: 0;
+}
+
+.info-icon {
+  font-size: 48rpx;
+  color: #6b5c46;
+}
+
+.info-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-title {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #7c5800;
+  font-family: "Libre Caslon Text", "Source Serif 4", "Noto Serif SC", serif;
+  margin-bottom: 8rpx;
+}
+
+.info-desc {
+  font-size: 28rpx;
+  color: #514532;
+  font-style: italic;
+  font-family: "Source Serif 4", "Noto Serif SC", serif;
+  line-height: 1.4;
+}
+
+.info-actions {
+  display: flex;
+  gap: 32rpx;
+}
+
+.info-btn {
+  flex: 1;
+  padding: 24rpx 32rpx;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.info-btn-secondary {
+  border: 2rpx solid #837560;
+  background-color: transparent;
+  color: #1f1c0b;
+}
+
+.info-btn-secondary:active {
+  background-color: #f7eed2;
+  transform: scale(0.95);
+}
+
+.info-btn-primary {
+  background-color: rgba(248, 218, 197, 0.8);
+  border: 2rpx solid #705a49;
+  color: #755e4d;
+}
+
+.info-btn-primary:active {
+  background-color: #f8dac5;
+  transform: scale(0.95);
+}
+
+.info-btn-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.info-chance-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16rpx 0 0;
+  color: #705a49;
+  font-size: 26rpx;
+  font-style: italic;
+  font-family: "Source Serif 4", "Noto Serif SC", serif;
+}
+
+.info-chance-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+  color: #7c5800;
+}
+
+/* ============ Bottom Action Button ============ */
+.bottom-action {
+  position: fixed;
+  bottom: 40rpx;
+  left: 0;
+  width: 100%;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+  z-index: 50;
+}
+
+.roll-dice-btn {
+  width: 100%;
+  padding: 40rpx;
+  background-color: #7c5800;
+  border-radius: 32rpx;
+  color: #ffffff;
+  font-size: 36rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+  transition: all 0.15s ease;
+  font-family: "Libre Caslon Text", "Noto Serif SC", serif;
+  box-sizing: border-box;
+}
+
+.roll-dice-btn:active {
+  transform: scale(0.98);
+  filter: brightness(1.1);
+}
+
+.dice-icon {
+  font-size: 56rpx;
+}
+
+.dice-text {
+  font-size: 36rpx;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* 已完成游戏底部条 — 替代投骰子按钮 */
+.completed-banner {
+  z-index: 50;
+}
+
+.completed-banner-inner {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 28rpx 32rpx;
+  background-color: rgba(124, 88, 0, 0.1);
+  border: 4rpx solid #d5c4ab;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(131, 117, 96, 0.15);
+}
+
+.completed-banner-icon {
+  font-size: 48rpx;
+  color: #7c5800;
+  flex-shrink: 0;
+}
+
+.completed-banner-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.completed-banner-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #211b11;
+}
+
+.completed-banner-sub {
+  font-size: 24rpx;
+  color: #514532;
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+/* ============ Animations ============ */
+@keyframes ink-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-warm {
+  animation: ink-fade 0.8s ease-out forwards;
+}
+
+@keyframes shake-dice {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(15deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(-15deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(15deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.dice-shaking {
+  animation: shake-dice 0.6s ease-in-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* ============ Modal Overlay ============ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 500;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  width: 80%;
+  max-width: 600rpx;
+  background-color: #fff9ed;
+  border: 2rpx solid #d5c4ab;
+  border-radius: 32rpx;
+  overflow: hidden;
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32rpx 40rpx;
+  background: linear-gradient(135deg, #ffb800, #e6a200);
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #6b4c00;
+  font-family: "Libre Caslon Text", "Noto Serif SC", serif;
+}
+
+.modal-close {
+  font-size: 36rpx;
+  color: #6b4c00;
+  padding: 8rpx 16rpx;
+}
+
+.modal-body {
+  padding: 40rpx;
+}
+
+.modal-address {
+  display: block;
+  font-size: 28rpx;
+  color: #514532;
+  margin-bottom: 24rpx;
+}
+
+.modal-image {
+  width: 100%;
+  height: 360rpx;
+  border-radius: 16rpx;
+  margin-bottom: 32rpx;
+  background-color: #f7eed2;
+}
+
+.modal-swiper {
+  width: 100%;
+  height: 360rpx;
+  border-radius: 16rpx;
+  margin-bottom: 32rpx;
+  background-color: #f7eed2;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 24rpx;
+}
+
+.btn-nav,
+.btn-checkin-modal {
+  flex: 1;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  border: none;
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: bold;
+  text-align: center;
+}
+
+.btn-nav {
+  background: linear-gradient(135deg, #29b6f6, #039be5);
+}
+
+.btn-checkin-modal {
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+}

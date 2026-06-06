@@ -1,0 +1,215 @@
+/* ChanceCard component styles - City Monopoly new design */
+@import '../../utils/iconfont.wxss';
+
+/* Overlay Backdrop */
+.overlay-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 27, 17, 0.4);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Opportunity Card */
+.opportunity-card {
+  width: 100%;
+  max-width: 500rpx;
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 4rpx 5rpx 3rpx 4rpx;
+  border-radius: 8rpx 16rpx 6rpx 20rpx;
+  border-color: #514532;
+  box-shadow: 8rpx 8rpx 0rpx 0rpx rgba(81, 69, 50, 0.15);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: fadeInZoom 0.3s ease-out;
+}
+
+@keyframes fadeInZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Yellow Header */
+.card-header {
+  background-color: #ffb800;
+  padding: 20rpx 32rpx;
+  border-bottom: 4rpx solid #514532;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-title {
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+/* Card Content */
+.card-content {
+  padding: 48rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+  text-align: center;
+}
+
+/* Illustration Container */
+.illustration-container {
+  width: 256rpx;
+  height: 256rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(4deg);
+  overflow: hidden;
+  border: none !important;
+}
+
+.illustration-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* Card Text */
+.card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.description {
+  line-height: 1.5;
+}
+
+/* Gold Change Chip — 在 description 和收下按钮之间展示金币增减 */
+.card-gold-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 12rpx 28rpx;
+  background-color: #fff2e1;
+  border-color: #d5c4ab;
+}
+
+.card-gold-chip.gold-positive {
+  background-color: #e8f5e9;
+  border-color: #66bb6a;
+}
+
+.card-gold-chip.gold-negative {
+  background-color: #ffebee;
+  border-color: #b71032;
+}
+
+.gold-chip-icon {
+  font-size: 32rpx;
+  color: #514532;
+}
+
+.card-gold-chip.gold-positive .gold-chip-icon {
+  color: #2e7d32;
+}
+
+.card-gold-chip.gold-negative .gold-chip-icon {
+  color: #b71032;
+}
+
+.gold-chip-amount {
+  font-weight: 700;
+  color: #514532;
+}
+
+.card-gold-chip.gold-positive .gold-chip-amount {
+  color: #2e7d32;
+}
+
+.card-gold-chip.gold-negative .gold-chip-amount {
+  color: #b71032;
+}
+
+.gold-chip-unit {
+  color: #514532;
+  opacity: 0.7;
+}
+
+/* Collect Button */
+.collect-btn {
+  width: 100%;
+  padding: 20rpx 32rpx;
+  background-color: #ffb800;
+  border-style: solid;
+  border-width: 4rpx;
+  border-color: #514532;
+  box-shadow: 8rpx 8rpx 0rpx 0rpx rgba(81, 69, 50, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collect-btn:active {
+  transform: translate(4rpx, 4rpx);
+  box-shadow: 0px 0px 0rpx 0rpx rgba(0, 0, 0, 0);
+}
+
+/* Corner Sticker Decoration */
+.sticker-decoration {
+  position: absolute;
+  bottom: -32rpx;
+  right: -32rpx;
+  width: 96rpx;
+  height: 96rpx;
+  background-color: rgba(183, 16, 50, 0.1);
+  border: 4rpx dashed #b71032;
+  border-radius: 50%;
+  transform: rotate(-24deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+}
+
+.sticker-icon {
+  font-size: 40rpx;
+  color: #b71032;
+  transform: rotate(24deg);
+}
+
+/* Hand-drawn Border */
+.hand-drawn-border {
+  border-style: solid;
+  border-width: 4rpx 5rpx 3rpx 4rpx;
+  border-radius: 8rpx 16rpx 6rpx 20rpx;
+}
+
+/* Ink Shadow */
+.ink-shadow {
+  box-shadow: 8rpx 8rpx 0rpx 0rpx rgba(81, 69, 50, 0.15);
+}
+
+/* Active Press Effect */
+.active-press:active {
+  transform: translate(4rpx, 4rpx);
+  box-shadow: 0px 0px 0rpx 0rpx rgba(0, 0, 0, 0);
+}
+
+/* Color classes */
+.text-on-primary-container { color: #6b4c00; }
+.text-on-surface-variant { color: #514532; }
+.text-primary { color: #7c5800; }
+.text-secondary { color: #b71032; }

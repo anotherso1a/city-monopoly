@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html lang="zh"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>我的收藏 - City Monopoly</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Public+Sans:wght@400;700&amp;family=Space+Mono:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hand-drawn-border {
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px solid #514532;
+        }
+        .irregular-card {
+            border-radius: 2% 1% 2% 1% / 1% 2% 1% 2%;
+        }
+        .highlighter-bg {
+            background: linear-gradient(120deg, transparent 0%, rgba(255, 184, 0, 0.3) 10%, rgba(255, 184, 0, 0.4) 90%, transparent 100%);
+        }
+        .pressed-effect:active {
+            transform: translate(2px, 2px);
+            box-shadow: none !important;
+        }
+        body {
+            background-color: #f5f9ff;
+            min-height: 100vh;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "surface-dim": "#e5d8c8",
+                        "surface-container-low": "#fff2e1",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#7c5800",
+                        "surface-bright": "#fff8f3",
+                        "surface": "#fff8f3",
+                        "on-tertiary-fixed-variant": "#004c6b",
+                        "on-surface-variant": "#514532",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#ffb800",
+                        "on-secondary-container": "#fffbff",
+                        "on-surface": "#211b11",
+                        "on-tertiary-fixed": "#001e2d",
+                        "on-tertiary-container": "#00577a",
+                        "surface-variant": "#ede1d0",
+                        "inverse-on-surface": "#fcefde",
+                        "surface-container": "#f9ecdb",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#ffb3b4",
+                        "inverse-primary": "#ffba20",
+                        "tertiary-fixed": "#c6e7ff",
+                        "on-secondary-fixed-variant": "#920023",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#d5c4ab",
+                        "on-background": "#211b11",
+                        "secondary": "#b71032",
+                        "secondary-container": "#da3148",
+                        "on-secondary-fixed": "#40000a",
+                        "tertiary-fixed-dim": "#81cfff",
+                        "background": "#fff8f3",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "surface-container-high": "#f3e6d6",
+                        "tertiary": "#00658d",
+                        "primary": "#7c5800",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#837560",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffdea8",
+                        "primary-fixed-dim": "#ffba20",
+                        "on-primary-container": "#6b4c00",
+                        "tertiary-container": "#7dceff",
+                        "secondary-fixed": "#ffdad9",
+                        "inverse-surface": "#362f24",
+                        "on-primary-fixed": "#271900",
+                        "surface-container-highest": "#ede1d0",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "xl": "48px",
+                        "lg": "32px",
+                        "safe-area": "24px",
+                        "md": "20px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "data-lg": ["Space Mono"],
+                        "body-sm": ["Public Sans"],
+                        "label-caps": ["Space Mono"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "data-lg": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] border-b-2 border-on-surface-variant flex justify-between items-center px-safe-area py-base">
+<div class="flex items-center gap-base active:translate-y-0.5 active:translate-x-0.5 transition-transform">
+<span class="material-symbols-outlined cursor-pointer">arrow_back</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary">我的收藏</h1>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-on-primary overflow-hidden hover:opacity-90 transition-opacity">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnQKiFMDN0VWJiQNsy1CIlrdTTkHzaCjyHIP3jnwhEz7PcQKsyCXtCqGzjZeAQJHxZNe860nDVKqdKerhViG77boxhTnUpPDbk5WTVpzsAf-Mb4Sib4DfFS0IXAp1PklXfmywOet4C27FwKdoFTDFRsCcFsBopvr4uBWLa6qydxSeHYh7yq1Fa_6X7_p2fqrUmzVMHI_TrbW7w1-IXE_ODS5GT03wnnX0nZbMcoM6LzO16Jgzsai98FGr2tIICaoDFt54D5sLDIw"/>
+</div>
+</header>
+<!-- Search & Filter Section -->
+<main class="mt-24 px-safe-area">
+<div class="relative mb-lg">
+<input class="w-full h-14 bg-surface-container-lowest hand-drawn-border px-12 focus:outline-none focus:ring-0 font-body-md text-on-surface-variant italic" placeholder="搜索我的地图..." type="text"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+</div>
+<div class="flex gap-sm overflow-x-auto pb-4 no-scrollbar">
+<button class="px-6 py-2 rounded-full border-2 border-primary bg-primary text-on-primary font-label-caps whitespace-nowrap pressed-effect">全部</button>
+<button class="px-6 py-2 rounded-full border-2 border-outline-variant bg-surface text-on-surface-variant font-label-caps whitespace-nowrap pressed-effect">进行中</button>
+<button class="px-6 py-2 rounded-full border-2 border-outline-variant bg-surface text-on-surface-variant font-label-caps whitespace-nowrap pressed-effect">已完成</button>
+</div>
+<!-- Map Cards List -->
+<div class="flex flex-col gap-lg mt-md">
+<!-- Card 1: London Fog -->
+<div class="bg-surface-container-lowest border-2 border-on-surface-variant irregular-card shadow-[6px_6px_0px_0px_rgba(81,69,50,0.1)] p-sm flex gap-md relative">
+<div class="w-24 h-24 flex-shrink-0 hand-drawn-border overflow-hidden">
+<img alt="London Map" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1z1gNdypKlY4_qrngT5Cm6IN447Nv4hLR6gDcPVMssNDUTmfkyl2V8BBA2V9oiT7gvbOkrD8LUKaveoM2kZqQ4rA0508Yqk1yXndpmZzEiNZU2txWhv1Ta4Yj8K-ffAnUTzs6wVcf7K0Kn7q5YnyRTMOHZSSSIexu54qkBZCxs4gtu_1GDi1HpUuv-nNfBYn6tPWyLK61muH5BfT0KmWX4ih5EwfRmkmwgcTiJiAFWmq4SSYEeh1WflQg9RaMIgZMfv-QorVOvQ"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">London Fog</h3>
+<p class="font-label-caps text-on-surface-variant opacity-70">2023年10月12日</p>
+</div>
+<div class="flex items-center gap-sm mt-2">
+<span class="px-2 py-0.5 rounded border border-dashed border-outline font-label-caps text-[10px]">12个地块</span>
+<span class="highlighter-bg px-2 py-0.5 font-label-caps text-[10px] text-primary">进行中</span>
+</div>
+</div>
+<div class="flex flex-col justify-between items-end">
+<button class="material-symbols-outlined text-error p-1 hover:bg-error-container rounded-lg transition-colors">delete</button>
+<button class="bg-surface text-primary px-3 py-1.5 font-label-caps rounded-lg border-2 border-primary shadow-[2px_2px_0px_0px_rgba(124,88,0,0.2)] pressed-effect mb-2 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] mr-1">edit</span>编辑</button>
+<button class="bg-primary-container text-on-primary-container px-4 py-1.5 font-label-caps rounded-lg border-2 border-on-surface-variant shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] pressed-effect">开始</button>
+</div>
+</div>
+<!-- Card 2: Neon Tokyo -->
+<div class="bg-surface-container-lowest border-2 border-on-surface-variant irregular-card shadow-[6px_6px_0px_0px_rgba(81,69,50,0.1)] p-sm flex gap-md relative">
+<div class="w-24 h-24 flex-shrink-0 hand-drawn-border overflow-hidden border-secondary">
+<img alt="Tokyo Map" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD0-SzYfFKhIuNzk-EQrj5gtM7cEYFOF6-S3h77zc0wm2v0se2Ip28SmtWZ3lY8b7cLclbF0PNV59pC32jwMSnJkXukkTnVugM4a1cwvTD5J6yCxJ87BymrbH3XQQfvdKwTd5AZ5oxdalQJzj_tGOVwhofMfVxfrkJ5HKf_fYNJdbMd7s494BfICNLlvN43NB1dBWKiUx6-WUS3SJgFnywRY7NJ2vI3LGTtJopk6dKsaFtlmaLb2ppRjCLwvX-5dPGgcVm-dnehg"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Neon Tokyo</h3>
+<p class="font-label-caps text-on-surface-variant opacity-70">2023年11月5日</p>
+</div>
+<div class="flex items-center gap-sm mt-2">
+<span class="px-2 py-0.5 rounded border border-dashed border-outline font-label-caps text-[10px]">48个地块</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 font-label-caps text-[10px] rounded">已完成</span>
+</div>
+</div>
+<div class="flex flex-col justify-between items-end">
+<button class="material-symbols-outlined text-error p-1 hover:bg-error-container rounded-lg transition-colors">delete</button>
+<button class="bg-surface text-primary px-3 py-1.5 font-label-caps rounded-lg border-2 border-primary shadow-[2px_2px_0px_0px_rgba(124,88,0,0.2)] pressed-effect mb-2 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] mr-1">edit</span>编辑</button>
+<button class="bg-primary-container text-on-primary-container px-4 py-1.5 font-label-caps rounded-lg border-2 border-on-surface-variant shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] pressed-effect">开始</button>
+</div>
+</div>
+<!-- Card 3: Paris Bloom -->
+<div class="bg-surface-container-lowest border-2 border-on-surface-variant irregular-card shadow-[6px_6px_0px_0px_rgba(81,69,50,0.1)] p-sm flex gap-md relative">
+<div class="w-24 h-24 flex-shrink-0 hand-drawn-border overflow-hidden border-tertiary">
+<img alt="Paris Map" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrg6s1_fJQQ0ewhH4ydPb5wr1VXeqlKq0rSS-cqMhyPoT9syrudOdi5c9RXq5R_iwfKY6KmTnJgOKj59yxPMmSfpmZ7rtj8srtRErfbNVorczEfnL9064FhTptEVcVyNIU6aDg9LXOh9lQNFJNIPZp_dqiRcn9DLm0I7TPUyscSpCM17SRfZ_g7oaBb7A4J4IVGuzqBBAn24TcrWNBhbVt1Qlb_qZNev5b7iol3JD9SL4tXktBx5u1e0G3l5NSV5MCV694waylww"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Paris Bloom</h3>
+<p class="font-label-caps text-on-surface-variant opacity-70">2024年1月18日</p>
+</div>
+<div class="flex items-center gap-sm mt-2">
+<span class="px-2 py-0.5 rounded border border-dashed border-outline font-label-caps text-[10px]">24个地块</span>
+<span class="highlighter-bg px-2 py-0.5 font-label-caps text-[10px] text-primary">进行中</span>
+</div>
+</div>
+<div class="flex flex-col justify-between items-end">
+<button class="material-symbols-outlined text-error p-1 hover:bg-error-container rounded-lg transition-colors">delete</button>
+<button class="bg-surface text-primary px-3 py-1.5 font-label-caps rounded-lg border-2 border-primary shadow-[2px_2px_0px_0px_rgba(124,88,0,0.2)] pressed-effect mb-2 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] mr-1">edit</span>编辑</button>
+<button class="bg-primary-container text-on-primary-container px-4 py-1.5 font-label-caps rounded-lg border-2 border-on-surface-variant shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] pressed-effect">开始</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Navigation Drawer (Right Side) -->
+<aside class="fixed inset-y-0 right-0 w-64 z-[60] bg-surface-container-lowest dark:bg-surface-dim border-l-2 border-dashed border-outline-variant shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out" id="nav-drawer">
+<div class="flex flex-col h-full p-md">
+<div class="flex items-center gap-sm mb-lg">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
+<img alt="Player character sketch" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqcTxFqIcIv3SjCLIq2S9oEo_9a63U0gTqIu-pHElId3R3YGU8a39HhQz1OgXSSPUj6gOX498IEdG0CmCkPxWUW_nOXbk8rCsR3wTzO0gi--D-Mrw_FYiPIt1oOBBtXvIiTe44k58CtFp2vVGNz8f4aFyHQoEqFQnQGEja_woKpHyMV8us5aSGQwG24Z3cj8lh7WWNuuG7lTrlRzjGqeALjLCC-azs8xDUbJlv-riGOT9D8hOKn4EpnSqnA5iZUURHU0bGsIBPQg"/>
+</div>
+<div>
+<h4 class="font-headline-lg text-primary text-body-md">城市探索者</h4>
+<p class="text-body-sm opacity-70">12级 大亨</p>
+<p class="font-data-lg text-secondary text-sm">$45,200</p>
+</div>
+</div>
+<nav class="flex flex-col gap-md">
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-high p-2 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-body-md">个人主页</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-high p-2 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">book</span>
+<span class="font-body-md">游戏规则</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-high p-2 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md">设置</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-high p-2 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-body-md">排行榜</span>
+</a>
+<hr class="border-outline-variant my-base"/>
+<a class="flex items-center gap-base text-error hover:bg-error-container p-2 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-body-md">退出游戏</span>
+</a>
+</nav>
+</div>
+</aside>
+
+<script>
+        const menuBtn = document.querySelector('header .material-symbols-outlined:first-child');
+        const drawer = document.getElementById('nav-drawer');
+        
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                drawer.classList.add('translate-x-0');
+            } else {
+                drawer.classList.add('translate-x-full');
+                drawer.classList.remove('translate-x-0');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!drawer.contains(e.target) && !menuBtn.contains(e.target)) {
+                drawer.classList.add('translate-x-full');
+                drawer.classList.remove('translate-x-0');
+            }
+        });
+
+        document.querySelectorAll('.irregular-card').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = "translate(2px, 2px)";
+                card.style.boxShadow = "none";
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = "translate(0, 0)";
+                card.style.boxShadow = "6px 6px 0px 0px rgba(81,69,50,0.1)";
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = "translate(0, 0)";
+                card.style.boxShadow = "6px 6px 0px 0px rgba(81,69,50,0.1)";
+            });
+        });
+    </script>
+</body></html>

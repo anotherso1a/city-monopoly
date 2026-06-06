@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "navigation-bar": "/components/NavigationBar/navigation-bar",
+    "log-entry": "/components/log-entry/log-entry",
+    "poster-share": "/components/poster-share/poster-share"
+  }
+}

@@ -1,0 +1,23 @@
+<view class="sidebar-overlay {{visible ? 'show' : ''}}" bindtap="onOverlayTap">
+  <view class="sidebar {{visible ? 'open' : ''}}" catchtap="onNoop">
+    <view class="sidebar-header sketch-border-sm" bindtap="onAvatarTap" hover-class="sidebar-header-active" hover-stay-time="100">
+      <image class="sidebar-avatar" src="{{avatar}}" mode="aspectFill"></image>
+      <view class="sidebar-user">
+        <text class="sidebar-nickname text-headline-sm">{{nickname}}</text>
+        <text class="sidebar-level text-body-sm">{{level}}</text>
+      </view>
+    </view>
+    <view class="sidebar-items">
+      <block wx:for="{{renderedItems}}" wx:key="key">
+        <view wx:if="{{item.divider}}" class="ink-divider-sm"></view>
+        <view wx:else
+              class="sidebar-item text-body-md {{item.danger ? 'sidebar-item-danger' : ''}}"
+              bindtap="onItemTap"
+              data-id="{{item.id}}">
+          <text class="iconfont sidebar-icon {{item.icon}}"></text>
+          <text>{{item.label}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

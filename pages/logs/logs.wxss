@@ -1,0 +1,166 @@
+/* 探险日志详情页 - 基于 docs/design/logs.html 转换
+ * 时间轴节点已抽到 components/log-entry，本页只保留容器、日期贴纸、分享按钮和浮动装饰。
+ */
+
+/* 颜色变量定义 */
+page {
+  --primary: #7c5800;
+  --primary-container: #ffb800;
+  --on-primary: #ffffff;
+  --on-primary-container: #6b4c00;
+  --secondary: #b71032;
+  --secondary-container: #da3148;
+  --on-secondary: #ffffff;
+  --tertiary: #00658d;
+  --tertiary-container: #7dceff;
+  --on-tertiary-container: #00577a;
+  --surface: #fff8f3;
+  --surface-bright: #fff8f3;
+  --surface-container-low: #fff2e1;
+  --surface-container-high: #f3e6d6;
+  --on-surface: #211b11;
+  --on-surface-variant: #514532;
+  --outline: #837560;
+  --outline-variant: #d5c4ab;
+  --background: #fff8f3;
+  --paper-dot: #d5c4ab;
+}
+
+.logs-page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background-color: var(--background);
+  background-image:
+    radial-gradient(var(--paper-dot) 1rpx, transparent 1rpx),
+    radial-gradient(var(--paper-dot) 1rpx, var(--background) 1rpx);
+  background-size: 40rpx 40rpx;
+  background-position: 0 0, 20rpx 20rpx;
+}
+
+/* Main Content */
+.main-content {
+  padding: 0 48rpx 96rpx 48rpx;
+  max-width: 750rpx;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+/* Date Sticker */
+.date-sticker {
+  margin-top: 16rpx;
+  display: inline-block;
+  padding: 8rpx 40rpx;
+  margin-bottom: 32rpx;
+  background-color: var(--secondary-container);
+  color: var(--on-secondary);
+  border-radius: 8rpx 20rpx 8rpx 24rpx / 20rpx 8rpx 24rpx 8rpx;
+  border: 4rpx solid var(--outline);
+  box-shadow: 4rpx 4rpx 0 0 rgba(0, 0, 0, 0.1);
+  transform: rotate(-2deg);
+}
+
+.date-sticker-text {
+  font-size: 24rpx;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-family: 'Courier New', monospace;
+}
+
+/* Timeline 容器 - log-entry 组件的子节点 left: -64rpx 依赖此 padding */
+.timeline {
+  position: relative;
+  padding-left: 64rpx;
+}
+
+.timeline-path {
+  position: absolute;
+  left: 16rpx;
+  top: 16rpx;
+  bottom: 32rpx;
+  width: 2rpx;
+  background-image: linear-gradient(to bottom, var(--outline) 50%, rgba(255, 255, 255, 0) 0%);
+  background-position: center;
+  background-size: 2rpx 24rpx;
+  background-repeat: repeat-y;
+  opacity: 0.4;
+}
+
+/* Share Row */
+.share-row {
+  position: relative;
+  margin-left: 0;
+  margin-top: 32rpx;
+  padding: 16rpx 0 32rpx 0;
+  display: flex;
+  justify-content: center;
+}
+
+.share-btn {
+  width: auto !important;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 24rpx 32rpx;
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  font-size: 24rpx;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  border-radius: 24rpx;
+  border: 4rpx solid var(--primary);
+  box-shadow: 4rpx 4rpx 0 0 rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+.share-btn::after {
+  border: none;
+}
+
+.share-btn:active {
+  transform: translate(4rpx, 4rpx);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.share-btn-icon {
+  font-size: 32rpx;
+}
+
+.share-btn-text {
+  font-size: 24rpx;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.1em;
+}
+
+/* Floating Stickers */
+.float-sticker {
+  position: fixed;
+  pointer-events: none;
+  opacity: 0.2;
+  z-index: 1;
+}
+
+.float-sticker-top {
+  top: 256rpx;
+  right: -32rpx;
+  transform: rotate(12deg);
+}
+
+.float-sticker-bottom {
+  bottom: 96rpx;
+  left: -96rpx;
+  transform: rotate(-45deg);
+}
+
+.float-icon-lg {
+  font-size: 240rpx;
+  color: var(--primary);
+}
+
+.float-icon-xl {
+  font-size: 320rpx;
+  color: var(--primary);
+}

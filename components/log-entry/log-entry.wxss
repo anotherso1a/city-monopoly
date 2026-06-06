@@ -1,0 +1,158 @@
+/* log-entry 组件 - 时间轴上的单个节点
+ * 数据约定:
+ *   time / location: 时间和地点
+ *   image / caption: 拍立得照片和描述（image 为空则不渲染拍立得）
+ *   badge / xp: 徽章文字和积分
+ *   index: 父组件传入的索引，用于交替旋转
+ *   isChanceCard: 是否为机会卡事件（true 时切换 .log-entry-chance 样式）
+ *
+ * 调用方负责把 currentGame 里的事件映射成上述字段。
+ * .timeline 容器应设置 padding-left: 64rpx，让 .timeline-marker 的 -64rpx 偏移对齐虚线。
+ */
+
+.log-entry {
+  position: relative;
+  margin-bottom: 48rpx;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -64rpx;
+  top: 4rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marker-dot {
+  width: 24rpx;
+  height: 24rpx;
+  background-color: var(--surface-bright, #fff8f3);
+  border: 4rpx solid var(--primary, #7c5800);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  position: relative;
+}
+
+.marker-dot::after {
+  content: '';
+  width: 8rpx;
+  height: 8rpx;
+  background-color: var(--primary, #7c5800);
+  border-radius: 50%;
+}
+
+.entry-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.time-row {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  color: var(--outline, #837560);
+}
+
+.time-text {
+  font-size: 36rpx;
+  font-weight: 700;
+  font-family: "Courier Prime", "Courier New", monospace;
+}
+
+.location-row {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  font-weight: 700;
+  color: var(--primary, #7c5800);
+}
+
+.location-icon {
+  font-size: 48rpx;
+  color: var(--primary, #7c5800);
+}
+
+.location-text {
+  font-weight: 700;
+  color: var(--primary, #7c5800);
+}
+
+/* Polaroid Frame */
+.polaroid-frame {
+  padding: 12rpx 12rpx 16rpx 12rpx;
+  background-color: #ffffff;
+  border: 4rpx solid var(--outline-variant, #d5c4ab);
+  border-radius: 8rpx 20rpx 8rpx 24rpx / 20rpx 8rpx 24rpx 8rpx;
+  display: inline-block;
+  max-width: 560rpx;
+  box-shadow: 8rpx 8rpx 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.polaroid-frame.rotate-left {
+  transform: rotate(-1deg);
+}
+
+.polaroid-frame.rotate-right {
+  transform: rotate(1.5deg);
+}
+
+.polaroid-image-wrap {
+  overflow: hidden;
+  background-color: var(--surface-container-low, #fff2e1);
+  aspect-ratio: 1 / 1;
+  margin-bottom: 12rpx;
+}
+
+.polaroid-image {
+  width: 100%;
+  height: 100%;
+}
+
+.polaroid-caption {
+  display: block;
+  color: var(--on-surface-variant, #514532);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Entry Meta */
+.entry-meta {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  flex-wrap: wrap;
+}
+
+.entry-badge {
+  padding: 8rpx 24rpx;
+  background-color: var(--tertiary-container, #7dceff);
+  color: var(--on-tertiary-container, #00577a);
+  border-radius: 9999rpx;
+  border: 4rpx dashed var(--outline, #837560);
+}
+
+.entry-xp {
+  color: var(--primary, #7c5800);
+  font-size: 36rpx;
+  font-weight: 700;
+  font-family: "Courier Prime", "Courier New", monospace;
+}
+
+/* Chance card 样式钩子 - 后续根据 currentGame 数据接入时扩展 */
+.log-entry-chance .marker-dot {
+  border-color: var(--secondary, #b71032);
+}
+
+.log-entry-chance .marker-dot::after {
+  background-color: var(--secondary, #b71032);
+}
+
+.log-entry-chance .entry-badge {
+  background-color: var(--secondary-container, #da3148);
+  color: var(--on-secondary, #ffffff);
+}

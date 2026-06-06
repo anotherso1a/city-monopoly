@@ -1,0 +1,41 @@
+<!--components/profile-setup/profile-setup.wxml-->
+<view class="profile-mask {{visible ? 'show' : ''}}" catchtap="onMaskTap">
+  <view class="profile-sheet" catchtap="onNoop">
+    <text class="profile-title text-headline-md">{{mode === 'edit' ? '修改头像和昵称' : '设置你的头像和昵称'}}</text>
+
+    <button
+      class="avatar-slot"
+      open-type="chooseAvatar"
+      bind:chooseavatar="onChoose"
+    >
+      <image wx:if="{{avatarUrl}}" class="avatar-image" src="{{avatarUrl}}" mode="aspectFill" />
+      <text wx:else class="avatar-placeholder iconfont icon-user"></text>
+    </button>
+
+    <input
+      class="nickname-input"
+      type="nickname"
+      placeholder="请输入昵称"
+      value="{{nickName}}"
+      bind:input="onNicknameInput"
+      bind:blur="onNicknameBlur"
+    />
+
+    <view class="profile-actions">
+      <button
+        wx:if="{{mode === 'firstLaunch'}}"
+        class="btn btn-skip"
+        bindtap="onSkip"
+      >跳过</button>
+      <button
+        wx:else
+        class="btn btn-cancel"
+        bindtap="onClose"
+      >取消</button>
+      <button
+        class="btn btn-save"
+        bindtap="onSave"
+      >保存</button>
+    </view>
+  </view>
+</view>

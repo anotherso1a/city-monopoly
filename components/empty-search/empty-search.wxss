@@ -1,0 +1,99 @@
+/* empty-search 组件 - 封装 searchempty 视觉 */
+
+.empty-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Illustration */
+.empty-illustration {
+  position: relative;
+  width: 512rpx;
+  height: 512rpx;
+  margin-top: 32rpx;
+  margin-bottom: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: float 4s ease-in-out infinite;
+}
+
+.bg-paper {
+  position: absolute;
+  inset: 0;
+  background-color: var(--surface-container-high, #f3e6d6);
+  border: 4rpx solid var(--on-surface, #211b11);
+  border-style: solid;
+  border-width: 4rpx 3rpx 5rpx 4rpx;
+  border-radius: 8rpx 20rpx 8rpx 22rpx / 24rpx 10rpx 30rpx 12rpx;
+  transform: rotate(2deg);
+  opacity: 0.8;
+}
+
+.illustration-card {
+  position: relative;
+  z-index: 10;
+  background-color: var(--surface-container-lowest, #ffffff);
+  border: 4rpx solid var(--on-surface, #211b11);
+  border-style: solid;
+  border-width: 4rpx 3rpx 5rpx 4rpx;
+  border-radius: 8rpx 20rpx 8rpx 22rpx / 24rpx 10rpx 30rpx 12rpx;
+  padding: 48rpx;
+  box-shadow: 8rpx 8rpx 0px 0px rgba(0, 0, 0, 0.1);
+  transform: rotate(-3deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-emoji {
+  font-size: 256rpx;
+  line-height: 1;
+  filter: grayscale(60%);
+  opacity: 0.6;
+}
+
+.sticky-note {
+  position: absolute;
+  bottom: -16rpx;
+  right: -64rpx;
+  background-color: var(--secondary-container, #da3148);
+  color: var(--on-secondary-container, #ffffff);
+  padding: 16rpx 32rpx;
+  border: 4rpx solid var(--on-surface, #211b11);
+  border-style: solid;
+  border-width: 4rpx 3rpx 5rpx 4rpx;
+  border-radius: 8rpx 20rpx 8rpx 22rpx / 24rpx 10rpx 30rpx 12rpx;
+  transform: rotate(6deg);
+  font-family: 'Courier New', 'Space Mono', monospace;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  font-weight: 700;
+  z-index: 20;
+}
+
+@keyframes float {
+  0%   { transform: translateY(0)     rotate(0deg); }
+  50%  { transform: translateY(-20rpx) rotate(2deg); }
+  100% { transform: translateY(0)     rotate(0deg); }
+}
+
+/* Text */
+.empty-text {
+  text-align: center;
+  max-width: 500rpx;
+  margin-bottom: 96rpx;
+}
+
+.empty-title {
+  display: block;
+  color: var(--on-surface-variant, #514532);
+  margin-bottom: 32rpx;
+}
+
+.empty-desc {
+  display: block;
+  color: var(--outline, #837560);
+}

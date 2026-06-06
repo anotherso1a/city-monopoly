@@ -1,0 +1,3 @@
+<view class="board-container">
+  <canvas class="board-canvas" type="2d" catchtouchstart="onTouchStart" catchtouchmove="onTouchMove" catchtouchend="onTouchEnd"></canvas>
+</view>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Public+Sans:wght@400;700&amp;family=Space+Mono:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;family=Public+Sans:wght@100..900&amp;family=Space+Mono:wght@100..900&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+
+        .hand-drawn-border {
+            border-style: solid;
+            border-width: 2.2px 1.8px 2.5px 1.9px;
+            border-radius: 4px 10px 4px 11px / 12px 5px 15px 6px;
+        }
+
+        .hand-drawn-button {
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            box-shadow: 2px 2px 0px 0px #211b11;
+        }
+
+        .hand-drawn-button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px 0px #211b11;
+        }
+
+        .paper-texture {
+            background-color: #fff8f3;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(2deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#211b11",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#f9ecdb",
+                        "primary": "#7c5800",
+                        "outline": "#837560",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#da3148",
+                        "tertiary-fixed": "#c6e7ff",
+                        "primary-fixed-dim": "#ffba20",
+                        "secondary-fixed-dim": "#ffb3b4",
+                        "tertiary-fixed-dim": "#81cfff",
+                        "surface-container-low": "#fff2e1",
+                        "tertiary-container": "#7dceff",
+                        "on-tertiary-fixed": "#001e2d",
+                        "on-surface": "#211b11",
+                        "inverse-primary": "#ffba20",
+                        "tertiary": "#00658d",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "surface-variant": "#ede1d0",
+                        "on-tertiary-container": "#00577a",
+                        "on-secondary-fixed-variant": "#920023",
+                        "outline-variant": "#d5c4ab",
+                        "background": "#fff8f3",
+                        "on-secondary-container": "#fffbff",
+                        "on-primary-container": "#6b4c00",
+                        "surface-container-high": "#f3e6d6",
+                        "on-tertiary-fixed-variant": "#004c6b",
+                        "inverse-surface": "#362f24",
+                        "on-primary-fixed": "#271900",
+                        "secondary-fixed": "#ffdad9",
+                        "primary-fixed": "#ffdea8",
+                        "inverse-on-surface": "#fcefde",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#7c5800",
+                        "error": "#ba1a1a",
+                        "surface": "#fff8f3",
+                        "on-surface-variant": "#514532",
+                        "secondary": "#b71032",
+                        "surface-dim": "#e5d8c8",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#ede1d0",
+                        "on-secondary-fixed": "#40000a",
+                        "on-error": "#ffffff",
+                        "primary-container": "#ffb800",
+                        "surface-bright": "#fff8f3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "safe-area": "24px",
+                        "md": "20px",
+                        "base": "8px",
+                        "lg": "32px",
+                        "xs": "4px",
+                        "xl": "48px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Public Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-caps": ["Space Mono"],
+                        "body-sm": ["Public Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "data-lg": ["Space Mono"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "data-lg": ["18px", { "lineHeight": "24px", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="paper-texture text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+    <!-- Main Content -->
+    <main class="min-h-screen flex flex-col items-center justify-center px-safe-area pt-16">
+        <!-- Illustration Area (The Sticker Effect) -->
+        <div class="relative w-64 h-64 mb-10 animate-float flex items-center justify-center">
+            <!-- Background "Map" Paper Fragment -->
+            <div
+                class="absolute inset-0 bg-surface-container-high hand-drawn-border border-on-surface rotate-2 opacity-80">
+            </div>
+            <!-- Hand-drawn Magnifying Glass / Empty State Visual -->
+            <div class="relative z-10 flex flex-col items-center">
+                <div
+                    class="bg-surface-container-lowest hand-drawn-border border-on-surface p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] -rotate-3">
+                    <img alt="Hand-drawn empty map"
+                        class="w-32 h-32 object-contain grayscale opacity-60 mix-blend-multiply"
+                        data-alt="A whimsical, hand-drawn digital illustration of an old-fashioned paper map that is mostly blank, featuring only a few faint, irregular ink lines and a small '?' mark. In the center, a large, stylized wooden magnifying glass with a thick ink outline lies across the paper. The aesthetic is tactile and warm, resembling a travel journal entry on heavy cream-colored paper with Wealth Gold accents and soft, organic shadows. The lighting is bright and cheerful, suggesting a sunny afternoon of exploration."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCppnlMs_mox3IlxFhGvN9C0MD3cfj1Fu3p5-6k-9gd5I0PfI2pYM9BddbGOw1EQGh2zi9140iVnvf0AIqoGJh6OyQ0DOqoV9tH-dJDYd0vkbMwYnzTeSk78YRKzEe3n0mCFwb0ZsdmEu6CNbTt0QuHXFiSO7H82pJxUhker4ONBb740N_WejcdyHTZKWZUOR8NvobSgREkXAlUqI18L_dTz_Pgx_E4dheX61dlKH1WKrQQFL_NDQ7nVVT25qPLi8yWj3eTxPsOSQ" />
+                </div>
+                <!-- Decorative "Sticky Note" -->
+                <div
+                    class="absolute -bottom-4 -right-8 bg-secondary-container text-on-secondary-container px-4 py-2 rotate-6 hand-drawn-border border-on-surface text-label-caps font-label-caps">
+                    LOST?
+                </div>
+            </div>
+        </div>
+        <!-- Text Content -->
+        <div class="text-center max-w-xs space-y-4">
+            <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface-variant font-bold leading-tight">
+                未发现相关地点
+            </h2>
+            <p class="font-body-md text-body-md text-outline">
+                换个关键词试试看吧？<br />或许好运就在下一个街角等着你。
+            </p>
+        </div>
+        <!-- Primary Action Button -->
+        <div class="mt-12">
+            <button
+                class="hand-drawn-button hand-drawn-border border-on-surface bg-primary-container text-on-primary-container px-10 py-4 font-headline-lg-mobile text-headline-lg-mobile flex items-center gap-3">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">search</span>
+                <span>返回重新搜索</span>
+            </button>
+        </div>
+    </main>
+    <!-- No BottomNavBar per requirements -->
+    <script>
+        // Micro-interaction: Button hover sound effect (simulated via scale)
+        const button = document.querySelector('.hand-drawn-button');
+        button.addEventListener('mouseenter', () => {
+            button.style.transform = 'scale(1.02) rotate(-1deg)';
+        });
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = 'scale(1) rotate(0deg)';
+        });
+
+        // Subtle parallax for background elements
+        window.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            const bgIcons = document.querySelectorAll('.fixed .material-symbols-outlined');
+            bgIcons.forEach(icon => {
+                const moveX = (x - 0.5) * 30;
+                const moveY = (y - 0.5) * 30;
+                icon.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+    </script>
+</body>
+
+</html>

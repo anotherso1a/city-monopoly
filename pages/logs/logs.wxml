@@ -1,0 +1,58 @@
+<view class="logs-page">
+  <!-- Top Navigation Bar -->
+  <navigation-bar
+    title="探险日志"
+    type="back"
+    bind:heightchange="onNavHeightChange"
+  />
+
+  <view class="main-content" style="margin-top: {{navBarHeight}}px;">
+    <!-- Date Header Sticker -->
+    <view class="date-sticker">
+      <text class="date-sticker-text">{{dateLabel}}</text>
+    </view>
+
+    <!-- Timeline Container -->
+    <view class="timeline">
+      <!-- Continuous Dashed Path -->
+      <view class="timeline-path"></view>
+
+      <block wx:for="{{entries}}" wx:key="id">
+        <log-entry
+          time="{{item.time}}"
+          location="{{item.location}}"
+          poiType="{{item.poiType}}"
+          image="{{item.image}}"
+          caption="{{item.caption}}"
+          badge="{{item.badge}}"
+          xp="{{item.xp}}"
+          index="{{index}}"
+          isChanceCard="{{item.isChanceCard}}"
+        />
+      </block>
+
+      <!-- Share Button -->
+      <view class="share-row">
+        <button class="share-btn" bindtap="onShare">
+          <text class="iconfont icon-share share-btn-icon"></text>
+          <text class="share-btn-text">{{shareButtonText}}</text>
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- Floating Atmosphere Elements (Static Decoration) -->
+  <view class="float-sticker float-sticker-top">
+    <text class="iconfont icon-edit-square float-icon-lg"></text>
+  </view>
+  <view class="float-sticker float-sticker-bottom">
+    <text class="iconfont icon-compass float-icon-xl"></text>
+  </view>
+
+  <!-- 海报分享弹窗 -->
+  <poster-share
+    visible="{{posterVisible}}"
+    mapId="{{mapId}}"
+    bind:close="onPosterClose"
+  />
+</view>

@@ -1,0 +1,33 @@
+<view class="empty-state">
+  <!-- Empty State Illustration -->
+  <view class="illustration-container">
+    <view class="illustration-bg"></view>
+    <view class="illustration-card">
+      <image src="{{illustrationImage}}" mode="aspectFill" class="illustration-image"></image>
+    </view>
+    <!-- Floating Sticker Accent -->
+    <view class="floating-sticker">
+      <view class="sticker-inner">
+        <text class="iconfont icon-compass"></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Empty State Text -->
+  <view class="text-container">
+    <text class="headline-text">{{headline}}</text>
+    <text class="description-text">{{description}}</text>
+  </view>
+
+  <!-- Primary Action -->
+  <button class="primary-btn" bindtap="onActionTap">
+    <text class="iconfont icon-{{actionIcon}}"></text>
+    <text class="btn-text">{{actionText}}</text>
+  </button>
+
+  <!-- Secondary Tip -->
+  <view class="tip-container" wx:if="{{tip}}">
+    <text class="iconfont icon-info-circle tip-icon"></text>
+    <text class="tip-text">{{tip}}</text>
+  </view>
+</view>

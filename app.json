@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/create/create",
+    "pages/game/game",
+    "pages/settlement/settlement",
+    "pages/logs/logs",
+    "pages/history/history",
+    "pages/edit/edit",
+    "pages/search/search"
+  ],
+  "window": {
+    "backgroundColor": "#fff8f3",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#D4A84B",
+    "navigationBarTitleText": "City Monopoly",
+    "navigationBarTextStyle": "white"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于生成游戏地图"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation",
+    "getLocation"
+  ],
+  "usingComponents": {
+    "board": "/components/Board/board",
+    "navigation-bar": "/components/NavigationBar/navigation-bar",
+    "empty-search": "/components/empty-search/empty-search",
+    "profile-setup": "/components/profile-setup/profile-setup"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

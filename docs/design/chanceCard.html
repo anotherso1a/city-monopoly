@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        name="viewport">
+    <title>City Monopoly - Opportunity Card</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Public+Sans:wght@400;700&amp;family=Space+Mono:wght@700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        .hand-drawn-border {
+            border-style: solid;
+            border-width: 2px 2.5px 1.5px 2px;
+            border-radius: 4px 8px 3px 10px;
+        }
+
+        .paper-texture {
+            background-image: radial-gradient(#d5c4ab 0.5px, transparent 0.5px);
+            background-size: 12px 12px;
+        }
+
+        .ink-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(81, 69, 50, 0.15);
+        }
+
+        .active-press:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+        }
+
+        .highlighter-stroke {
+            background: linear-gradient(120deg, rgba(255, 186, 0, 0.3) 0%, rgba(255, 186, 0, 0.3) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.3em;
+            background-position: 0 88%;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#da3148",
+                        "surface-variant": "#ede1d0",
+                        "primary-fixed": "#ffdea8",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fff8f3",
+                        "on-primary-fixed": "#271900",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#fff2e1",
+                        "inverse-primary": "#ffba20",
+                        "tertiary-fixed-dim": "#81cfff",
+                        "primary-fixed-dim": "#ffba20",
+                        "on-tertiary-container": "#00577a",
+                        "on-secondary-fixed-variant": "#920023",
+                        "tertiary": "#00658d",
+                        "surface-tint": "#7c5800",
+                        "outline": "#837560",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#c6e7ff",
+                        "primary": "#7c5800",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004c6b",
+                        "on-secondary-container": "#fffbff",
+                        "outline-variant": "#d5c4ab",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#ffdad9",
+                        "inverse-surface": "#362f24",
+                        "surface-container-highest": "#ede1d0",
+                        "inverse-on-surface": "#fcefde",
+                        "secondary-fixed-dim": "#ffb3b4",
+                        "on-surface-variant": "#514532",
+                        "on-error": "#ffffff",
+                        "on-background": "#211b11",
+                        "tertiary-container": "#7dceff",
+                        "surface": "#fff8f3",
+                        "secondary": "#b71032",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#211b11",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#40000a",
+                        "on-primary-container": "#6b4c00",
+                        "surface-bright": "#fff8f3",
+                        "surface-dim": "#e5d8c8",
+                        "primary-container": "#ffb800",
+                        "surface-container-high": "#f3e6d6",
+                        "surface-container": "#f9ecdb",
+                        "on-tertiary-fixed": "#001e2d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "20px",
+                        "xs": "4px",
+                        "lg": "32px",
+                        "xl": "48px",
+                        "sm": "12px",
+                        "safe-area": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Public Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "data-lg": ["Space Mono"],
+                        "body-sm": ["Public Sans"],
+                        "label-caps": ["Space Mono"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "data-lg": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed">
+   <!-- Overlay Backdrop -->
+    <div class="fixed inset-0 bg-on-background/40 backdrop-blur-sm z-[60] flex items-center justify-center p-safe-area">
+        <!-- Opportunity Card Popup -->
+        <div
+            class="w-full max-w-sm bg-surface-container-lowest hand-drawn-border border-on-surface-variant ink-shadow relative overflow-hidden flex flex-col animate-in fade-in zoom-in duration-300">
+            <!-- Yellow Header -->
+            <div
+                class="bg-primary-container px-md py-sm border-b-2 border-on-surface-variant flex items-center justify-center">
+                <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary-container tracking-tight">
+                    获得机会卡!</h2>
+            </div>
+            <!-- Card Content -->
+            <div class="p-lg flex flex-col items-center gap-md text-center">
+                <!-- Illustration Placeholder -->
+                <div
+                    class="w-32 h-32 hand-drawn-border border-outline-variant bg-surface-container-low flex items-center justify-center rotate-2">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzncUSNd4xsRxZgBD6ChXqbz-aAkuniRFbygIpbkgRldEIYRO5u1vucA-yQYMxuf946d273biYo7d47cuu47p_xnpajcP5uyGb5NmezafE6UsjSOeIFDMF7CiqqU6Z21nq_VVVhWzY1B0egArRFnFr2dHpBFHPtxzHt-oSzw4mNo2qYIlb_jaZAhkfkbRvB3sRMusYkCe8HCQbpUd1SaF_qo-MwIPSVU8ZClAHDrpemjrt8qFzUiXyBJB4qG1bn6p8A_jHwkaOjg"
+                        alt="Chance Card Illustration" class="w-full h-full object-contain"></div>
+                <div class="space-y-sm">
+                    <p class="font-body-md text-on-surface-variant leading-relaxed">
+                        在街角捡到了散落的硬币，<br>
+                        <span class="font-bold text-primary highlighter-stroke">金币 +50</span>
+                    </p>
+                </div>
+                <!-- Action Button -->
+                <button
+                    class="w-full mt-base py-md bg-primary-container text-on-primary-container font-headline-lg-mobile text-headline-lg-mobile hand-drawn-border border-on-surface-variant ink-shadow active-press transition-all">
+                    收下
+                </button>
+            </div>
+            <!-- Corner Sticker Decoration -->
+            <div
+                class="absolute -bottom-2 -right-2 w-12 h-12 bg-secondary/10 border-2 border-dashed border-secondary rounded-full -rotate-12 flex items-center justify-center opacity-40">
+                <span class="material-symbols-outlined text-secondary text-[20px]">verified</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Micro-interactions for button press feedback and atmospheric delay
+        document.querySelectorAll('.active-press').forEach(btn => {
+            btn.addEventListener('click', function () {
+                this.classList.add('translate-y-0.5', 'translate-x-0.5');
+                setTimeout(() => {
+                    this.classList.remove('translate-y-0.5', 'translate-x-0.5');
+                    // Logic to close popup or trigger next event could go here
+                }, 100);
+            });
+        });
+
+        // Simple visibility toggle for the nav drawer (optional interaction)
+        const menuBtn = document.querySelector('header button');
+        const drawer = document.getElementById('nav-drawer');
+        let drawerOpen = false;
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            drawerOpen = !drawerOpen;
+            drawer.style.transform = drawerOpen ? 'translateX(0)' : 'translateX(100%)';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (drawerOpen && !drawer.contains(e.target)) {
+                drawerOpen = false;
+                drawer.style.transform = 'translateX(100%)';
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>

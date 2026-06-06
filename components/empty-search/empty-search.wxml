@@ -1,0 +1,18 @@
+<view class="empty-search">
+  <view class="empty-illustration">
+    <!-- Background "Map" paper fragment -->
+    <view class="bg-paper"></view>
+    <!-- Hand-drawn magnifying glass + empty map -->
+    <view class="illustration-card">
+      <view class="map-emoji">🗺️</view>
+    </view>
+    <!-- Decorative "Sticky Note" -->
+    <view class="sticky-note">LOST?</view>
+  </view>
+
+  <view class="empty-text">
+    <text class="empty-title text-display-lg-mobile">未发现相关地点</text>
+    <text class="empty-desc text-body-lg">换个关键词试试看吧？或许好运就在下一个街角等着你。</text>
+  </view>
+
+</view>

@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "navigation-bar": "/components/NavigationBar/navigation-bar",
+    "drawing-progress": "/components/drawing-progress/drawing-progress"
+  }
+}

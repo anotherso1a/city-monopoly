@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>City Monopoly - Create Map</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Public+Sans:wght@400&amp;family=Space+Mono:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;family=Public+Sans:wght@100..900&amp;family=Space+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .paper-texture {
+            background-color: #fff8f3;
+            background-image: radial-gradient(#d5c4ab 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+        .hand-drawn-border {
+            border-style: solid;
+            border-width: 2px;
+            border-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2C25 4 75 1 98 2C96 25 99 75 98 98C75 96 25 99 2 98C4 75 1 25 2 2Z' stroke='%23837560' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") 20% stretch;
+        }
+        @keyframes pulse-gold {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 186, 32, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 186, 32, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 186, 32, 0); }
+        }
+        .animate-pulse-gold {
+            animation: pulse-gold 2s infinite;
+        }
+        @keyframes pulse-blue {
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
+        }
+        .marker-pulse {
+            animation: pulse-blue 1.5s infinite ease-in-out;
+        }
+        .sticker-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(81, 69, 50, 0.15);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#81cfff",
+                        "secondary-fixed-dim": "#ffb3b4",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#211b11",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fff8f3",
+                        "surface-container": "#f9ecdb",
+                        "primary-fixed": "#ffdea8",
+                        "inverse-primary": "#ffba20",
+                        "primary-fixed-dim": "#ffba20",
+                        "primary-container": "#ffb800",
+                        "surface-container-high": "#f3e6d6",
+                        "outline-variant": "#d5c4ab",
+                        "on-secondary-container": "#fffbff",
+                        "inverse-on-surface": "#fcefde",
+                        "on-secondary-fixed": "#40000a",
+                        "surface-container-highest": "#ede1d0",
+                        "on-surface-variant": "#514532",
+                        "on-tertiary-fixed-variant": "#004c6b",
+                        "secondary": "#b71032",
+                        "surface-variant": "#ede1d0",
+                        "surface-container-low": "#fff2e1",
+                        "primary": "#7c5800",
+                        "on-primary": "#ffffff",
+                        "outline": "#837560",
+                        "surface-tint": "#7c5800",
+                        "on-background": "#211b11",
+                        "on-primary-container": "#6b4c00",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fff8f3",
+                        "on-tertiary-fixed": "#001e2d",
+                        "surface": "#fff8f3",
+                        "inverse-surface": "#362f24",
+                        "secondary-fixed": "#ffdad9",
+                        "on-primary-fixed": "#271900",
+                        "on-error": "#ffffff",
+                        "tertiary": "#00658d",
+                        "on-secondary-fixed-variant": "#920023",
+                        "on-tertiary-container": "#00577a",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "surface-dim": "#e5d8c8",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#da3148",
+                        "tertiary-fixed": "#c6e7ff",
+                        "tertiary-container": "#7dceff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "32px",
+                        "xl": "48px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "safe-area": "24px",
+                        "sm": "12px",
+                        "md": "20px"
+                    },
+                    "fontFamily": {
+                        "data-lg": ["Space Mono"],
+                        "label-caps": ["Space Mono"],
+                        "body-md": ["Public Sans"],
+                        "body-sm": ["Public Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "data-lg": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="paper-texture min-h-screen flex flex-col font-body-md text-on-surface select-none">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container border-b-2 border-on-surface-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] flex justify-between items-center px-4 py-4">
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined active:translate-y-0.5 active:translate-x-0.5 transition-transform hover:opacity-90">arrow_back</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-extrabold tracking-tight">创建地图</h1>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-on-primary overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A hand-drawn sketch of a stylish urban adventurer character with a backpack and a hat, rendered in a charcoal and ink style on vintage parchment paper, reflecting a playful game-like persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASIJXa5wW_jvHTsPn5V-Hu1Q0U4ufxNdFPsmhAHXvEny60kMO9BRzRMloO3W4QfChTG6_3LpN772RP1uwYtlmZIB1HcqSzpoD_Dt8g6aJR32eppViEOtN7qYl_n1lIvoTzRxS6JRGXZjcEgNTMFdEo9TaE42lfSky_sphjJqphr8hRO9elENZpWWV0zz7H0_9k4T1iOywDNwcbbOzddTf5VDp0e2DMrL-F5tyZvLAnLNp1XTv5JtHovUe5iiKA4fE0GHj1rr9zyQ"/>
+</div>
+</header>
+<main class="flex-1 mt-20 mb-24 px-4 flex flex-col gap-6 overflow-y-auto">
+<!-- Step Indicator -->
+<section class="flex justify-between items-start px-2 py-4">
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-10 h-10 rounded-full bg-primary-container border-2 border-primary flex items-center justify-center sticker-shadow">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary">定位</span>
+</div>
+<div class="h-0.5 bg-outline-variant flex-1 mt-5"></div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-10 h-10 rounded-full bg-primary-container border-2 border-primary flex items-center justify-center animate-pulse-gold sticker-shadow">
+<span class="font-data-lg text-data-lg text-on-primary-container">2</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary">范围</span>
+</div>
+<div class="h-0.5 bg-outline-variant flex-1 mt-5"></div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border-2 border-dashed border-outline-variant flex items-center justify-center">
+<span class="font-data-lg text-data-lg text-on-surface-variant">3</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">选项</span>
+</div>
+<div class="h-0.5 bg-outline-variant flex-1 mt-5"></div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border-2 border-dashed border-outline-variant flex items-center justify-center">
+<span class="font-data-lg text-data-lg text-on-surface-variant">4</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">生成</span>
+</div>
+</section>
+<!-- Map Preview -->
+<section class="relative aspect-square w-full rounded-xl overflow-hidden border-2 border-primary sticker-shadow bg-surface-container">
+<div class="absolute inset-0 z-0 grayscale opacity-80" data-location="London" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPyBO8y-kSHsmdu__wNl1kABgkIUZuFdx70ygihPwAUDNHAFynG0uaeuoW_Rxi15p6oHQz_jLNc8tv61Xj_pPRsjwbdAu1bsbB84-eu8wwNseLUhKk357nfCTGJ4UfAZB1dZxNNWgAyrE_5IR8aWMWD0pRSeVxVbKkGnpt6FumD0IapvitOHt95NWzt09Mq9ufv6PoWLUDA3yc3IOA6vLHJmJ0jVdaSlHxwocEHD4qt6ap7gN7v3zXE087KNZKueIsS5Q-JwGt0w'); background-size: cover; background-position: center;">
+<!-- Fallback/Overlay for Hand-drawn feel -->
+<div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+</div>
+<!-- Hand-drawn Overlay Elements -->
+<div class="absolute inset-0 z-10 flex items-center justify-center">
+<!-- Range Circle -->
+<div class="w-48 h-48 rounded-full border-4 border-dashed border-primary-container bg-primary-container/20 flex items-center justify-center transition-all duration-500 ease-in-out">
+<!-- Location Marker -->
+<div class="relative">
+<div class="marker-pulse absolute w-10 h-10 bg-tertiary/40 rounded-full"></div>
+<span class="material-symbols-outlined text-tertiary text-4xl relative z-20" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-4 left-4 bg-surface-container-lowest/90 px-3 py-1 rounded-full border-2 border-outline flex items-center gap-2 sticker-shadow">
+<span class="material-symbols-outlined text-sm">explore</span>
+<span class="font-label-caps text-label-caps">搜索地点，例如：王府井</span>
+</div>
+</section>
+<!-- Selection UI -->
+<section class="flex flex-col gap-4">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-center px-4">设置探索范围</h2>
+<div class="flex justify-center gap-4">
+<button class="flex-1 flex flex-col items-center justify-center py-4 px-2 rounded-xl border-2 border-outline hover:bg-surface-container-high transition-all active:scale-95">
+<span class="font-data-lg text-data-lg">500米</span>
+<span class="font-label-caps text-label-caps opacity-60">小型</span>
+</button>
+<button class="flex-1 flex flex-col items-center justify-center py-4 px-2 rounded-xl border-2 border-primary bg-primary-container text-on-primary-container sticker-shadow active:translate-y-0.5 transition-all">
+<span class="font-data-lg text-data-lg">1公里</span>
+<span class="font-label-caps text-label-caps">标准</span>
+</button>
+<button class="flex-1 flex flex-col items-center justify-center py-4 px-2 rounded-xl border-2 border-outline hover:bg-surface-container-high transition-all active:scale-95">
+<span class="font-data-lg text-data-lg">1.5公里</span>
+<span class="font-label-caps text-label-caps opacity-60">大型</span>
+</button>
+</div>
+<p class="text-center font-body-sm text-on-surface-variant px-8">
+                范围越大包含的地块越多，但探索所需的体力也越多。
+            </p>
+</section>
+</main>
+<!-- Navigation Buttons -->
+<footer class="fixed bottom-0 w-full p-4 bg-background/80 backdrop-blur-sm flex justify-between gap-4 z-40">
+<button class="flex-1 py-4 border-2 border-outline rounded-xl font-headline-lg-mobile text-on-surface-variant active:translate-y-0.5 active:translate-x-0.5 transition-all">
+            返回
+        </button>
+<button class="flex-[2] py-4 bg-primary text-on-primary border-2 border-primary rounded-xl font-headline-lg-mobile sticker-shadow active:translate-y-0.5 active:translate-x-0.5 transition-all flex items-center justify-center gap-2">
+            下一步
+            <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</footer>
+<!-- Atmosphere Effects -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] mix-blend-multiply paper-texture z-[100]"></div>
+<script>
+        // Simple Interaction logic for Range buttons
+        const rangeButtons = document.querySelectorAll('button.flex-1.flex-col');
+        const rangeCircle = document.querySelector('.w-48.h-48');
+
+        rangeButtons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                // Clear active states
+                rangeButtons.forEach(b => {
+                    b.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary', 'sticker-shadow');
+                    b.classList.add('border-outline');
+                });
+                
+                // Add active state to clicked
+                btn.classList.remove('border-outline');
+                btn.classList.add('bg-primary-container', 'text-on-primary-container', 'border-primary', 'sticker-shadow');
+
+                // Adjust visual circle size
+                const sizes = ['w-32 h-32', 'w-48 h-48', 'w-64 h-64'];
+                rangeCircle.className = `rounded-full border-4 border-dashed border-primary-container bg-primary-container/20 flex items-center justify-center transition-all duration-500 ease-in-out ${sizes[index]}`;
+            });
+        });
+    </script>
+</body></html>

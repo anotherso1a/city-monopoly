@@ -1,0 +1,98 @@
+{
+  "libVersion": "3.16.0",
+  "projectname": "city-monapoly",
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/searchempty/searchempty",
+          "pathName": "pages/searchempty/searchempty",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "首页",
+          "pathName": "pages/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "创建地图",
+          "pathName": "pages/create/create",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "游戏 (无 mapId)",
+          "pathName": "pages/game/game",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "游戏 (map: mpvc95h3pj0updcbh)",
+          "pathName": "pages/game/game",
+          "query": "mapId=mpvc95h3pj0updcbh",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "游戏 (map: mp5gedfwwgkn30ueo)",
+          "pathName": "pages/game/game",
+          "query": "mapId=mp5gedfwwgkn30ueo",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "游戏结束",
+          "pathName": "pages/settlement/settlement",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "探险日志",
+          "pathName": "pages/logs/logs",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "历史收藏",
+          "pathName": "pages/history/history",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "编辑地图",
+          "pathName": "pages/edit/edit",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  },
+  "setting": {
+    "urlCheck": false,
+    "coverView": true,
+    "lazyloadPlaceholderEnable": false,
+    "skylineRenderEnable": false,
+    "preloadBackgroundData": false,
+    "autoAudits": false,
+    "useApiHook": true,
+    "showShadowRootInWxmlPanel": false,
+    "useStaticServer": false,
+    "useLanDebug": false,
+    "showES6CompileOption": false,
+    "compileHotReLoad": true,
+    "checkInvalidKey": true,
+    "ignoreDevUnusedFiles": true,
+    "bigPackageSizeSupport": false,
+    "useIsolateContext": true
+  }
+}

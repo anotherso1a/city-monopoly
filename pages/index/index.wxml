@@ -1,0 +1,84 @@
+<view class="index-page">
+  <!-- Background Layer -->
+  <view class="bg-layer">
+    <image class="bg-city" src="{{bgImage}}" mode="aspectFill"></image>
+  </view>
+
+  <!-- Top Navigation Bar -->
+  <navigation-bar
+    type="menu"
+    transparent
+    dark
+    bind:menutap="onToggleDrawer"
+    bind:heightchange="onNavHeightChange"
+  />
+
+  <view class="main-content" style="padding-top: {{navBarHeight}}px;">
+    <!-- Hero Section -->
+    <view class="hero-section">
+      <view class="hero-title-wrapper">
+        <view class="hero-new-badge">HOT</view>
+        <text class="hero-title text-headline-md">城市大富翁</text>
+      </view>
+      <text class="hero-subtitle text-body-sm">在现实世界中开启你的冒险</text>
+    </view>
+
+    <!-- Main Action: Create New Map -->
+    <view class="create-section">
+      <view class="create-btn" bindtap="onCreateMap">
+        <text class="iconfont create-icon icon-location"></text>
+        <text class="create-title text-body-md">开始探索</text>
+        <text class="create-desc text-body-sm">设计你专属的城市游乐场</text>
+      </view>
+    </view>
+
+    <!-- My Maps Entry -->
+    <view class="maps-section">
+      <view class="section-header">
+        <text class="section-title text-headline-sm">我的收藏</text>
+        <view class="section-more text-mono" bindtap="onViewAll">
+          查看全部
+          <text class="iconfont section-more-icon icon-right"></text>
+        </view>
+      </view>
+      <view class="map-cards-grid">
+        <block wx:if="{{mapThumbnails.length > 0}}">
+          <view class="map-card" wx:for="{{mapList}}" wx:key="id" bindtap="onMapTap" data-map-id="{{item.id}}">
+            <view class="map-thumbnail">
+              <image src="{{mapThumbnails[index]}}" mode="aspectFill"></image>
+            </view>
+            <view class="map-name text-mono">{{item.name}}</view>
+            <text class="map-date text-mono-sm">{{item.createdAt}}</text>
+          </view>
+        </block>
+        <view class="local-card" bindtap="onLoadLocalMap">
+          <text class="iconfont local-icon icon-sync"></text>
+          <text class="local-text text-mono-sm">本地载入地图</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Sidebar — 通用菜单, 通过 items 数组声明要显示的项 -->
+  <sidebar
+    visible="{{drawerOpen}}"
+    items="{{sidebarItems}}"
+    avatar="{{playerAvatar}}"
+    nickname="{{playerNickname}}"
+    level="{{cumulativeExpLabel}}"
+    bind:close="onCloseDrawer"
+    bind:itemtap="onSidebarItemTap"
+    bind:editProfile="onSidebarEditProfile"
+  />
+
+  <!-- 用户授权弹窗 — 首次启动显示,侧边栏可重新打开 -->
+  <profile-setup
+    visible="{{showProfileSetup}}"
+    mode="{{profileMode}}"
+    initialAvatarUrl="{{playerAvatar}}"
+    initialNickName="{{playerNickname}}"
+    bind:confirm="onProfileCommit"
+    bind:skip="onProfileCommit"
+    bind:close="onProfileClose"
+  />
+</view>

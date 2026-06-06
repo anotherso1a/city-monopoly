@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "disableScroll": false,
+  "usingComponents": {
+    "navigation-bar": "/components/NavigationBar/navigation-bar",
+    "sidebar": "/components/Sidebar/sidebar"
+  }
+}

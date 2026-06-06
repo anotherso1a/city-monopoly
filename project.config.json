@@ -1,0 +1,126 @@
+{
+	"description": "City Monopoly WeChat Mini-Program",
+	"packOptions": {
+		"ignore": [
+			{
+				"type": "folder",
+				"value": "assets/imgbak"
+			},
+			{
+				"type": "folder",
+				"value": "docs"
+			},
+			{
+				"type": "folder",
+				"value": "pages/bak"
+			},
+			{
+				"type": "suffix",
+				"value": ".png"
+			},
+			{
+				"type": "suffix",
+				"value": ".jpg"
+			},
+			{
+				"type": "suffix",
+				"value": ".jpeg"
+			},
+			{
+				"type": "suffix",
+				"value": ".gif"
+			},
+			{
+				"type": "suffix",
+				"value": ".webp"
+			},
+			{
+				"type": "suffix",
+				"value": ".svg"
+			}
+		],
+		"include": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": true,
+		"postcss": true,
+		"preloadBackgroundData": false,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"showShadow": true,
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"compileHotReLoad": false,
+		"lazyloadPlaceholderEnable": false,
+		"useMultiFrameRuntime": true,
+		"useApiHook": true,
+		"useApiHostProcess": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"enableEngineNative": false,
+		"useIsolateContext": true,
+		"userConfirmedBundleSwitch": false,
+		"packNpmManually": false,
+		"packNpmRelationList": [],
+		"minifyWXSS": true,
+		"showES6CompileOption": false,
+		"minifyWXML": true,
+		"ignoreUploadUnusedFiles": true,
+		"compileWorklet": false,
+		"uglifyFileName": false,
+		"localPlugins": false,
+		"disableUseStrict": false,
+		"useCompilerPlugins": false,
+		"condition": false,
+		"swc": false,
+		"disableSWC": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.19.4",
+	"appid": "wxb94eadd71f2651bf",
+	"projectname": "city-monapoly",
+	"condition": {
+		"search": {
+			"list": []
+		},
+		"conversation": {
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"plugin": {
+			"list": []
+		},
+		"gamePlugin": {
+			"list": []
+		},
+		"miniprogram": {
+			"list": []
+		}
+	},
+	"editorSetting": {
+		"tabSize": 2,
+		"tabIndent": "tab"
+	},
+	"simulatorPluginLibVersion": {},
+	"extension": {
+		"fileAssociations": [
+			{
+				"ext": "json",
+				"mimeType": "application/json",
+				"description": "City Monopoly Map"
+			}
+		]
+	}
+}

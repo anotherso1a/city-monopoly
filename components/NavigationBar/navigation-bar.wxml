@@ -1,0 +1,16 @@
+<view class="nav-bar {{transparent ? 'nav-bar--transparent' : ''}} {{dark ? 'nav-bar--dark' : ''}}" style="height: {{height}}px;">
+  <!-- Status Bar Placeholder -->
+  <view class="status-bar" style="height: {{statusHeight}}px;"></view>
+  <!-- Nav Content -->
+  <view class="nav-content">
+    <view class="nav-bar-left">
+      <view class="menu-btn" bindtap="onMenuTap" wx:if="{{type === 'menu'}}">
+        <text class="iconfont nav-icon icon-menu"></text>
+      </view>
+      <view class="back-btn" bindtap="onBack" wx:if="{{type === 'back'}}">
+        <text class="iconfont nav-icon icon-arrowleft"></text>
+      </view>
+      <text class="nav-title text-headline-md" wx:if="{{title}}">{{title}}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+    <title>游戏主界面 - 城市大富翁</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Source+Serif+4:wght@400;600&amp;family=Work+Sans:wght@600&amp;family=Courier+Prime&amp;family=Noto+Serif+SC:wght@400;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f7eed2;
+            /* Soft cream base */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: "Source Serif 4", "Noto Serif SC", serif;
+        }
+
+        .paper-texture {
+            background-color: #fff9ed;
+            background-image: url("https://www.transparenttextures.com/patterns/felt.png");
+            position: relative;
+            box-shadow: 0 10px 40px rgba(124, 88, 0, 0.1);
+            border: 2px solid #d5c4ab;
+        }
+
+        .sketch-border {
+            border: 2px solid #837560;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+
+        .sketch-border-sm {
+            border: 1.5px solid #837560;
+            border-radius: 12px 4px 14px 5px/4px 14px 5px 12px;
+        }
+
+        .ink-divider {
+            height: 2px;
+            background: radial-gradient(circle, #837560 0%, transparent 100%);
+            opacity: 0.4;
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .ink-divider::before,
+        .ink-divider::after {
+            content: "✦";
+            position: absolute;
+            top: -8px;
+            color: #837560;
+            font-size: 12px;
+        }
+
+        .ink-divider::before {
+            left: 10%;
+        }
+
+        .ink-divider::after {
+            right: 10%;
+        }
+
+        @keyframes ink-fade {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-warm {
+            animation: ink-fade 0.8s ease-out forwards;
+        }
+
+        .soft-shadow {
+            box-shadow: 0 4px 12px rgba(131, 117, 96, 0.15);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'wght' 300, 'opsz' 20;
+        }
+
+        /* Piece Movement Animations */
+        @keyframes hop {
+
+            0%,
+            100% {
+                transform: translate(-50%, -100%) translateY(0);
+            }
+
+            50% {
+                transform: translate(-50%, -100%) translateY(-15px);
+            }
+        }
+
+        .piece-hop {
+            animation: hop 0.4s ease-in-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        .ripple-effect {
+            position: absolute;
+            border: 2px solid #ffb800;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: ripple 0.8s ease-out forwards;
+        }
+
+        @keyframes shake-dice {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+
+            25% {
+                transform: rotate(15deg) scale(1.1);
+            }
+
+            50% {
+                transform: rotate(-15deg) scale(1.1);
+            }
+
+            75% {
+                transform: rotate(15deg) scale(1.1);
+            }
+
+            100% {
+                transform: rotate(0deg) scale(1);
+            }
+        }
+
+        .dice-shaking {
+            animation: shake-dice 0.6s ease-in-out;
+        }
+
+        #gamePiece {
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1), top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.2));
+            z-index: 50;
+        }
+
+        #currentHighlight {
+            transition: cx 0.4s ease-in-out, cy 0.4s ease-in-out;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            #gamePiece,
+            #currentHighlight {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#fcf3d8",
+                        "outline": "#837560",
+                        "background": "#fff9ed",
+                        "on-secondary-fixed": "#28180b",
+                        "surface-container": "#f7eed2",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#271900",
+                        "surface": "#fff9ed",
+                        "surface-bright": "#fff9ed",
+                        "tertiary": "#6b5c46",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#fbddc7",
+                        "on-surface-variant": "#514532",
+                        "surface-container-high": "#f1e8cd",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#241a08",
+                        "primary-fixed-dim": "#ffba20",
+                        "on-background": "#1f1c0b",
+                        "secondary-fixed-dim": "#dec1ac",
+                        "secondary": "#705a49",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#d8c4a8",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#35301e",
+                        "inverse-on-surface": "#faf0d5",
+                        "on-secondary-container": "#755e4d",
+                        "on-tertiary-fixed-variant": "#534530",
+                        "surface-dim": "#e2dabf",
+                        "on-surface": "#1f1c0b",
+                        "on-primary-container": "#6b4c00",
+                        "primary-fixed": "#ffdea8",
+                        "primary-container": "#ffb800",
+                        "outline-variant": "#d5c4ab",
+                        "on-secondary-fixed-variant": "#574333",
+                        "secondary-container": "#f8dac5",
+                        "primary": "#7c5800",
+                        "tertiary-container": "#d6c2a7",
+                        "surface-variant": "#ebe2c8",
+                        "inverse-primary": "#ffba20",
+                        "surface-container-highest": "#ebe2c8",
+                        "tertiary-fixed": "#f5dfc3",
+                        "on-tertiary-container": "#5e4f3a",
+                        "surface-tint": "#7c5800",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Libre Caslon Text", "Noto Serif SC"],
+                        "label-caps": ["Work Sans"],
+                        "headline-md": ["Libre Caslon Text", "Noto Serif SC"],
+                        "display-lg": ["Libre Caslon Text", "Noto Serif SC"],
+                        "body-md": ["Source Serif 4", "Noto Serif SC"],
+                        "mono-technical": ["Courier Prime"],
+                        "body-lg": ["Source Serif 4", "Noto Serif SC"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "mono-technical": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen p-4">
+    <!-- Main Content Canvas -->
+    <main
+        class="paper-texture w-full max-w-[430px] h-[850px] overflow-hidden flex flex-col relative animate-warm rounded-xl">
+        <!-- Content Area -->
+        <div class="flex-grow px-6 flex flex-col items-center pt-6">
+            <!-- Game Stats Card -->
+            <section
+                class="w-full bg-white/50 border border-outline/30 p-5 rounded-2xl mb-6 flex justify-between items-center relative soft-shadow">
+                <div class="flex flex-col items-center">
+                    <span
+                        class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1 tracking-widest">金币持有</span>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span class="material-symbols-outlined text-lg mr-1" data-icon="payments">payments</span>
+                        <span class="font-mono-technical text-lg" id="goldCount">12,450</span>
+                    </div>
+                </div>
+                <div class="h-8 w-px bg-outline/20"></div>
+                <div class="flex flex-col items-center">
+                    <span
+                        class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1 tracking-widest">当前步数</span>
+                    <div class="flex items-center text-on-surface font-semibold">
+                        <span class="material-symbols-outlined text-lg mr-1" data-icon="footprint">footprint</span>
+                        <span class="font-mono-technical text-lg" id="stepCount">842</span>
+                    </div>
+                </div>
+                <div class="h-8 w-px bg-outline/20"></div>
+                <div class="flex flex-col items-center">
+                    <span
+                        class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1 tracking-widest">探索进度</span>
+                    <div class="flex items-center text-secondary font-semibold">
+                        <span class="font-mono-technical text-lg" id="progressPct">68%</span>
+                    </div>
+                </div>
+            </section>
+            <!-- Board Game Style Area -->
+            <div class="relative w-full aspect-square flex items-center justify-center mb-6" id="boardContainer">
+                <!-- Center Map -->
+                <div class="w-80 h-80 sketch-border bg-surface-container-low p-3 relative overflow-hidden group soft-shadow"
+                    id="mapWrapper">
+                    <div class="absolute inset-0 bg-primary/5 mix-blend-overlay"></div>
+                </div>
+            </div>
+            <!-- Info Card -->
+            <div class="w-full bg-white/70 border-2 border-[#d5c4ab] p-6 rounded-2xl soft-shadow mb-6"
+                id="landmarkCard">
+                <div class="flex items-center mb-3">
+                    <div class="w-14 h-14 bg-surface-container sketch-border-sm flex items-center justify-center mr-4"
+                        id="landmarkIconBox">
+                        <span class="material-symbols-outlined text-2xl text-tertiary" id="landmarkIcon">castle</span>
+                    </div>
+                    <div>
+                        <h2 class="font-headline-md text-primary text-xl" id="landmarkTitle">威斯敏斯特区</h2>
+                        <p class="font-body-md text-on-surface-variant text-sm italic" id="landmarkDesc">伦敦历史最为悠久的地区之一。
+                        </p>
+                    </div>
+                </div>
+                <div class="ink-divider"></div>
+                <div class="flex gap-4">
+                    <button
+                        class="flex-1 py-3 border border-outline rounded-xl text-on-surface font-semibold text-sm hover:bg-surface-container transition-all active:scale-95">
+                        开启航程
+                    </button>
+                    <button
+                        class="flex-1 py-3 bg-secondary-container/80 border border-secondary rounded-xl text-on-secondary-container font-semibold text-sm transition-all active:scale-95 flex items-center justify-center hover:bg-secondary-container">
+                        <span class="material-symbols-outlined mr-1 text-sm" data-icon="how_to_reg">how_to_reg</span>
+                        登记
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Action Button -->
+        <div class="absolute bottom-10 left-0 w-full px-6">
+            <button
+                class="w-full py-5 bg-primary rounded-2xl text-on-primary font-display-lg-mobile text-lg flex items-center justify-center gap-3 shadow-xl hover:brightness-110 active:scale-[0.98] transition-all group overflow-hidden"
+                id="rollDice">
+                <span class="material-symbols-outlined text-3xl" id="diceIcon"
+                    style="font-variation-settings: 'FILL' 1;">casino</span>
+                <span id="diceText">投掷骰子</span>
+            </button>
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none mix-blend-multiply"
+            style="background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');"></div>
+    </main>
+    <script>
+        // Sidebar Logic
+        const menuToggle = document.getElementById('menuToggle');
+        const drawer = document.getElementById('sideDrawer');
+        let drawerOpen = false;
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            drawerOpen = !drawerOpen;
+            drawer.style.transform = drawerOpen ? 'translateX(0)' : 'translateX(-100%)';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (drawerOpen && !drawer.contains(e.target)) {
+                drawerOpen = false;
+                drawer.style.transform = 'translateX(-100%)';
+            }
+        });
+
+        // Game State
+        const landmarksData = [
+            { title: "威斯敏斯特区", desc: "伦敦历史最为悠久的地区之一。", icon: "castle" },
+            { title: "考文特花园", desc: "充满活力的集市与街头表演胜地。", icon: "storefront" },
+            { title: "伦敦塔桥", desc: "横跨泰晤士河的标志性维多利亚建筑。", icon: "architecture" },
+            { title: "大英博物馆", desc: "人类历史、艺术与文化的宏伟圣殿。", icon: "account_balance" },
+            { title: "海德公园", desc: "城市中心规模最大的皇家庭园。", icon: "park" },
+            { title: "皮卡迪利广场", desc: "伦敦的心脏，霓虹闪烁的时尚交汇点。", icon: "hub" },
+            { title: "格林威治", desc: "本初子午线所在地，天文与航海之城。", icon: "explore" },
+            { title: "碎片大厦", desc: "现代伦敦的巅峰，俯瞰全城的云端之眼。", icon: "skyscrapers" },
+            { title: "圣保罗大教堂", desc: "圆顶建筑杰作，城市精神的守护者。", icon: "church" },
+            { title: "特拉法加广场", desc: "纪念性广场，狮子铜像巍然耸立。", icon: "emoji_events" },
+            { title: "切尔西区", desc: "精致时尚的代名词，潮流探险家的天堂。", icon: "palette" },
+            { title: "国王十字站", desc: "神秘的九又四分之三站台由此开启。", icon: "train" }
+        ];
+
+        let currentIndex = 0;
+        let isMoving = false;
+
+        const mainPath = document.getElementById('mainPath');
+        const landmarksContainer = document.getElementById('landmarks');
+        const highlight = document.getElementById('currentHighlight');
+        const highlightInner = document.getElementById('currentHighlightInner');
+        const gamePiece = document.getElementById('gamePiece');
+        const pathLength = mainPath.getTotalLength();
+        const totalSteps = landmarksData.length;
+
+        // Initialize path points
+        function updatePathPoints() {
+            landmarksContainer.innerHTML = '';
+            for (let i = 0; i < totalSteps; i++) {
+                const point = mainPath.getPointAtLength((i / totalSteps) * pathLength);
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", point.x);
+                circle.setAttribute("cy", point.y);
+                circle.setAttribute("r", "4");
+                circle.setAttribute("fill", "#837560");
+                landmarksContainer.appendChild(circle);
+            }
+        }
+
+        function setPieceToPosition(index, animate = false) {
+            const point = mainPath.getPointAtLength((index / totalSteps) * pathLength);
+
+            // Map relative SVG coords (0-256) to container pixels (320x320)
+            const mapSize = 320;
+            const svgSize = 256;
+            const pixelX = (point.x / svgSize) * mapSize;
+            const pixelY = (point.y / svgSize) * mapSize;
+
+            gamePiece.style.left = `${pixelX}px`;
+            gamePiece.style.top = `${pixelY}px`;
+
+            highlight.setAttribute("cx", point.x);
+            highlight.setAttribute("cy", point.y);
+            highlightInner.setAttribute("cx", point.x);
+            highlightInner.setAttribute("cy", point.y);
+        }
+
+        // Ripple Effect on Landing
+        function triggerRipple(index) {
+            const point = mainPath.getPointAtLength((index / totalSteps) * pathLength);
+            const mapSize = 320;
+            const svgSize = 256;
+            const pixelX = (point.x / svgSize) * mapSize;
+            const pixelY = (point.y / svgSize) * mapSize;
+
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple-effect';
+            ripple.style.left = `${pixelX}px`;
+            ripple.style.top = `${pixelY}px`;
+            ripple.style.width = '40px';
+            ripple.style.height = '40px';
+            ripple.style.marginTop = '-20px';
+            ripple.style.marginLeft = '-20px';
+
+            document.getElementById('mapWrapper').appendChild(ripple);
+            setTimeout(() => ripple.remove(), 1000);
+        }
+
+        // Dice Roll Logic
+        const rollBtn = document.getElementById('rollDice');
+        const diceIcon = document.getElementById('diceIcon');
+        const diceText = document.getElementById('diceText');
+
+        rollBtn.addEventListener('click', async function () {
+            if (isMoving) return;
+            isMoving = true;
+
+            // Step 1: Dice Animation
+            diceIcon.classList.add('dice-shaking');
+            diceText.innerText = "投掷中...";
+
+            const stepsToMove = Math.floor(Math.random() * 6) + 1;
+
+            setTimeout(async () => {
+                diceIcon.classList.remove('dice-shaking');
+                diceText.innerText = `前进 ${stepsToMove} 步!`;
+
+                // Step 2: Piece Movement Sequence
+                for (let i = 0; i < stepsToMove; i++) {
+                    currentIndex = (currentIndex + 1) % totalSteps;
+
+                    // Visual Jump
+                    gamePiece.classList.add('piece-hop');
+                    setPieceToPosition(currentIndex, true);
+
+                    // Update stats mid-walk
+                    const currentSteps = parseInt(document.getElementById('stepCount').innerText);
+                    document.getElementById('stepCount').innerText = currentSteps + 1;
+
+                    await new Promise(r => setTimeout(r, 450));
+                    gamePiece.classList.remove('piece-hop');
+                }
+
+                // Step 3: Landing Effect
+                triggerRipple(currentIndex);
+                updateCard(currentIndex);
+
+                // Finalize stats
+                const gold = parseInt(document.getElementById('goldCount').innerText.replace(',', ''));
+                document.getElementById('goldCount').innerText = (gold + stepsToMove * 10).toLocaleString();
+
+                isMoving = false;
+                setTimeout(() => {
+                    diceText.innerText = "投掷骰子";
+                }, 1000);
+            }, 600);
+        });
+
+        function updateCard(index) {
+            const data = landmarksData[index];
+            const card = document.getElementById('landmarkCard');
+
+            // Soft fade transition
+            card.style.opacity = '0.5';
+            setTimeout(() => {
+                document.getElementById('landmarkTitle').innerText = data.title;
+                document.getElementById('landmarkDesc').innerText = data.desc;
+                document.getElementById('landmarkIcon').innerText = data.icon;
+                card.style.opacity = '1';
+            }, 150);
+        }
+
+        // Initial setup
+        window.onload = () => {
+            updatePathPoints();
+            setPieceToPosition(0);
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<view class="chance-card-component" wx:if="{{visible}}">
+  <!-- Overlay Backdrop -->
+  <view class="overlay-backdrop" bindtap="onClose">
+    <!-- Opportunity Card Popup -->
+    <view class="opportunity-card" catchtap="noop">
+      <!-- Yellow Header -->
+      <view class="card-header">
+        <text class="card-title text-headline-sm text-on-primary-container">获得机会卡!</text>
+      </view>
+      <!-- Card Content -->
+      <view class="card-content">
+        <!-- Illustration Placeholder -->
+        <view class="illustration-container hand-drawn-border">
+          <image class="illustration-image" src="https://anothersola.oss-cn-beijing.aliyuncs.com/components/chance-card/images/card.png" mode="aspectFit"></image>
+        </view>
+        <view class="card-text">
+          <text class="description text-body-md text-on-surface-variant">{{description}}</text>
+        </view>
+        <!-- Gold Change Chip — 按 goldChange 正负展示不同配色,0 时隐藏 -->
+        <view class="card-gold-chip hand-drawn-border {{goldChangeClass}}" wx:if="{{goldChange !== 0}}">
+          <text class="iconfont gold-chip-icon icon-Dollar"></text>
+          <text class="gold-chip-amount text-headline-sm">{{animatedGoldText}}</text>
+          <text class="gold-chip-unit text-body-sm">金币</text>
+        </view>
+        <!-- Action Button -->
+        <button class="collect-btn hand-drawn-border ink-shadow active-press" bindtap="onCollect">
+          <text class="text-headline-sm text-on-primary-container">收下</text>
+        </button>
+      </view>
+      <!-- Corner Sticker Decoration -->
+      <view class="sticker-decoration">
+        <text class="iconfont sticker-icon icon-check-circle"></text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,22 @@
+<view class="centerpiece">
+  <view class="die-wrapper">
+    <view class="die-box">
+      <view class="die-dots">
+        <view wx:for="{{dotLayout}}"
+              wx:key="index"
+              class="dot {{item ? '' : 'dot-hidden'}} {{face === 1 && index === 0 ? 'dot-wide' : ''}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="text-block">
+    <text class="headline text-display-lg-mobile" style="opacity: {{headlineOpacity}};">
+      {{messages[currentIndex]}}
+    </text>
+    <text class="subtitle text-body-lg">正在为你绘制专属城市地图</text>
+  </view>
+
+  <view class="progress-track">
+    <view class="progress-fill" style="width: {{progress}}%;"></view>
+  </view>
+</view>

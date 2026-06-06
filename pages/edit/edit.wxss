@@ -1,0 +1,420 @@
+/* edit 页面样式 - 基于 design/edit.html */
+
+page {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  --primary: #7c5800;
+  --primary-container: #ffb800;
+  --on-primary: #ffffff;
+  --on-primary-container: #6b4c00;
+  --secondary: #b71032;
+  --on-secondary: #ffffff;
+  --surface: #fff8f3;
+  --surface-container: #f9ecdb;
+  --surface-container-low: #fff2e1;
+  --surface-container-lowest: #ffffff;
+  --surface-container-high: #f3e6d6;
+  --surface-container-highest: #ede1d0;
+  --on-surface: #211b11;
+  --on-surface-variant: #514532;
+  --outline: #837560;
+  --outline-variant: #d5c4ab;
+  --background: #fff8f3;
+  /* 纸张纹理背景 */
+  background-image: radial-gradient(#d5c4ab 1rpx, transparent 1rpx);
+  background-size: 24rpx 24rpx;
+  background-color: var(--background);
+}
+
+/* 手绘边框效果 */
+.hand-drawn-border {
+  border-style: solid;
+  border-width: 4rpx 5rpx 4rpx 4rpx;
+  border-radius: 8rpx 20rpx 8rpx 24rpx;
+}
+
+.sticker-shadow {
+  box-shadow: 8rpx 8rpx 0px 0px rgba(81, 69, 50, 0.15);
+}
+
+/* 主容器 */
+.edit-page {
+  min-height: 100vh;
+  padding-bottom: 48rpx;
+}
+
+.main-content {
+  padding-left: 48rpx;
+  padding-right: 48rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 48rpx;
+}
+
+/* Tile List Section */
+.tile-list-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.tile-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8rpx;
+}
+
+.tile-list-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+}
+
+.tile-list-hint {
+  font-size: 20rpx;
+  font-family: 'Courier New', monospace;
+}
+
+/* Draggable Tile List - Movable Area */
+.moveListScroll {
+  height: 440rpx;
+  overflow-y: auto;
+}
+
+.moveListScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.moveList {
+  width: 100%;
+}
+
+.moveItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.moveItem .tile-item {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.showLine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 8rpx;
+  background-color: blue;
+  transform: translateY(-50%);
+}
+
+/* 拖动中的元素样式 */
+.moveItem.dragging {
+  opacity: 0.9;
+}
+
+/* Tile Item */
+.tile-item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx;
+  background-color: var(--surface-container-low);
+  border: 4rpx solid var(--outline);
+  margin-bottom: 12rpx;
+  transition: all 0.2s;
+}
+
+.tile-item:active {
+  transform: scale(0.98);
+}
+
+.tile-number {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 4rpx solid var(--outline);
+  background-color: var(--surface-container-highest);
+  color: var(--on-surface-variant);
+  font-weight: 700;
+}
+
+.tile-item.node-active .tile-number {
+  border-color: var(--primary);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.tile-name {
+  font-weight: 700;
+}
+
+.tile-drag-icon {
+  margin-left: auto;
+  font-size: 32rpx;
+  color: var(--primary);
+  opacity: 0.6;
+}
+
+.tile-item.node-active .tile-drag-icon {
+  opacity: 1;
+}
+
+/* Node Active State */
+.node-active {
+  border-color: var(--primary) !important;
+  background-color: var(--primary-container) !important;
+  filter: drop-shadow(0 0 16rpx rgba(255, 184, 0, 0.3));
+}
+
+/* Editor Toolbar */
+.editor-toolbar {
+  display: flex;
+  overflow-x: auto;
+  padding: 20rpx 0;
+  gap: 16rpx;
+}
+
+.editor-toolbar::-webkit-scrollbar {
+  display: none;
+}
+
+.toolbar-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  min-width: 144rpx;
+  padding: 16rpx;
+  background-color: var(--surface-container-high);
+  border: 4rpx solid var(--outline);
+  transition: all 0.2s;
+}
+
+.toolbar-btn:active {
+  transform: scale(0.95);
+}
+
+.toolbar-btn.active {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  box-shadow: 4rpx 4rpx 0px 0px rgba(81, 69, 50, 0.15);
+}
+
+.toolbar-icon {
+  font-size: 48rpx;
+  color: var(--primary);
+}
+
+.toolbar-btn.active .toolbar-icon {
+  font-weight: 700;
+  color: var(--on-primary-container);
+}
+
+.toolbar-label {
+  font-size: 20rpx;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+  color: var(--on-surface-variant);
+}
+
+.toolbar-btn.active .toolbar-label {
+  color: var(--on-primary-container);
+}
+
+/* Properties Panel */
+.properties-panel {
+  background-color: var(--surface-container-lowest);
+  border: 4rpx solid var(--outline);
+  padding: 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+  box-shadow: 4rpx 4rpx 0px 0px rgba(81, 69, 50, 0.15);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.panel-icon {
+  font-size: 36rpx;
+  color: var(--primary-fixed-dim);
+}
+
+.panel-title {
+  font-weight: 700;
+}
+
+/* Form Groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.form-label {
+  font-weight: 700;
+  margin-left: 16rpx;
+  text-transform: uppercase;
+  letter-spacing: 1rpx;
+}
+
+.form-input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 4rpx solid var(--outline-variant);
+  padding: 16rpx;
+  color: var(--on-surface);
+  transition: all;
+}
+
+.form-input:focus {
+  border-color: var(--primary-container);
+}
+
+.form-textarea {
+  box-sizing: border-box;
+  background-color: transparent;
+  border: 4rpx solid var(--outline-variant);
+  padding: 16rpx;
+  color: var(--on-surface);
+  transition: all;
+  min-height: 120rpx;
+}
+
+.form-textarea:focus {
+  border-color: var(--primary-container);
+}
+
+/* Type Tags */
+.type-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.type-tag {
+  padding: 16rpx 32rpx;
+  border-radius: 9999rpx;
+  border: 4rpx dashed var(--outline-variant);
+  font-size: 20rpx;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+  color: var(--on-surface-variant);
+  transition: all;
+}
+
+.type-tag:active {
+  border-style: solid;
+  border-color: var(--outline);
+}
+
+.type-tag.selected {
+  border-style: solid;
+  border-color: var(--primary-container);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+/* Number Inputs Row */
+.number-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32rpx;
+  margin-top: 16rpx;
+}
+
+.number-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  flex: 1;
+}
+
+.number-input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 4rpx solid var(--outline-variant);
+  padding: 16rpx;
+  background-color: rgba(237, 225, 208, 0.3);
+}
+
+.number-icon {
+  font-size: 32rpx;
+  color: var(--primary);
+  margin-right: 8rpx;
+}
+
+.number-input {
+  background-color: transparent;
+  border: 0;
+  font-weight: 700;
+  color: var(--on-surface);
+  width: 100%;
+}
+
+/* Apply Button */
+.btn-apply {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 32rpx;
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+  font-weight: 700;
+  border: 4rpx solid var(--on-secondary-fixed-variant);
+  box-shadow: 4rpx 4rpx 0px 0px rgba(81, 69, 50, 0.15);
+  text-align: center;
+  transition: all;
+}
+
+.btn-apply:active {
+  transform: translateY(4rpx) translateX(4rpx);
+  box-shadow: none;
+}
+
+/* Save and Exit Button */
+.btn-save-exit {
+  padding: 32rpx;
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border: 4rpx solid var(--primary);
+  border-radius: 24rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  box-shadow: 4rpx 4rpx 0px 0px rgba(0, 0, 0, 1);
+  transition: all;
+}
+
+.btn-save-exit:active {
+  transform: translateY(2rpx) translateX(2rpx);
+  box-shadow: none;
+}
+
+/* Typography */
+.text-primary { color: var(--primary); }
+.text-on-primary { color: var(--on-primary); }
+.text-on-primary-container { color: var(--on-primary-container); }
+.text-on-surface { color: var(--on-surface); }
+.text-on-surface-variant { color: var(--on-surface-variant); }
+.text-outline { color: var(--outline); }

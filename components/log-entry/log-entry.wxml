@@ -1,0 +1,30 @@
+<view class="log-entry {{isChanceCard ? 'log-entry-chance' : ''}}">
+  <!-- Timeline Marker -->
+  <view class="timeline-marker">
+    <view class="marker-dot"></view>
+  </view>
+
+  <!-- Content -->
+  <view class="entry-content">
+    <view class="time-row">
+      <text class="time-text">{{time}}</text>
+    </view>
+    <view class="location-row">
+      <text class="iconfont {{iconClass}} location-icon"></text>
+      <text class="location-text text-headline-md">{{location}}</text>
+    </view>
+
+    <!-- Polaroid Photo Frame -->
+    <view class="polaroid-frame {{index % 2 === 0 ? 'rotate-left' : 'rotate-right'}}" wx:if="{{image}}">
+      <view class="polaroid-image-wrap">
+        <image src="{{image}}" mode="aspectFill" class="polaroid-image"></image>
+      </view>
+      <text class="polaroid-caption text-body-md" wx:if="{{caption}}">"{{caption}}"</text>
+    </view>
+
+    <view class="entry-meta">
+      <view class="entry-badge text-mono">{{badge}}</view>
+      <text class="entry-xp">{{xp}}</text>
+    </view>
+  </view>
+</view>

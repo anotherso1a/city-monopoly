@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Public+Sans:wght@400;700&amp;family=Space+Mono:wght@400;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f9ecdb",
+                        "tertiary-fixed-dim": "#81cfff",
+                        "on-tertiary-fixed-variant": "#004c6b",
+                        "surface-variant": "#ede1d0",
+                        "tertiary-container": "#7dceff",
+                        "surface-container-low": "#fff2e1",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f3",
+                        "surface-container-high": "#f3e6d6",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#211b11",
+                        "primary-container": "#ffb800",
+                        "primary-fixed": "#ffdea8",
+                        "secondary-fixed-dim": "#ffb3b4",
+                        "inverse-on-surface": "#fcefde",
+                        "tertiary-fixed": "#c6e7ff",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#e5d8c8",
+                        "inverse-surface": "#362f24",
+                        "inverse-primary": "#ffba20",
+                        "on-error": "#ffffff",
+                        "secondary": "#b71032",
+                        "tertiary": "#00658d",
+                        "on-surface-variant": "#514532",
+                        "on-primary-fixed-variant": "#5e4200",
+                        "on-surface": "#211b11",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#ede1d0",
+                        "on-secondary-container": "#fffbff",
+                        "secondary-container": "#da3148",
+                        "primary-fixed-dim": "#ffba20",
+                        "outline": "#837560",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#00577a",
+                        "on-secondary-fixed": "#40000a",
+                        "secondary-fixed": "#ffdad9",
+                        "outline-variant": "#d5c4ab",
+                        "on-primary-fixed": "#271900",
+                        "on-tertiary-fixed": "#001e2d",
+                        "on-primary-container": "#6b4c00",
+                        "on-secondary-fixed-variant": "#920023",
+                        "surface-bright": "#fff8f3",
+                        "surface": "#fff8f3",
+                        "surface-tint": "#7c5800",
+                        "primary": "#7c5800"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "20px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "safe-area": "24px",
+                        "base": "8px",
+                        "xl": "48px",
+                        "lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Public Sans"],
+                        "body-sm": ["Public Sans"],
+                        "data-lg": ["Space Mono"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-caps": ["Space Mono"],
+                        "headline-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "data-lg": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .hand-drawn-border {
+            border: 2px solid #514532;
+            border-radius: 2px 4px 3px 6px / 4px 3px 6px 2px;
+        }
+
+        .sticker-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(81, 69, 50, 0.1);
+        }
+
+        .paper-texture {
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+
+        .ink-line {
+            border-bottom: 2px solid #514532;
+            transform: rotate(-0.5deg);
+        }
+
+        .btn-active:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px 0px rgba(81, 69, 50, 0.1);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-surface font-body-md text-on-surface min-h-screen flex items-center justify-center p-md paper-texture">
+    <!-- Modal Backdrop -->
+    <div class="fixed inset-0 bg-inverse-surface/60 backdrop-blur-sm z-50 flex items-center justify-center p-md overflow-y-auto"
+        id="modal-overlay">
+        <!-- Main Container -->
+        <div class="relative w-full max-w-[400px] flex flex-col items-center gap-md">
+            <!-- Title Header (Sticker Style) -->
+            <div class="bg-primary-container px-lg py-xs hand-drawn-border sticker-shadow -rotate-1 z-10">
+                <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary-container">生成分享海报</h1>
+            </div>
+            <!-- Poster Preview Card -->
+            <div
+                class="w-full bg-background hand-drawn-border sticker-shadow paper-texture flex flex-col overflow-hidden animate-in fade-in zoom-in duration-300">
+                <!-- Poster Header: Map/City View -->
+                <div class="relative h-48 w-full border-b-2 border-outline-variant overflow-hidden">
+                    <img alt="Shanghai City View" class="w-full h-full object-cover"
+                        data-alt="A vintage-style illustration of a bustling metropolitan city skyline with hand-drawn ink outlines. The scene is bathed in the warm, golden light of a setting sun, creating long, soft shadows. The architecture is detailed yet slightly whimsical, resembling a travel journal sketch. The color palette is dominated by warm ochre, soft creams, and deep brown ink lines, evoking a sense of urban adventure and nostalgia."
+                        data-location="Shanghai"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZLTZFviEz1OV-I7bGdILKyQ5aK5GOGEABTVph_J65fnu2T7M7o1ltYafUka7n9Q7b1msn49-Agta13_PKqm7hofq9Mi57AY7E2wbSmJc-r3_B1hUFIKISmdn6Lxw-axUg93PH7LHmirRQALrkTqu1pP9VFqTiqXWCifH15uSGtOmg4BF2-ENM-JQahRi9oIILaPAZz7in-JvsRcOFNSCMceyOX8FOPRLJfYmS-Mc4KQB_ekddCWx_uKGWaz3yo3Qahj8Q3txQBQ" />
+                    <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent">
+                    </div>
+                    <div
+                        class="absolute top-md left-md bg-secondary-container text-on-secondary-container px-sm py-xs hand-drawn-border rotate-2">
+                        <span class="font-label-caps text-label-caps uppercase">My Urban Journey</span>
+                    </div>
+                </div>
+                <!-- Poster Content -->
+                <div class="p-md flex flex-col gap-md">
+                    <!-- Player Identity -->
+                    <div class="flex items-center gap-sm">
+                        <div
+                            class="w-12 h-12 rounded-full hand-drawn-border p-1 bg-surface-container-high overflow-hidden">
+                            <img alt="User Avatar" class="w-full h-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBZDtBtLD-bsTqIWhWRIZRUMttoIvv5AQf-xyGXMu-zqNslhcSE4IqJgzWEouQSt8YWdxu3gGKqAKjt0gw5gHlkNAqeE5nXLhkGzzzZY1xgbX9Kg82jU24F3n4LX_Zh0LdZCtywIu5j8cPWJD86oohhtSaLOGcFg-lO17_-TtNzmWMK5s_6hL_y5wxH-6RRqYK5Jt9gh1t_V13Va0fb1nS_I8B-Nle9BI3vZz1WTtkeGA1ArAUbAliNuUgFaQvizQ3nB7An2xqFg" />
+                        </div>
+                        <div>
+                            <p class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface leading-tight">
+                                城市漫游者</p>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant italic">于 2024年10月24日 完成探索</p>
+                        </div>
+                    </div>
+                    <!-- Statistics Bento Grid -->
+                    <div class="grid grid-cols-2 gap-sm">
+                        <div
+                            class="bg-surface-container p-sm hand-drawn-border flex flex-col items-center justify-center">
+                            <span class="material-symbols-outlined text-primary mb-xs">footprint</span>
+                            <p class="font-label-caps text-label-caps text-on-surface-variant">漫游距离</p>
+                            <p class="font-data-lg text-data-lg text-primary">12.8 km</p>
+                        </div>
+                        <div
+                            class="bg-surface-container p-sm hand-drawn-border flex flex-col items-center justify-center">
+                            <span class="material-symbols-outlined text-secondary mb-xs">monetization_on</span>
+                            <p class="font-label-caps text-label-caps text-on-surface-variant">获取金币</p>
+                            <p class="font-data-lg text-data-lg text-secondary">2,450</p>
+                        </div>
+                        <div
+                            class="bg-surface-container p-sm hand-drawn-border flex flex-col items-center justify-center col-span-2">
+                            <p class="font-label-caps text-label-caps text-on-surface-variant mb-xs">探索地点</p>
+                            <div class="flex gap-xs flex-wrap justify-center">
+                                <span
+                                    class="bg-surface-container-highest px-xs border border-dashed border-outline font-body-sm text-body-sm">武康大楼</span>
+                                <span
+                                    class="bg-surface-container-highest px-xs border border-dashed border-outline font-body-sm text-body-sm">静安公园</span>
+                                <span
+                                    class="bg-surface-container-highest px-xs border border-dashed border-outline font-body-sm text-body-sm">外滩码头</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- QR and Marketing -->
+                    <!-- Photo Gallery Section -->
+                    <div class="flex flex-col gap-sm py-sm">
+                        <p class="font-label-caps text-label-caps text-on-surface-variant text-center">城市掠影</p>
+                        <div class="flex justify-center items-center h-32 relative">
+                            <!-- Polaroid 1 -->
+                            <div
+                                class="absolute left-4 -rotate-6 bg-white p-2 hand-drawn-border sticker-shadow w-24 h-28 flex flex-col z-10 transition-transform hover:z-30">
+                                <div class="bg-surface-container-high w-full h-16 overflow-hidden">
+                                    <img alt="Street view" class="w-full h-full object-cover"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZLTZFviEz1OV-I7bGdILKyQ5aK5GOGEABTVph_J65fnu2T7M7o1ltYafUka7n9Q7b1msn49-Agta13_PKqm7hofq9Mi57AY7E2wbSmJc-r3_B1hUFIKISmdn6Lxw-axUg93PH7LHmirRQALrkTqu1pP9VFqTiqXWCifH15uSGtOmg4BF2-ENM-JQahRi9oIILaPAZz7in-JvsRcOFNSCMceyOX8FOPRLJfYmS-Mc4KQB_ekddCWx_uKGWaz3yo3Qahj8Q3txQBQ" />
+                                </div>
+                                <div class="flex-1 flex items-center justify-center">
+                                    <span class="text-[8px] font-body-sm italic text-on-surface-variant/60">街角</span>
+                                </div>
+                            </div>
+                            <!-- Polaroid 2 -->
+                            <div
+                                class="absolute -rotate-2 bg-white p-2 hand-drawn-border sticker-shadow w-24 h-28 flex flex-col z-20">
+                                <div class="bg-surface-container-high w-full h-16 overflow-hidden">
+                                    <img alt="Architecture" class="w-full h-full object-cover"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZLTZFviEz1OV-I7bGdILKyQ5aK5GOGEABTVph_J65fnu2T7M7o1ltYafUka7n9Q7b1msn49-Agta13_PKqm7hofq9Mi57AY7E2wbSmJc-r3_B1hUFIKISmdn6Lxw-axUg93PH7LHmirRQALrkTqu1pP9VFqTiqXWCifH15uSGtOmg4BF2-ENM-JQahRi9oIILaPAZz7in-JvsRcOFNSCMceyOX8FOPRLJfYmS-Mc4KQB_ekddCWx_uKGWaz3yo3Qahj8Q3txQBQ" />
+                                </div>
+                                <div class="flex-1 flex items-center justify-center">
+                                    <span class="text-[8px] font-body-sm italic text-on-surface-variant/60">建筑</span>
+                                </div>
+                            </div>
+                            <!-- Polaroid 3 -->
+                            <div
+                                class="absolute right-4 rotate-6 bg-white p-2 hand-drawn-border sticker-shadow w-24 h-28 flex flex-col z-10 transition-transform hover:z-30">
+                                <div class="bg-surface-container-high w-full h-16 overflow-hidden">
+                                    <img alt="Landmark" class="w-full h-full object-cover"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZLTZFviEz1OV-I7bGdILKyQ5aK5GOGEABTVph_J65fnu2T7M7o1ltYafUka7n9Q7b1msn49-Agta13_PKqm7hofq9Mi57AY7E2wbSmJc-r3_B1hUFIKISmdn6Lxw-axUg93PH7LHmirRQALrkTqu1pP9VFqTiqXWCifH15uSGtOmg4BF2-ENM-JQahRi9oIILaPAZz7in-JvsRcOFNSCMceyOX8FOPRLJfYmS-Mc4KQB_ekddCWx_uKGWaz3yo3Qahj8Q3txQBQ" />
+                                </div>
+                                <div class="flex-1 flex items-center justify-center">
+                                    <span class="text-[8px] font-body-sm italic text-on-surface-variant/60">漫步</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-center justify-between gap-md pt-sm border-t-2 border-dashed border-outline-variant">
+                        <div class="flex-1">
+                            <p
+                                class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface-variant scale-90 origin-left">
+                                City Monopoly</p>
+                            <p class="font-body-sm text-body-sm text-outline">扫码开启你的城市大富翁之旅</p>
+                        </div>
+                        <div class="w-16 h-16 bg-surface-container-lowest hand-drawn-border p-1">
+                            <!-- QR Code Placeholder -->
+                            <div class="w-full h-full bg-on-surface-variant/10 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-outline text-[40px]">qr_code_2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Interaction Buttons -->
+            <div class="w-full flex flex-col gap-sm mt-md">
+                <button
+                    class="w-full bg-primary-container text-on-primary-container py-md font-headline-lg-mobile text-headline-lg-mobile hand-drawn-border sticker-shadow flex items-center justify-center gap-sm btn-active transition-all">
+                    <span class="material-symbols-outlined">download</span>
+                    保存图片
+                </button>
+                <button
+                    class="w-full bg-surface-container-low text-on-surface-variant py-sm font-body-md text-body-md hand-drawn-border border-dashed flex items-center justify-center gap-sm opacity-80 hover:opacity-100 transition-opacity"
+                    onclick="document.getElementById('modal-overlay').style.display='none'">
+                    关闭预览
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Background UI (Just for context) -->
+    <main class="w-full max-w-md flex flex-col gap-lg opacity-20 pointer-events-none">
+        <header
+            class="flex items-center justify-between px-md py-sm w-full bg-background rounded-b-xl border-b-2 border-outline-variant shadow-sm">
+            <span class="material-symbols-outlined text-primary">close</span>
+            <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">My Urban Journey</h2>
+            <span class="material-symbols-outlined text-primary">share</span>
+        </header>
+        <section class="px-safe-area flex flex-col gap-md">
+            <div class="hand-drawn-border p-lg bg-surface-container-high sticker-shadow">
+                <h3 class="font-headline-lg text-headline-lg mb-md">今日结算</h3>
+                <div class="space-y-sm">
+                    <div class="h-4 bg-outline-variant w-3/4 rounded"></div>
+                    <div class="h-4 bg-outline-variant w-1/2 rounded"></div>
+                    <div class="h-4 bg-outline-variant w-full rounded"></div>
+                </div>
+            </div>
+        </section>
+        <footer class="flex flex-col items-center gap-sm p-lg w-full border-t-2 border-dashed border-outline-variant">
+            <p class="font-label-caps text-label-caps text-on-surface">Urban Explorer Journal</p>
+            <div class="flex gap-md font-body-sm text-body-sm text-on-surface-variant">
+                <span>Privacy Policy</span>
+                <span>Terms of Play</span>
+            </div>
+        </footer>
+    </main>
+    <script>
+        // Simple micro-interaction for the "Save Image" button
+        const saveBtn = document.querySelector('button.bg-primary-container');
+        saveBtn.addEventListener('click', () => {
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">refresh</span> 正在生成...`;
+            saveBtn.style.opacity = '0.7';
+
+            setTimeout(() => {
+                saveBtn.innerHTML = `<span class="material-symbols-outlined text-green-700">check_circle</span> 已保存到相册`;
+                saveBtn.classList.remove('bg-primary-container');
+                saveBtn.classList.add('bg-surface-container-highest');
+
+                setTimeout(() => {
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.classList.add('bg-primary-container');
+                    saveBtn.classList.remove('bg-surface-container-highest');
+                    saveBtn.style.opacity = '1';
+                }, 2000);
+            }, 1500);
+        });
+
+        // Toggle modal visibility for demonstration
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('modal-overlay').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

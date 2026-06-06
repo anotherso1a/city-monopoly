@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>城市大富翁 - 城市探险家</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Public+Sans:wght@400;700&amp;family=Space+Mono:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#81cfff",
+                    "secondary-fixed-dim": "#ffb3b4",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#211b11",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fff8f3",
+                    "surface-container": "#f9ecdb",
+                    "primary-fixed": "#ffdea8",
+                    "inverse-primary": "#ffba20",
+                    "primary-fixed-dim": "#ffba20",
+                    "primary-container": "#ffb800",
+                    "surface-container-high": "#f3e6d6",
+                    "outline-variant": "#d5c4ab",
+                    "on-secondary-container": "#fffbff",
+                    "inverse-on-surface": "#fcefde",
+                    "on-secondary-fixed": "#40000a",
+                    "surface-container-highest": "#ede1d0",
+                    "on-surface-variant": "#514532",
+                    "on-tertiary-fixed-variant": "#004c6b",
+                    "secondary": "#b71032",
+                    "surface-variant": "#ede1d0",
+                    "surface-container-low": "#fff2e1",
+                    "primary": "#7c5800",
+                    "on-primary": "#ffffff",
+                    "outline": "#837560",
+                    "surface-tint": "#7c5800",
+                    "on-background": "#211b11",
+                    "on-primary-container": "#6b4c00",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#fff8f3",
+                    "on-tertiary-fixed": "#001e2d",
+                    "surface": "#fff8f3",
+                    "inverse-surface": "#362f24",
+                    "secondary-fixed": "#ffdad9",
+                    "on-primary-fixed": "#271900",
+                    "on-error": "#ffffff",
+                    "tertiary": "#00658d",
+                    "on-secondary-fixed-variant": "#920023",
+                    "on-tertiary-container": "#00577a",
+                    "on-primary-fixed-variant": "#5e4200",
+                    "surface-dim": "#e5d8c8",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "secondary-container": "#da3148",
+                    "tertiary-fixed": "#c6e7ff",
+                    "tertiary-container": "#7dceff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "32px",
+                    "xl": "48px",
+                    "xs": "4px",
+                    "base": "8px",
+                    "safe-area": "24px",
+                    "sm": "12px",
+                    "md": "20px"
+            },
+            "fontFamily": {
+                    "data-lg": ["Space Mono"],
+                    "label-caps": ["Space Mono"],
+                    "body-md": ["Public Sans"],
+                    "body-sm": ["Public Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "data-lg": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .hand-drawn-border {
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px solid #514532;
+        }
+
+        .sticker-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.1);
+        }
+
+        .highlighter-bar {
+            background: linear-gradient(180deg, transparent 50%, #ffdea8 50%);
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(10px, 5px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .floating-city {
+            animation: drift 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen overflow-x-hidden">
+<!-- Background Layer: Sky blue gradient with hand-drawn overlay -->
+<div class="fixed inset-0 z-0 bg-gradient-to-b from-[#E3F2FD] to-[#BBDEFB] opacity-100"></div>
+<div class="fixed inset-0 z-0 opacity-15 floating-city">
+<img class="w-full h-full object-cover grayscale" data-alt="A delicate, hand-drawn sketch of a whimsical city skyline" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3W4ut3AW9Z4wv09mvbJyCaPYHUhj5Y4IvA69-fbtRfpIp2cQ6BRzBOVHSP48usHtqedhyFmsV82q7xInjfJ9NVIHulCOlarbPzA9d8gAJ7KCbAPzkejO4-F_7O15_9hm9SNPOuWtHkn_mTpsJBQ_UC5kIyY5FXica0ZrWk5gWQmuh_MHYy7oJz8QEq8WwCjknI7sR5anjBstKh2GZRrVFKi43SoVU0kqSD9WoYbF7nGkZC6UBftqXQtpz1o4Wy-6xIKIrNhA-4w"/>
+</div>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] border-b-2 border-on-surface-variant flex justify-between items-center px-safe-area py-base">
+<div class="flex items-center gap-base active:translate-y-0.5 active:translate-x-0.5 transition-transform cursor-pointer">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary">城市大富翁</h1>
+</header>
+<main class="relative z-10 pt-24 px-safe-area pb-12">
+<!-- Hero Section -->
+<section class="flex flex-col items-center text-center mb-lg">
+<div class="mb-sm relative">
+<div class="absolute -top-4 -right-4 bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-caps font-label-caps rotate-12 sticker-shadow border-2 border-on-surface">新</div>
+<h2 class="font-display-lg text-display-lg text-primary tracking-tight leading-tight mb-xs">城市大富翁</h2>
+<p class="font-body-md text-body-md text-on-surface-variant italic highlighter-bar inline-block px-1">在现实世界中开启你的城市冒险</p>
+</div>
+</section>
+<!-- Main Action: Create New Map -->
+<section class="mb-xl">
+<button class="w-full bg-gradient-to-br from-[#FFB800] to-[#FF9800] text-on-primary-container p-6 flex flex-col items-center justify-center gap-xs hand-drawn-border sticker-shadow active:translate-y-1 active:translate-x-1 transition-all group">
+<span class="material-symbols-outlined text-4xl group-hover:scale-110 transition-transform" data-icon="add_location_alt" style="font-variation-settings: 'FILL' 1;">add_location_alt</span>
+<span class="font-headline-lg text-headline-lg">开始探索</span>
+<span class="font-body-sm text-body-sm opacity-80">设计你专属的城市游乐场</span>
+</button>
+</section>
+<!-- Secondary Section: My Maps Entry -->
+<section class="mb-md">
+<div class="flex justify-between items-end mb-sm">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface-variant">我的收藏</h3>
+<div class="flex items-center text-primary font-label-caps text-label-caps group cursor-pointer">
+                    查看全部
+                    <span class="material-symbols-outlined text-sm ml-1 group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+<!-- Map Cards Grid -->
+<div class="grid grid-cols-2 gap-md">
+<!-- Map Card 1 -->
+<div class="bg-surface-container-lowest hand-drawn-border sticker-shadow p-sm active:scale-95 transition-all cursor-pointer">
+<div class="aspect-square bg-surface-variant mb-base rounded-lg overflow-hidden border-2 border-dashed border-outline-variant">
+<img alt="London District Map" class="w-full h-full object-cover grayscale" data-alt="A hand-drawn map of a cozy London neighborhood" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbbQhyNpy4B-hrY76UHetdNq8z0OBrvNyuVuwaHKVsjmM3hmksF8vhCNDbQM_IyHWIeq0b6HOWuc72bsAtPlr8BtQOSxsp8hKHzTfwSBkDF7Evwymetlg9RmoxA3-px5BJ12X6zi8eL_ut0SPMQGGGKOW0oBrYEP8OgMTQvDCTAQVeMPwBKJ41BNdYT_6kf7nUPj3KeaalhkWrG5ZjqHzEtp1CFq6-1VJSS0xzDykn6-flmNPcEOeOtIoTJZfBSlWLXyeQcvqjGw"/>
+</div>
+<div class="px-xs">
+<h4 class="font-data-lg text-data-lg text-primary truncate">雾都伦敦</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-60 uppercase tracking-widest">2023年10月12日</p>
+</div>
+</div>
+<!-- Map Card 2 -->
+<div class="bg-surface-container-lowest hand-drawn-border sticker-shadow p-sm active:scale-95 transition-all cursor-pointer">
+<div class="aspect-square bg-surface-variant mb-base rounded-lg overflow-hidden border-2 border-dashed border-outline-variant">
+<img alt="Tokyo Neon Map" class="w-full h-full object-cover grayscale" data-alt="A playful, hand-inked map of Shibuya, Tokyo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQOwO9iHelR-bPNNzLdjTAl7VWqkeVOwpJHuKMK-ifbQwmnz89Ty-0ZOIVRyJcIcvyNN8N04YVpue5gC4Y6CSv-8yRKxV43t5WkgvZIQNY8utIOqOpxZqff1qJlE9tuT9lb65DQFcpMyg3hcWuXkJ4XxaRE3FblIqzzH7MYglElrNt1_oeqXuuVz9U-fy9reRwH8FPdhoY5s1UzrE-Bq8vRCTITU23RavDXjCMvvZ2RWBuOPg2OWk81Hoj13kXXBs7QLq1xuDlGQ"/>
+</div>
+<div class="px-xs">
+<h4 class="font-data-lg text-data-lg text-primary truncate">霓虹东京</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-60 uppercase tracking-widest">2023年9月28日</p>
+</div>
+</div>
+<!-- Map Card 3 -->
+<div class="bg-surface-container-lowest hand-drawn-border sticker-shadow p-sm active:scale-95 transition-all cursor-pointer">
+<div class="aspect-square bg-surface-variant mb-base rounded-lg overflow-hidden border-2 border-dashed border-outline-variant">
+<img alt="Paris Garden Map" class="w-full h-full object-cover grayscale" data-alt="A hand-sketched artistic map of the Latin Quarter in Paris" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcz856nt0p4eb-XBDoWv_fD4C0tI1fdjXl1LufeLbeuXwxFcJwqDcwhEAhsUB2yteA6W_ThMuPvzjPvBDxj4DSbIy1O8n5yWQcxrCodhh_CSzFCE7vlQtsPKnHSZ7c_v3BfDmNtnkJk8h7_f8gRfcQkr0dFPy35jO2HdloubjhqOtbXwkGkKAMldNl2zV5JPamp2z2MU7G6ODiRy3MC8_QhtQislLI4mxKGzG9nRcX3nRutkWgyNfyxKxYCzxq-e1n4iAPAdpeDA"/>
+</div>
+<div class="px-xs">
+<h4 class="font-data-lg text-data-lg text-primary truncate">浪漫巴黎</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-60 uppercase tracking-widest">2023年8月15日</p>
+</div>
+</div>
+<!-- Map Card 4 (Draft) -->
+<div class="bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl p-sm flex flex-col items-center justify-center opacity-70 group hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-4xl text-outline mb-xs" data-icon="edit_note">edit_note</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">继续编辑草稿</span>
+</div>
+</div>
+</section>
+<!-- Popular Maps Section -->
+<section class="mb-md">
+<div class="flex justify-between items-end mb-sm">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface-variant">热门地图</h3>
+</div>
+<div class="flex gap-md overflow-x-auto pb-sm no-scrollbar">
+<!-- Just illustrative additions to fill space for "热门地图" logic -->
+<div class="min-w-[160px] bg-surface-container-highest hand-drawn-border sticker-shadow p-sm">
+<div class="aspect-square bg-surface-variant mb-base rounded-lg overflow-hidden border-2 border-dashed border-outline-variant">
+<img alt="NYC Map" class="w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUpJsyRvWyGTjSxmDqS49HB3xVeqAhYGMJn2tKCYoXahALUoedypRpBu6dqHTlW7ntre2_V_h9knxm097LUWvjLAi9tWGPC--1khcmftHDoYbyPstUii3SvSiM-Ni5qI0AhppONG37b58MkF41K5h8lP72Xlv8PJLFT7A__A1tho7Pqf7t20MiX_Z6uyIsK7YvRZRwqqQpwopIiBlrYyaXH92Ku5qDt3QOc9ZkHjoxKuaoVqLdTgN9oO0no0bBNrsByhQQc6GbyA"/>
+</div>
+<h4 class="font-data-lg text-data-lg text-primary truncate">纽约不夜城</h4>
+</div>
+<div class="min-w-[160px] bg-surface-container-highest hand-drawn-border sticker-shadow p-sm">
+<div class="aspect-square bg-surface-variant mb-base rounded-lg overflow-hidden border-2 border-dashed border-outline-variant"></div>
+<h4 class="font-data-lg text-data-lg text-primary truncate">京都古韵</h4>
+</div>
+</div>
+</section>
+</main>
+<!-- Navigation Drawer (Side) - Hidden by default, toggled via micro-interaction -->
+<div class="fixed inset-y-0 right-0 w-64 z-[60] bg-surface-container-lowest dark:bg-surface-dim border-l-2 border-dashed border-outline-variant shadow-xl translate-x-full transition-transform duration-300 ease-in-out p-md" id="sideDrawer">
+<div class="flex flex-col h-full">
+<div class="flex items-center gap-sm mb-lg">
+<div class="w-12 h-12 rounded-full border-2 border-primary overflow-hidden">
+<img alt="Player" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUpJsyRvWyGTjSxmDqS49HB3xVeqAhYGMJn2tKCYoXahALUoedypRpBu6dqHTlW7ntre2_V_h9knxm097LUWvjLAi9tWGPC--1khcmftHDoYbyPstUii3SvSiM-Ni5qI0AhppONG37b58MkF41K5h8lP72Xlv8PJLFT7A__A1tho7Pqf7t20MiX_Z6uyIsK7YvRZRwqqQpwopIiBlrYyaXH92Ku5qDt3QOc9ZkHjoxKuaoVqLdTgN9oO0no0bBNrsByhQQc6GbyA"/>
+</div>
+<div>
+<h4 class="font-headline-lg text-primary text-lg">城市探险家</h4>
+<p class="font-body-sm text-on-surface-variant">12级 大亨</p>
+<p class="font-data-lg text-secondary">$45,200</p>
+</div>
+</div>
+<nav class="flex flex-col gap-base">
+<a class="flex items-center gap-sm p-base text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-body-md">个人主页</span>
+</a>
+<a class="flex items-center gap-sm p-base text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="book">book</span>
+<span class="font-body-md">游戏规则</span>
+</a>
+<a class="flex items-center gap-sm p-base text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md">设置</span>
+</a>
+<a class="flex items-center gap-sm p-base text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-body-md">排行榜</span>
+</a>
+<div class="mt-auto pt-lg border-t-2 border-dashed border-outline-variant">
+<a class="flex items-center gap-sm p-base text-secondary font-bold hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-body-md">退出游戏</span>
+</a>
+</div>
+</nav>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<script>
+        // Simple Interaction logic for the drawer
+        const menuBtn = document.querySelector('header .material-symbols-outlined[data-icon="menu"]');
+        const drawer = document.getElementById('sideDrawer');
+        let drawerOpen = false;
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            drawerOpen = !drawerOpen;
+            if(drawerOpen) {
+                drawer.style.transform = 'translateX(0)';
+            } else {
+                drawer.style.transform = 'translateX(100%)';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (drawerOpen && !drawer.contains(e.target) && e.target !== menuBtn) {
+                drawerOpen = false;
+                drawer.style.transform = 'translateX(100%)';
+            }
+        });
+
+        // Add a subtle parallax effect on scroll for background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const city = document.querySelector('.floating-city');
+            if(city) city.style.transform = `translateY(${scrolled * 0.3}px)`;
+        });
+    </script>
+</body></html>

@@ -1,0 +1,7 @@
+node_modules/
+miniprogram_npm/
+.DS_Store
+*.log
+scripts/.env
+scripts/.oss-manifest.json
+config.local.js

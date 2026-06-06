@@ -1,0 +1,229 @@
+/* Photo Card component styles */
+@import '../../utils/iconfont.wxss';
+
+/* Overlay */
+.photo-card-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(33, 27, 17, 0.6);
+}
+
+/* Event Popup */
+.event-popup {
+  max-width: 500rpx;
+  width: 100%;
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 4rpx 4rpx 5rpx 4rpx;
+  border-radius: 8rpx 24rpx 12rpx 28rpx;
+  border-color: #514532;
+  box-shadow: 12rpx 12rpx 0rpx 0rpx rgba(81, 69, 50, 0.15);
+  padding: 48rpx;
+  display: flex;
+  flex-direction: column;
+  animation: fadeInZoom 0.3s ease-out;
+}
+
+@keyframes fadeInZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Popup Header */
+.popup-header {
+  margin-bottom: 48rpx;
+}
+
+.header-title {
+  margin-bottom: 16rpx;
+}
+
+.header-divider {
+  width: 96rpx;
+  height: 4rpx;
+  background-color: #ffb800;
+  border-radius: 999rpx;
+}
+
+/* Polaroid Container */
+.polaroid-container {
+  margin-bottom: 48rpx;
+  position: relative;
+}
+
+.polaroid-frame {
+  background-color: #ffffff;
+  padding: 12rpx 12rpx 32rpx;
+  border-style: solid;
+  border-width: 4rpx;
+  border-color: #d5c4ab;
+  box-shadow: 12rpx 12rpx 0rpx 0rpx rgba(81, 69, 50, 0.15);
+}
+
+.photo-frame {
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%;  /* 4:3 = 75% */
+  overflow: hidden;
+  background-color: #e5d8c8;
+  border: 4rpx solid #514532;
+  margin-bottom: 16rpx;
+}
+
+.photo-frame::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.landmark-photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.photo-caption {
+  display: flex;
+  justify-content: center;
+}
+
+.caption-text {
+  font-style: italic;
+}
+
+/* Tape Decoration */
+.tape-decoration {
+  position: absolute;
+  top: -24rpx;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  width: 64rpx;
+  height: 48rpx;
+  background-color: rgba(124, 88, 0, 0.2);
+  border: 2rpx solid rgba(131, 117, 96, 0.2);
+}
+
+/* Content Body */
+.content-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  margin-bottom: 48rpx;
+}
+
+.description {
+  line-height: 1.5;
+}
+
+/* Stats Chip */
+.stats-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 12rpx 24rpx;
+  background-color: #f3e6d6;
+  border-radius: 999rpx;
+  border: 4rpx dashed #d5c4ab;
+  align-self: flex-start;
+}
+
+.chip-icon {
+  font-size: 36rpx;
+  color: #7c5800;
+}
+
+.chip-text {
+  text-transform: uppercase;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.btn-primary,
+.btn-secondary {
+  width: 100%;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  border-radius: 12rpx;
+}
+
+.btn-primary {
+  background-color: #7c5800;
+  border-style: solid;
+  border-width: 4rpx;
+  border-color: #514532;
+}
+
+.btn-primary:active {
+  transform: translate(4rpx, 4rpx);
+  box-shadow: 0px 0px 0rpx 0rpx rgba(0, 0, 0, 0);
+}
+
+.btn-secondary {
+  background-color: #f9ecdb;
+  border-style: dashed;
+  border-width: 4rpx;
+  border-color: #837560;
+}
+
+.btn-secondary:active {
+  background-color: #f3e6d6;
+}
+
+.btn-text {
+  text-align: center;
+}
+
+.btn-icon {
+  font-size: 40rpx;
+  color: #ffffff;
+}
+
+/* Hand-drawn Border */
+.hand-drawn-border {
+  border-style: solid;
+  border-width: 4rpx 4rpx 5rpx 4rpx;
+  border-radius: 8rpx 24rpx 12rpx 28rpx;
+}
+
+/* Sketch Shadow */
+.sketch-shadow {
+  box-shadow: 12rpx 12rpx 0rpx 0rpx rgba(81, 69, 50, 0.15);
+}
+
+/* Pressed State */
+.pressed-state:active {
+  transform: translate(4rpx, 4rpx);
+  box-shadow: 0px 0px 0rpx 0rpx rgba(0, 0, 0, 0);
+}
+
+/* Color classes */
+.text-primary { color: #7c5800; }
+.text-on-primary { color: #ffffff; }
+.text-on-surface { color: #211b11; }
+.text-on-surface-variant { color: #514532; }

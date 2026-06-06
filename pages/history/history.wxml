@@ -1,0 +1,67 @@
+<view class="history-page">
+  <!-- Top App Bar -->
+  <navigation-bar
+    title="我的收藏"
+    type="back"
+    bind:heightchange="onNavHeightChange"
+  />
+
+  <!-- Search & Filter Section -->
+  <view class="main-content" style="margin-top: {{navBarHeight}}px;">
+
+    <scroll-view class="filter-tabs" scroll-x enable-flex>
+      <view class="filter-scroll">
+        <block wx:for="{{filterTabs}}" wx:key="id">
+          <button class="filter-tab text-mono {{item.id === currentFilter ? 'active' : ''}}" bindtap="onFilterTap" data-filter="{{item.id}}">
+            {{item.name}}
+          </button>
+        </block>
+      </view>
+    </scroll-view>
+
+    <!-- Map Cards List -->
+    <view class="map-cards-list" wx:if="{{filteredMaps.length > 0}}">
+      <block wx:for="{{filteredMaps}}" wx:key="id">
+        <view class="map-card">
+          <view class="map-thumbnail">
+            <image src="{{item.thumbnail}}" mode="aspectFill"></image>
+          </view>
+          <view class="map-info">
+            <view class="map-info-top">
+              <text class="map-name text-headline-sm">{{item.name}}</text>
+              <text class="map-date text-mono">{{item.date}}</text>
+            </view>
+            <view class="map-tags">
+              <text class="tag tag-dashed text-mono-sm">{{item.gridCount}}个地块</text>
+              <text class="tag tag-highlight text-mono-sm {{item.statusClass}}">{{item.statusText}}</text>
+            </view>
+          </view>
+          <view class="map-actions">
+            <text class="iconfont btn-delete icon-delete" bindtap="onDeleteMap" data-map-id="{{item.id}}"></text>
+            <view class="btn-edit text-mono" bindtap="onEditMap" data-map-id="{{item.id}}">
+              <text class="iconfont btn-icon icon-edit"></text>
+              <text>编辑</text>
+            </view>
+            <!-- 进行中:开始按钮 -->
+            <view class="btn-start text-mono" bindtap="onPlayMap" data-map-id="{{item.id}}" wx:if="{{item.status !== 'completed'}}">开始</view>
+            <!-- 已完成:继续游玩 + 清空数据重新游玩 -->
+            <block wx:if="{{item.status === 'completed'}}">
+              <view class="btn-continue text-mono" bindtap="onPlayMap" data-map-id="{{item.id}}">继续游玩</view>
+              <view class="btn-restart text-mono" bindtap="onRestartMap" data-map-id="{{item.id}}">清空数据</view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- Empty State -->
+    <empty-state wx:else
+      illustrationImage="{{emptyStateConfig.illustrationImage}}"
+      headline="{{emptyStateConfig.headline}}"
+      description="{{emptyStateConfig.description}}"
+      actionIcon="{{emptyStateConfig.actionIcon}}"
+      actionText="{{emptyStateConfig.actionText}}"
+      actionUrl="{{emptyStateConfig.actionUrl}}"
+      tip="{{emptyStateConfig.tip}}" />
+  </view>
+</view>

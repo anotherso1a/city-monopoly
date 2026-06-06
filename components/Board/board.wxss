@@ -1,0 +1,13 @@
+.board-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.board-canvas {
+  width: 560rpx;
+  height: 560rpx;
+  background-color: rgba(255, 255, 255, 0.1);
+}

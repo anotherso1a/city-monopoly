@@ -1,0 +1,74 @@
+<view class="search-page">
+  <navigation-bar
+    title="搜索"
+    type="back"
+    bind:heightchange="onNavHeightChange"
+  />
+
+  <view class="main-content" style="margin-top: {{navBarHeight}}px;">
+  <!-- Search Bar -->
+  <view class="search-bar-wrapper">
+    <view class="search-bar {{searchFocused ? 'focused' : ''}}">
+      <text class="iconfont search-icon icon-search"></text>
+      <input
+        class="search-input text-body-md"
+        placeholder="搜索地标、街道..."
+        value="{{query}}"
+        bindinput="onQueryInput"
+        bindfocus="onSearchFocus"
+        bindblur="onSearchBlur"
+        bindconfirm="onSearchSubmit"
+        confirm-type="search"
+      />
+      <view class="search-clear" wx:if="{{query}}" bindtap="onClearQuery">
+        <text class="iconfont clear-icon">×</text>
+      </view>
+      <view class="search-go text-body-md" bindtap="onSearchSubmit">搜索</view>
+    </view>
+    <view class="tape-deco"></view>
+  </view>
+
+  <!-- Map Pick Entry (备选: 微信原生地图选点) -->
+  <view class="map-pick-row" bindtap="onChooseFromMap">
+    <text class="iconfont map-pick-icon icon-location"></text>
+    <view class="map-pick-text">
+      <text class="map-pick-title text-headline-sm">在地图上选点</text>
+      <text class="map-pick-subtitle text-body-sm">打开微信地图,搜索并选择具体位置</text>
+    </view>
+    <text class="iconfont map-pick-arrow icon-right"></text>
+  </view>
+
+  <!-- Results Section -->
+  <view class="results-section">
+    <view class="results-header" wx:if="{{hasSearched}}">
+      <text class="results-count text-mono">搜索结果 ({{results.length}})</text>
+      <text class="results-status text-body-sm" wx:if="{{loading}}">搜索中…</text>
+    </view>
+
+    <view class="empty-hint" wx:if="{{!hasSearched}}">
+      <text class="empty-hint-text text-body-sm">输入关键词后点搜索,或点击上方在地图上选点</text>
+    </view>
+
+    <empty-search wx:if="{{hasSearched && !loading && results.length === 0}}" />
+
+    <view class="result-list" wx:if="{{hasSearched && !loading && results.length > 0}}">
+      <view
+        class="result-card"
+        wx:for="{{results}}"
+        wx:key="id"
+        bindtap="onResultTap"
+        data-id="{{item.id}}"
+      >
+        <view class="result-header">
+          <text class="result-name text-headline-sm">{{item.name}}</text>
+          <view class="result-tags" wx:if="{{item.district}}">
+            <view class="result-tag tag-distance text-mono-sm">{{item.district}}</view>
+          </view>
+        </view>
+        <text class="result-desc text-body-sm" wx:if="{{item.address}}">{{item.address}}</text>
+        <text class="result-type text-body-sm" wx:if="{{item.type}}">{{item.type}}</text>
+      </view>
+    </view>
+  </view>
+  </view>
+</view>

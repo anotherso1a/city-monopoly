@@ -1,0 +1,44 @@
+<view class="photo-card-overlay" wx:if="{{visible}}" catchtap="onOverlayTap">
+  <view class="event-popup" catchtap="onCardTap">
+    <!-- Header Title -->
+    <view class="popup-header">
+      <text class="header-title text-headline-sm text-primary">发现新地标!</text>
+      <view class="header-divider"></view>
+    </view>
+
+    <!-- Polaroid Landmark Photo -->
+    <view class="polaroid-container">
+      <view class="polaroid-frame hand-drawn-border sketch-shadow">
+        <view class="photo-frame">
+          <image class="landmark-photo" src="{{image}}" mode="aspectFill"></image>
+        </view>
+        <view class="photo-caption">
+          <text class="caption-text text-body-sm text-on-surface-variant italic">{{photoDate}} 于 {{locationName}}</text>
+        </view>
+        <!-- Tape effect decoration -->
+        <view class="tape-decoration"></view>
+      </view>
+    </view>
+
+    <!-- Content Body -->
+    <view class="content-body">
+      <text class="description text-body-md text-on-surface">{{description}}</text>
+      <!-- Stats Chip -->
+      <view class="stats-chip">
+        <text class="iconfont chip-icon icon-trophy"></text>
+        <text class="chip-text text-mono text-on-surface">探索经验 +{{achievementPoint}}</text>
+      </view>
+    </view>
+
+    <!-- Action Buttons — 继续前进放最下面,避免误触;重新拍照是次要操作放上面 -->
+    <view class="action-buttons">
+      <button class="btn-secondary pressed-state" catchtap="onRetake">
+        <text class="btn-text text-body-md text-primary">重新拍照</text>
+      </button>
+      <button class="btn-primary pressed-state" catchtap="onContinue">
+        <text class="btn-text text-headline-sm text-on-primary">继续前进</text>
+        <text class="iconfont btn-icon icon-right"></text>
+      </button>
+    </view>
+  </view>
+</view>
