@@ -5,3 +5,6 @@ miniprogram_npm/
 scripts/.env
 scripts/.oss-manifest.json
 config.local.js
+# miniprogram-ci 上传密钥 —— 从 mp.weixin.qq.com 生成
+# 文件名格式: scripts/private.<appid>.key
+scripts/private.*.key

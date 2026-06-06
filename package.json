@@ -5,14 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "upload:oss": "node scripts/upload-oss.js"
+    "upload:oss": "node scripts/upload-oss.js",
+    "upload:dev": "node scripts/upload-ci.js",
+    "upload:trial": "node scripts/upload-ci.js --env trial"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "AGPL-3.0",
   "type": "commonjs",
   "devDependencies": {
     "ali-oss": "^6.20.0",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "miniprogram-ci": "^2.1.31"
   }
 }
