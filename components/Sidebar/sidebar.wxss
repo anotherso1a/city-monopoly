@@ -97,6 +97,7 @@
   transition: background-color 0.15s ease;
 }
 
+/* 最后一项不画底边 —— 避免列表底部出现一条孤立的横线 */
 .sidebar-item:last-child {
   border-bottom: none;
 }

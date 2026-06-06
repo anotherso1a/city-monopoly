@@ -9,9 +9,7 @@
     </view>
     <view class="sidebar-items">
       <block wx:for="{{renderedItems}}" wx:key="key">
-        <view wx:if="{{item.divider}}" class="ink-divider-sm"></view>
-        <view wx:else
-              class="sidebar-item text-body-md {{item.danger ? 'sidebar-item-danger' : ''}}"
+        <view class="sidebar-item text-body-md {{item.danger ? 'sidebar-item-danger' : ''}}"
               bindtap="onItemTap"
               data-id="{{item.id}}">
           <text class="iconfont sidebar-icon {{item.icon}}"></text>

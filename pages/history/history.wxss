@@ -247,6 +247,9 @@ page {
   border: 4rpx solid var(--primary);
   margin-bottom: 16rpx;
   box-shadow: 4rpx 4rpx 0px 0px rgba(124, 88, 0, 0.2);
+  /* 防止「编辑」+ 图标在窄列里换行 */
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-edit:active {
@@ -266,9 +269,30 @@ page {
   border-radius: 16rpx;
   border: 4rpx solid var(--on-surface-variant);
   box-shadow: 4rpx 4rpx 0px 0px rgba(0, 0, 0, 1);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-start:active {
+  transform: translate(2rpx, 2rpx);
+  box-shadow: none;
+}
+
+/* 已完成游戏的「查看」按钮 — 结构同 .btn-start(硬阴影 + 描边),
+   配色改为浅色底 + 主色文字,表达「只看不玩」的次级动作感 */
+.btn-view {
+  background-color: var(--surface);
+  color: var(--primary);
+  padding: 12rpx 32rpx;
+  font-weight: 700;
+  border-radius: 16rpx;
+  border: 4rpx solid var(--primary);
+  box-shadow: 4rpx 4rpx 0px 0px rgba(124, 88, 0, 0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-view:active {
   transform: translate(2rpx, 2rpx);
   box-shadow: none;
 }

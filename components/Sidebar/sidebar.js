@@ -14,7 +14,7 @@ const ITEM_CATALOG = {
 
 Component({
   options: {
-    // 让 app.wxss 全局工具类 (iconfont / sketch-border-sm / ink-divider-sm) 透进来
+    // 让 app.wxss 全局工具类 (iconfont / sketch-border-sm) 透进来
     styleIsolation: 'apply-shared',
   },
   properties: {
@@ -40,14 +40,9 @@ Component({
   methods: {
     _computeRendered(items) {
       const out = [];
-      let dividerInserted = false;
       for (const id of items || []) {
         const meta = ITEM_CATALOG[id];
         if (!meta) continue;
-        if (meta.danger && !dividerInserted) {
-          out.push({ divider: true, key: '__divider__' });
-          dividerInserted = true;
-        }
         out.push({ id, label: meta.label, icon: meta.icon, danger: meta.danger, key: id });
       }
       this.setData({ renderedItems: out });
