@@ -21,6 +21,27 @@
 
 const fs = require('fs');
 const path = require('path');
+
+// Node 22+ 自带一个空的 globalThis.localStorage(没 getItem/setItem 方法),
+// miniprogram-ci 2.x 的 debug.js 假定有,直接调就挂。
+// 两边都改:
+//   1) 父进程 —— 直接覆盖 globalThis(NODE_OPTIONS 对已启动的进程无效)
+//   2) fork 的子进程 —— 走 NODE_OPTIONS=--require= 自动加载
+// 见 scripts/.localstorage-polyfill.js
+{
+  const _store = new Map();
+  globalThis.localStorage = {
+    getItem: (k) => (_store.has(k) ? _store.get(k) : null),
+    setItem: (k, v) => _store.set(k, String(v)),
+    removeItem: (k) => _store.delete(k),
+    clear: () => _store.clear(),
+    key: (i) => Array.from(_store.keys())[i] || null,
+    get length() { return _store.size; },
+  };
+}
+const polyfillPath = path.join(__dirname, '.localstorage-polyfill.js');
+process.env.NODE_OPTIONS = `--require=${polyfillPath}${process.env.NODE_OPTIONS ? ' ' + process.env.NODE_OPTIONS : ''}`;
+
 const ci = require('miniprogram-ci');
 
 // 项目根 = 本脚本上一级
