@@ -699,9 +699,10 @@ Page({
         const photoPath = res.tempFilePaths[0];
         const result = engine.checkin(photoPath);
         if (result.success) {
-          // 经验值纯按距离算:_accumulateWalkingDistance 拿到 meters 后
-          // 再 +Math.floor(meters/100)。这里不再给 +1 保底——
-          // 首次打卡(无"上一格")拿不到距离,本次 0 exp;后续按真实步行距离加经验。
+          // 经验值规则:
+          //   - 首次打卡(无"上一格"):+10 exp(启动奖励)
+          //   - 后续每次打卡:+5 + Math.floor(米数/100) exp
+          // 逻辑统一在 _accumulateWalkingDistance 里处理,这里不再单独加经验。
           this.syncFromEngine();
           this._showPhotoCard(grid, photoPath);
           // 异步算步行距离,失败静默(用户感知不到)
@@ -721,18 +722,26 @@ Page({
     });
   },
 
-  // 累加"当前打卡点 → 上一次打卡点"的步行距离
-  // 规则:
-  //   - 第一次打卡(grid 0):不算
-  //   - 用户没打卡跳过的格子:不算(因为没触发 _doCheckin)
-  //   - 上一次打卡点缺失(数据异常):不算
-  //   - 高德 API 失败:静默,不影响打卡流程
+  // 累加"当前打卡点 → 上一次打卡点"的步行距离 + 经验
+  // 经验规则:
+  //   - 首次打卡(只有自己一条 checkin):+10 exp(启动奖励,无距离经验)
+  //   - 后续每次打卡:+5 + Math.floor(米数/100) exp
+  //   - 上一次打卡点缺失(数据异常)/高德 API 失败/米数 0:本次不拿距离经验
+  //     (但首次打卡仍 +10)
+  //   - 距离累加逻辑(engine.addDistance)只对"能算到米数"的情况生效
   async _accumulateWalkingDistance(currentGrid) {
     const engine = this.data.engine;
     if (!engine) return;
     const state = engine.getState();
     const checkins = (state.checkins || []).filter(c => c.gridIndex !== undefined);
-    if (checkins.length < 2) return;  // 第一次打卡(只有自己)不算
+    const isFirstCheckin = checkins.length < 2;
+
+    // 首次打卡:无距离可算,只给 +10 启动奖励
+    if (isFirstCheckin) {
+      addCumulativeExp(10);
+      this._loadCumulativeExpLabel();
+      return;
+    }
 
     // checkins 数组按 push 顺序就是时间顺序,倒数第二条就是"上一次"
     // 拍完照后当前 gridIndex 也在 checkins 里,跳过它
@@ -752,14 +761,11 @@ Page({
     this._handleSaveResult(saveResult);
     this.syncFromEngine();  // 刷新顶部徒步距离显示
 
-    // 距离奖励:每 100m = 1 exp(向下取整)
-    // 1.2km 走下来 +12 exp,50m 小区内走 +0 exp
-    // 首次打卡(无"上一格")整段都拿不到距离,本次 0 exp
-    const expBonus = Math.floor(meters / 100);
-    if (expBonus > 0) {
-      addCumulativeExp(expBonus);
-      this._loadCumulativeExpLabel();
-    }
+    // 后续打卡经验:基础 +5 + 每 100m +1
+    // 1.2km 走下来 +5 + 12 = 17 exp,50m 小区内走 +5 + 0 = 5 exp
+    const expBonus = 5 + Math.floor(meters / 100);
+    addCumulativeExp(expBonus);
+    this._loadCumulativeExpLabel();
   },
 
   // 弹出当前格最近一次打卡的庆祝弹窗
