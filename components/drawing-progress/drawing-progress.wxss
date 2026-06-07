@@ -15,6 +15,9 @@
   margin-bottom: 40rpx;
   animation: hand-drawn-spin 1.5s infinite cubic-bezier(0.4, 0, 0.6, 1);
   transform-origin: 50% 50%;
+  /* GPU 加速:提升为独立合成层,避免旋转动画重绘主线程 */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .die-box {
@@ -59,11 +62,11 @@
 }
 
 @keyframes hand-drawn-spin {
-  0%   { transform: rotate(0deg) scale(1); }
-  25%  { transform: rotate(90deg) scale(1.1) translateX(4rpx); }
-  50%  { transform: rotate(180deg) scale(1) translateY(-4rpx); }
-  75%  { transform: rotate(270deg) scale(1.1) translateX(-4rpx); }
-  100% { transform: rotate(360deg) scale(1); }
+  0%   { transform: translateZ(0) rotate(0deg) scale(1); }
+  25%  { transform: translateZ(0) rotate(90deg) scale(1.1) translateX(4rpx); }
+  50%  { transform: translateZ(0) rotate(180deg) scale(1) translateY(-4rpx); }
+  75%  { transform: translateZ(0) rotate(270deg) scale(1.1) translateX(-4rpx); }
+  100% { transform: translateZ(0) rotate(360deg) scale(1); }
 }
 
 /* text-block: headline 循环 + subtitle 静态 */
@@ -82,6 +85,10 @@
   color: var(--on-surface-variant, #514532);
   transition: opacity 0.3s ease;
   text-align: center;
+  /* GPU 加速:5 条文案每 2.5s 淡入淡出一次,opacity 动画提升为合成层后
+     不再触发主线程 reflow,文字切换丝滑 */
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
 .subtitle {
@@ -117,4 +124,7 @@
   transition: width 0.7s ease-out;
   border-radius: 4rpx;
   opacity: 0.8;
+  /* GPU 加速:宽度动画提升为独立合成层,避免主线程 reflow */
+  will-change: width;
+  transform: translateZ(0);
 }
