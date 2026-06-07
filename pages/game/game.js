@@ -153,13 +153,11 @@ Page({
       playerAvatar: display.avatarUrl,
       playerNickname: display.nickName,
     });
-    // 弹窗逻辑只在弹窗已关闭时生效:否则 chooseAvatar 走系统相册会触发 onShow,
-    // 把正在编辑的弹窗强制关掉
-    if (!this.data.showProfileSetup) {
-      this.setData({
-        showProfileSetup: !profile || profile.setupSeen !== true,
-      });
-    }
+    // 微信隐私合规:授权弹窗必须由用户主动点击触发,不能进入页面时自动弹。
+    // 这里只刷新展示数据,不再根据 profile 状态自动 setData({ showProfileSetup: true })。
+    // 弹窗入口:
+    //   1. 侧边栏头部点击 → onSidebarEditProfile(已存在)
+    //   2. 分享等需要头像昵称的动作 → 各动作入口处按需引导(如 onShareMap)
   },
 
   onProfileCommit(e) {

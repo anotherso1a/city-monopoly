@@ -121,4 +121,13 @@
     mapId="{{mapId}}"
     bind:close="onPosterClose"
   />
+
+  <!-- 授权弹窗 — 海报分享前置引导(仅在用户未授权头像/昵称时弹出) -->
+  <profile-setup
+    visible="{{showProfileSetup}}"
+    mode="{{profileMode}}"
+    bind:confirm="onProfileCommit"
+    bind:skip="onProfileCommit"
+    bind:close="onProfileClose"
+  />
 </view>

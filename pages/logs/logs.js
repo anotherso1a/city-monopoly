@@ -6,6 +6,7 @@
 
 const { getMap } = require('../../utils/storage');
 const { GameEngine } = require('../../services/gameEngine');
+const { loadProfile } = require('../../utils/userProfile');
 
 function formatTime(iso) {
   const d = new Date(iso);
@@ -53,6 +54,8 @@ Page({
     navBarHeight: 88,
     loadedFromGame: false,
     posterVisible: false,
+    showProfileSetup: false,
+    profileMode: 'edit',
   },
 
   onLoad(options) {
@@ -130,11 +133,34 @@ Page({
   },
 
   onShare() {
+    // 合规前置:海报上会画用户的头像和昵称,未授权过(没头像昵称)时先弹 profile-setup
+    // 引导用户设置,确认/跳过后再弹海报。点跳过会写入 setupSeen 标记,不再二次打扰。
+    const profile = loadProfile();
+    const isProfileReady = profile && profile.avatarUrl && profile.nickName;
+    if (!isProfileReady) {
+      this._pendingPoster = true;
+      this.setData({ showProfileSetup: true, profileMode: 'edit' });
+      return;
+    }
     this.setData({ posterVisible: true });
   },
 
   onPosterClose() {
     this.setData({ posterVisible: false });
+  },
+
+  onProfileCommit(e) {
+    getApp().globalData.userProfile = e.detail;
+    this.setData({ showProfileSetup: false });
+    // 分享海报触发的授权:用户处理完后继续弹海报
+    if (this._pendingPoster) {
+      this._pendingPoster = false;
+      this.setData({ posterVisible: true });
+    }
+  },
+
+  onProfileClose() {
+    this.setData({ showProfileSetup: false });
   },
 
   onNavHeightChange(e) {
