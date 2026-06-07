@@ -126,8 +126,11 @@ Page({
       image: event.photoUrl || '',
       caption: event.note && event.note !== poiName ? event.note : (poiName || ''),
       badge: '签到成功',
-      // 经验值:与累计探索经验机制对齐 — 每次打卡 +1
-      xp: '+1 经验',
+      // 经验值:从 checkin 事件里读(首次 +10,后续 5+米/100)。
+      // 老数据/未走新算法时 expAwarded 未存,走兑底 +1 经验。
+      xp: (typeof event.expAwarded === 'number')
+        ? `+${event.expAwarded} 经验`
+        : '+1 经验',
       isChanceCard: false,
     };
   },

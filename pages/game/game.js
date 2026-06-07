@@ -698,7 +698,12 @@ Page({
       sourceType: ['camera'],
       success: (res) => {
         const photoPath = res.tempFilePaths[0];
-        const result = engine.checkin(photoPath);
+        // 同步预估本次打卡应得经验(首次 +10,后续 5+haversine*1.3/100),
+        // 存进 checkin 事件 —— 拍照弹窗、logs 展示从此事件里读。
+        // _accumulateWalkingDistance 拿到 AMap 精确米数后,会补差额并把
+        // expAwarded 更新为精确值。
+        const expAwarded = this._estimateCheckinExp(grid);
+        const result = engine.checkin(photoPath, '', expAwarded);
         if (result.success) {
           // 经验值规则:
           //   - 首次打卡(无"上一格"):+10 exp(启动奖励)
@@ -730,6 +735,13 @@ Page({
   //   - 上一次打卡点缺失(数据异常)/高德 API 失败/米数 0:本次不拿距离经验
   //     (但首次打卡仍 +10)
   //   - 距离累加逻辑(engine.addDistance)只对"能算到米数"的情况生效
+  //
+  // 避免双发:_doCheckin 已同步存了 haversine 估算值 expAwarded 到 checkin 事件,
+  // 本函数拿到 AMap 精确米数后:
+  //   - 首次分支(无上一格):估算就是 10,加 10
+  //   - 后续分支:加 (5+⌊amap/100⌋) - expAwarded 的差额,
+  //     并调 engine.updateLastCheckinExp() 把事件里 expAwarded 改成精确值
+  //   - AMap 失败/为 0:不动,保留 haversine 估算值
   async _accumulateWalkingDistance(currentGrid) {
     const engine = this.data.engine;
     if (!engine) return;
@@ -764,8 +776,19 @@ Page({
 
     // 后续打卡经验:基础 +5 + 每 100m +1
     // 1.2km 走下来 +5 + 12 = 17 exp,50m 小区内走 +5 + 0 = 5 exp
-    const expBonus = 5 + Math.floor(meters / 100);
-    addCumulativeExp(expBonus);
+    const expExact = 5 + Math.floor(meters / 100);
+
+    // 补差额:避免与 _doCheckin 里 haversine 估算值 expAwarded 双发
+    // (估算可能比精确值大或小,我们以精确值为准)
+    const checkin = state.checkins[state.checkins.length - 1];
+    const expEstimated = (checkin && typeof checkin.expAwarded === 'number') ? checkin.expAwarded : expExact;
+    const delta = expExact - expEstimated;
+    if (delta !== 0) {
+      addCumulativeExp(delta);
+    }
+    // 把事件里 expAwarded 改成精确值,logs 展示用它
+    const updateResult = engine.updateLastCheckinExp(expExact);
+    this._handleSaveResult(updateResult);
     this._loadCumulativeExpLabel();
   },
 

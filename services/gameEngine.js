@@ -91,7 +91,11 @@ class GameEngine {
   // 打卡，返回 { success, message?, saved, reason? }
   // photoPath: 打卡照片路径（可选）
   // note: 打卡备注（可选）
-  checkin(photoPath, note = '') {
+  // expAwarded: 本次打卡获得的探索经验(可选,默认 0)。
+  //   实际加经验由调用方在 _accumulateWalkingDistance 里负责
+  //   (首次 +10,后续 5+米/100),但 logs/photo-card 等展示需要知道本次加了多少,
+  //   所以 checkin 事件里也存一份。调用方传 0 表示“未知”(老数据/未走新算法)。
+  checkin(photoPath, note = '', expAwarded = 0) {
     const grid = this.getCurrentGrid();
     if (!this.map.config || !this.map.config.allowRepeatCheckin) {
       const alreadyCheckedIn = this.state.checkins.some(c => c.gridIndex === this.state.currentGridIndex);
@@ -104,9 +108,27 @@ class GameEngine {
       timestamp: new Date().toISOString(),
       photoUrl: photoPath,
       note: note || (grid.poi && grid.poi.name),
+      // 本次打卡获得的探索经验,logs 页面从事件里读出显示
+      expAwarded,
     });
     const saveResult = this.save();
     return { success: true, saved: saveResult.saved, reason: saveResult.reason };
+  }
+
+  // 更新最近一次打卡事件的 expAwarded(AMap 精确米数到手后调用,补写为精确值)
+  // exp: 新的经验值
+  // 返回 { success, saved }
+  updateLastCheckinExp(exp) {
+    const checkins = this.state.checkins;
+    if (!checkins || checkins.length === 0) {
+      return { success: false, saved: true };
+    }
+    checkins[checkins.length - 1] = {
+      ...checkins[checkins.length - 1],
+      expAwarded: exp,
+    };
+    const saveResult = this.save();
+    return { success: true, saved: saveResult.saved };
   }
 
   // 替换当前格最近一次打卡的照片（不新增打卡记录，仅替换 photoUrl 和 timestamp）
