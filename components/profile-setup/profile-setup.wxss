@@ -41,6 +41,14 @@
   color: #2b1d0e;
 }
 
+.profile-desc {
+  width: 100%;
+  color: #6b5740;
+  line-height: 1.5;
+  text-align: center;
+  margin-top: -16rpx;  /* 拉近与标题的距离,与下方输入框的间距不变 */
+}
+
 .avatar-slot {
   width: 160rpx !important;
   height: 160rpx !important;

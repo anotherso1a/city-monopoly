@@ -80,8 +80,9 @@ const StorageService = {
     return wx.getStorageSync('cumulativeExp') || 0;
   },
 
-  // 累加 delta(通常 +1),返回新的累计值
-  addCumulativeExp(delta = 1) {
+  // 累加 delta(经验值,默认 0 —— 现在经验按距离算,首次打卡或近距离打卡就是 0),
+  // 返回新的累计值
+  addCumulativeExp(delta = 0) {
     const next = this.getCumulativeExp() + delta;
     wx.setStorageSync('cumulativeExp', next);
     return next;

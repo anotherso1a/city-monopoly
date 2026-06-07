@@ -699,13 +699,12 @@ Page({
         const photoPath = res.tempFilePaths[0];
         const result = engine.checkin(photoPath);
         if (result.success) {
-          // 基础经验:每次打卡 +1(首次打卡无"上一格",距离奖励拿不到,基础保底)
-          addCumulativeExp(1);
-          this._loadCumulativeExpLabel();
+          // 经验值纯按距离算:_accumulateWalkingDistance 拿到 meters 后
+          // 再 +Math.floor(meters/100)。这里不再给 +1 保底——
+          // 首次打卡(无"上一格")拿不到距离,本次 0 exp;后续按真实步行距离加经验。
           this.syncFromEngine();
           this._showPhotoCard(grid, photoPath);
           // 异步算步行距离,失败静默(用户感知不到)
-          // 距离奖励在这里追加:_accumulateWalkingDistance 拿到 meters 后再 +Math.floor(meters/100)
           this._accumulateWalkingDistance(grid);
           analytics.trackEvent(analytics.EVENT.GAME_CHECKIN, {
             map_id: this.data.mapId,
@@ -754,7 +753,8 @@ Page({
     this.syncFromEngine();  // 刷新顶部徒步距离显示
 
     // 距离奖励:每 100m = 1 exp(向下取整)
-    // 1.2km 走下来 +12,50m 的小区内走 +0(基础 +1 在 _doCheckin 已经给了)
+    // 1.2km 走下来 +12 exp,50m 小区内走 +0 exp
+    // 首次打卡(无"上一格")整段都拿不到距离,本次 0 exp
     const expBonus = Math.floor(meters / 100);
     if (expBonus > 0) {
       addCumulativeExp(expBonus);

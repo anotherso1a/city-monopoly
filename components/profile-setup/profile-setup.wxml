@@ -2,6 +2,7 @@
 <view class="profile-mask {{visible ? 'show' : ''}}" catchtap="onMaskTap">
   <view class="profile-sheet" catchtap="onNoop">
     <text class="profile-title text-headline-md">{{mode === 'edit' ? '修改头像和昵称' : '设置你的头像和昵称'}}</text>
+    <text wx:if="{{displayDesc}}" class="profile-desc text-body-sm">{{displayDesc}}</text>
 
     <button
       class="avatar-slot"

@@ -14,17 +14,27 @@ Component({
     mode:    { type: String,  value: 'firstLaunch' },  // 'firstLaunch' | 'edit'
     initialAvatarUrl: { type: String, value: '' },
     initialNickName:  { type: String, value: '' },
+    // 调用方可覆盖。默认文案区分场景:
+    //   firstLaunch —— 首次启动引导(语境:你想开始游戏/有头像体验更好)
+    //   edit        —— 重新授权(语境:你想分享/侧边栏要换头像,需要重新设)
+    desc:    { type: String, value: '' },
   },
   data: {
     avatarUrl: '',
     nickName: '',
+    displayDesc: '',
   },
   observers: {
-    'visible, initialAvatarUrl, initialNickName': function (visible, avatar, nick) {
+    'visible, initialAvatarUrl, initialNickName, desc, mode': function (visible, avatar, nick, desc, mode) {
       if (visible) {
+        // 调用方传了 desc 优先,否则按 mode 给默认文案
+        const defaultDesc = mode === 'edit'
+          ? '设置的头像和昵称会用在分享海报、侧边栏展示等场景'
+          : '设置头像和昵称后,可在分享海报、侧边栏等场景展示你的个性化信息。点「跳过」也可以随时在侧边栏修改。';
         this.setData({
           avatarUrl: avatar,
           nickName: nick,
+          displayDesc: desc || defaultDesc,
         });
       }
     },
