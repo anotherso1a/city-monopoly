@@ -231,12 +231,16 @@ page {
   border-radius: 50%;
   background-color: rgba(0, 101, 141, 0.4);
   animation: pulse-blue 1.5s infinite ease-in-out;
+  /* GPU 加速:提升为独立合成层,避免 pulse 动画在主线程重绘
+     导致地图上叠加层卡顿。will-change + translateZ(0) 双保险 */
+  will-change: transform, opacity;
+  transform: translate(-50%, -50%) translateZ(0);
 }
 
 @keyframes pulse-blue {
-  0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
-  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
+  0% { transform: translate(-50%, -50%) translateZ(0) scale(0.9); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) translateZ(0) scale(1.1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) translateZ(0) scale(0.9); opacity: 0.8; }
 }
 
 .location-icon {

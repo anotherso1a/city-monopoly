@@ -3,6 +3,7 @@
 // 样式沿用 docs/design/game.html 的纸面/手绘风格,地图数据从 storage 读取
 
 const { getMap, getMaps, getCumulativeExp, addCumulativeExp } = require('../../utils/storage');
+const { haversineMeters } = require('../../services/distanceService');
 const { GameEngine } = require('../../services/gameEngine');
 const { exportMap } = require('../../services/shareService');
 const { loadProfile, getDisplayProfile } = require('../../utils/userProfile');
@@ -768,7 +769,7 @@ Page({
     this._loadCumulativeExpLabel();
   },
 
-  // 弹出当前格最近一次打卡的庆祝弹窗
+  // 弹出当前格最近一次打卡的庆祝弹窗(查看历史照片)
   _showExistingCheckinPhoto() {
     const engine = this.data.engine;
     const state = engine.getState();
@@ -784,7 +785,8 @@ Page({
       photoCardLocationName: (grid.poi && grid.poi.name) || '',
       photoCardPhotoDate: photoDate,
       photoCardDescription: (grid.poi && grid.poi.description) || '你到达了新地标，并在这里留下了一张珍贵的照片。',
-      photoCardAchievementPoint: 1,
+      // 查看历史照片 → 本次不加经验,传 0 让 wxml 隐藏掉"探索经验"那一行
+      photoCardAchievementPoint: 0,
       // 查看已有照片 → 不触发机会卡(只有新打卡才视为"完成"流程)
       photoCardIsNewCheckin: false,
     });
@@ -793,16 +795,43 @@ Page({
   _showPhotoCard(grid, photoPath) {
     const now = new Date();
     const photoDate = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`;
+    // 预估本次打卡经验(与 _accumulateWalkingDistance 加经验的逻辑保持一致):
+    //   - 首次打卡(checkins.length === 1):+10
+    //   - 后续:+5 + Math.floor(haversine 直线距离米数/100)
+    // haversine 同步算(不调 AMap)—— 拍照弹窗需要立即显示数字,
+    // 而米数走 AMap 是异步的。这里不调 AMap 走 haversine 直线 * 1.3 估算步行
+    // 距离(与 distanceService 的兑底逻辑一致),保证弹窗与实际加经验数字一致。
+    const expAwarded = this._estimateCheckinExp(grid);
     this.setData({
       photoCardVisible: true,
       photoCardImage: photoPath,
       photoCardLocationName: (grid.poi && grid.poi.name) || '',
       photoCardPhotoDate: photoDate,
       photoCardDescription: (grid.poi && grid.poi.description) || '你到达了新地标，并在这里留下了一张珍贵的照片。',
-      photoCardAchievementPoint: 1,
+      photoCardAchievementPoint: expAwarded,
       // 新打卡的标志位:onPhotoCardContinue 据此决定是否触发机会卡
       photoCardIsNewCheckin: true,
     });
+  },
+
+  // 预估本次打卡应得的经验值(首次 +10,后续 5+haversine/100)
+  // 给拍照弹窗同步显示用,实际加分走 _accumulateWalkingDistance 异步
+  _estimateCheckinExp(grid) {
+    const engine = this.data.engine;
+    if (!engine) return 0;
+    const state = engine.getState();
+    const checkins = (state.checkins || []).filter(c => c.gridIndex !== undefined);
+    if (checkins.length < 2) return 10;  // 首次打卡
+    if (!grid || !grid.poi || !grid.poi.location) return 5;  // 没坐标走基础 +5
+    const previousCheckin = checkins[checkins.length - 2];
+    const previousGrid = engine.map.grids && engine.map.grids[previousCheckin.gridIndex];
+    if (!previousGrid || !previousGrid.poi || !previousGrid.poi.location) return 5;
+    const straight = haversineMeters(
+      { lng: previousGrid.poi.location.lng, lat: previousGrid.poi.location.lat },
+      { lng: grid.poi.location.lng, lat: grid.poi.location.lat },
+    );
+    const estimated = Math.round(straight * 1.3);
+    return 5 + Math.floor(estimated / 100);
   },
 
   onPhotoCardContinue() {

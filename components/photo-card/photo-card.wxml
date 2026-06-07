@@ -23,8 +23,8 @@
     <!-- Content Body -->
     <view class="content-body">
       <text class="description text-body-md text-on-surface">{{description}}</text>
-      <!-- Stats Chip -->
-      <view class="stats-chip">
+      <!-- Stats Chip —— 查看历史照片时(achievementPoint=0)不显示 -->
+      <view class="stats-chip" wx:if="{{achievementPoint > 0}}">
         <text class="iconfont chip-icon icon-trophy"></text>
         <text class="chip-text text-mono text-on-surface">探索经验 +{{achievementPoint}}</text>
       </view>
